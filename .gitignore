@@ -1,6 +1,9 @@
 # Created by https://www.toptal.com/developers/gitignore/api/windows,macos,java,eclipse,intellij
 # Edit at https://www.toptal.com/developers/gitignore?templates=windows,macos,java,eclipse,intellij
 
+## 폴더 무시
+00_ClosetoU(Test)/
+
 ### Eclipse ###
 Servers/
 .metadata
