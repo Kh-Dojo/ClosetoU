@@ -1,0 +1,76 @@
+section {
+  width: 1200px;
+  height: auto;
+  margin: auto;
+}
+
+section > * {
+  box-sizing: border-box;
+  border: 1px solid black;
+  float: left;
+}
+
+#sidemenu {
+  width: 25%;
+  height: 1000px;
+}
+
+article {
+  width: 75%;
+  height: auto;
+  box-sizing: border-box;
+  border: 1px solid black;
+  float: left;
+}
+
+#search_section {
+  width: 100%;
+  box-sizing: border-box;
+  float: left;
+  align-items: center;
+  text-align: center;
+  margin: auto;
+}
+
+#search_bar {
+  width: 500px;
+  height: 50px;
+  border: 3px solid purple;
+}
+
+#search_option_box {
+  display: none;
+}
+
+#show_options_textbox {
+  width: 500px;
+}
+
+#item_area {
+  width: 100%;
+  float: left;
+  border: solid 1px red;
+}
+
+#item_list {
+  width: 100%;
+  float: left;
+}
+
+.item_box {
+  box-sizing: border-box;
+  float: left;
+  width: 20%;
+  height: 275px;
+  border: 1px solid black;
+  padding: 20px;
+  margin-top: 20px;
+  margin-bottom: 20px;
+}
+
+.item_thumbnail {
+  box-sizing: border-box;
+  width: 100%;
+  height: 150px;
+  background-color: aquamarine;
+}
