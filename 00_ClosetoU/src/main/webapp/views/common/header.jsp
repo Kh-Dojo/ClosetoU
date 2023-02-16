@@ -62,4 +62,4 @@ jsp include로 연결된 header입니다.
 	</header>
 </body>
 
-<a href="${ path }/board/trade">거래페이지</a>
+<a href="${ path }/boardtrade">거래페이지</a>

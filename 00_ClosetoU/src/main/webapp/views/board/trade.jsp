@@ -11,10 +11,11 @@
 <meta charset="UTF-8" />
 <meta http-equiv="X-UA-Compatible" content="IE=edge" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-<script src=""></script>
-<script src="D:\github\ClosetoU\00_ClosetoU\src\main\webapp\resources\js\trade.js"></script>
+<script src="${ path }/resources/js/jquery-3.6.3"></script>
+
+
 <title>거래 게시판 TEST</title>
-<link rel="stylesheet" href="/" />
+<link rel="stylesheet" href="${ path }/resources/css/trade.css" />
 </head>
 <body>
 	<jsp:include page="/views/common/header.jsp" />
@@ -66,7 +67,9 @@
 				<div id="pagebar_area">페이지바 영역입니다</div>
 			</div>
 		</article>
+		
 	</section>
 	<jsp:include page="/views/common/footer.jsp" />
+	<script src="${ path }/resources/js/trade.js"></script>
 </body>
 </html>

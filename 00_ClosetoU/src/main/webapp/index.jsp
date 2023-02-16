@@ -11,7 +11,9 @@
 </head>
 <body>
 	<jsp:include page="/views/common/header.jsp" />
-	<article>article 자리입니다.</article>
+	<article>article 자리입니다.
+	<a href="/boardtrade"></a>
+	</article> 
 	<jsp:include page="/views/common/footer.jsp" />
 </body>
 </html>

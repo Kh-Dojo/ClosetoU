@@ -38,10 +38,6 @@ article {
   border: 3px solid purple;
 }
 
-#search_option_box {
-  display: none;
-}
-
 #show_options_textbox {
   width: 500px;
 }

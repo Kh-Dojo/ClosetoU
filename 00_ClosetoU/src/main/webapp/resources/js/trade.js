@@ -18,11 +18,14 @@ $(document).ready(() => {
   });
 
   // 검색 옵션 열고 닫기
+  
   $("#search_option_toggle_btn").on("click", () => {
+  	
     if ($("#search_option_box").css("display") == "block") {
       $("#search_option_box").css("display", "none");
     } else {
       $("#search_option_box").css("display", "block");
     }
+    
   });
 });
