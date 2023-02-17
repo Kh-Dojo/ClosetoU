@@ -1,9 +1,9 @@
--- WEB 계정 생성
+-- WEB 계정 생성 (SYSTEM 계정에서 작성하세요)
 CREATE USER CLOSETOU IDENTIFIED BY CLOSETOU;
 GRANT RESOURCE, CONNECT TO CLOSETOU;
 
 
--- MEMBER 테이블 생성 및 코멘트, 시퀀스 작성
+-- MEMBER 테이블 생성 및 코멘트, 시퀀스 작성 (CLOSETOU 계정에서 작성하세요)
 CREATE TABLE MEMBER (
     NO NUMBER PRIMARY KEY,
     USER_ID VARCHAR2(30) NOT NULL UNIQUE,
@@ -33,7 +33,7 @@ COMMENT ON COLUMN MEMBER.ENROLL_DATE IS '회원가입일';
 CREATE SEQUENCE SEQ_UNO;
 
 
--- 테스트용 계정 생성
+-- 테스트용 계정 생성 (CLOSETOU 계정에서 작성하세요)
 INSERT INTO MEMBER (
     NO, 
     USER_ID, 
