@@ -24,15 +24,14 @@
 		<article>
 			article 자리입니다.
 			<div id="search_section">
-				<form action="POST">
+				<form action="${ path }/itemsearch">
 					<input type="search" name="search" id="search_bar"
 						placeholder="제목이나 키워드를 입력하세요." />
 					<button id="search_button">검색</button>
-					<button type="button" id="search_option_toggle_btn">검색옵션</button>
+					<button type="button" id="search_option_toggle_btn" >검색옵션</button>
 					<div id="search_option_box">
 						<div id="option_view_area">
-							<input type="text" name="show_options_textbox"
-								id="show_options_textbox" placeholder="사용자가 체크한 옵션들이 여기에 표시됩니다."
+							<input type="text" id="show_options_textbox" placeholder="사용자가 체크한 옵션들이 여기에 표시됩니다."
 								readonly />
 						</div>
 						<hr />

@@ -35,7 +35,7 @@ COMMENT ON COLUMN MEMBER.ENROLL_DATE IS '회원가입일';
 CREATE SEQUENCE SEQ_UNO;
 
 
--- 테스트용 계정 생성 (CLOSETOU 계정에서 작업하세요.)
+-- 테스트용 관리자 계정 생성 (CLOSETOU 계정에서 작업하세요.)
 INSERT INTO MEMBER (
     NO, 
     USER_ID, 
@@ -59,6 +59,37 @@ INSERT INTO MEMBER (
     '010-1234-5678',
     NULL,
     'admin@iei.or.kr', 
+    '서울시 강남구 역삼동',
+    DEFAULT,
+    DEFAULT
+);
+
+COMMIT;
+
+-- 테스트용 회원 계정 생성 (CLOSETOU 계정에서 작업하세요.)
+INSERT INTO MEMBER (
+    NO, 
+    USER_ID, 
+    PASSWORD,
+    ROLE,
+    USER_NAME,
+    NICKNAME, 
+    PHONE,
+    ADD_PHONE,
+    EMAIL, 
+    ADDRESS, 
+    STATUS, 
+    ENROLL_DATE
+) VALUES(
+    SEQ_UNO.NEXTVAL, 
+    'user', 
+    '1234', 
+    DEFAULT,
+    '일반인',
+    '일반인',
+    '010-2345-6789',
+    NULL,
+    'user@iei.or.kr', 
     '서울시 강남구 역삼동',
     DEFAULT,
     DEFAULT
