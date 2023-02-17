@@ -1,6 +1,10 @@
 ----------- 테스트용 ARTICLE 테이블, COMMENT 테이블 쿼리문 -----------
 
 ----------- ARTICLE 테이블 생성 및 코멘트, 시퀀스 작성(CLOSETOU 계정에서 작업하세요.) -----------
+DROP TABLE ARTICLE;
+DROP TABLE REPLY;
+
+
 CREATE TABLE ARTICLE (	
     NO NUMBER NOT NULL, -- 게시물번호
 --    PHOTO_NO NUMBER, -- 사진 번호                                     -- IMAGE 테이블 생성 후 주석 풀기
@@ -20,7 +24,6 @@ CREATE TABLE ARTICLE (
 --    CONSTRAINT ARTICLE_PHOTO_NO_FK FOREIGN KEY(PHOTO_NO) REFERENCES IMAGE(NO)
 );    
 
-DROP TABLE ARTICLE;
 
 COMMENT ON COLUMN ARTICLE.NO IS '게시물번호';
 --COMMENT ON COLUMN ARTICLE.PHOTO_NO IS '사진번호';
@@ -96,7 +99,6 @@ CREATE TABLE REPLY (
     CONSTRAINT REPLY_SECRET_CK CHECK(SECRET IN('Y', 'N'))
 );
 
-DROP TABLE REPLY;
 
 COMMENT ON COLUMN REPLY.NO IS '댓글번호';
 COMMENT ON COLUMN REPLY.ARTICLE_NO IS '게시물번호';
