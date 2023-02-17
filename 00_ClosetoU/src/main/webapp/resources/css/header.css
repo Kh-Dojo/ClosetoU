@@ -1,0 +1,80 @@
+/* 전체 틀 */
+header {
+    width: 1200px;
+    height: auto;
+    margin: 0 auto;
+    position:relative;
+}
+
+/* 상단 영역 css */
+.logo{
+	width:10%;
+}
+
+.logo > img {
+	width:120px;
+	float:left;
+	height:60px;
+}
+
+.title {
+	width:85%;
+	height:100px;
+	text-align:center;
+}
+
+.title > h1 > a {
+	text-decoration:none;
+	color:black;
+}
+
+.login-container{
+	position:absolute; 
+    width: 20%;
+    right: 0px; 
+	top: 10px;
+}
+
+.main_login_msg {
+	width:150px;
+	font-size:16px;
+}
+
+.btn_small {
+	width:100px;
+}
+
+
+/* 내비게이션 css */
+nav {
+	background:#f1c40f;
+}
+
+#nav-wrap {
+	position:relative;
+	margin:0 auto;
+	text-align:center;
+}
+
+
+.gnb {
+	display:inline-block;
+	
+}
+
+.gnb > li {
+	list-style:none;
+	border:1px solid;
+	float:left;
+	margin-right:10px;
+}
+.gnb > li:last-child {
+	margin-right:0;
+}
+
+.gnb > li > a {
+	color:black;
+	text-decoration:none;
+	display:block;
+	padding:10px 20px;
+}

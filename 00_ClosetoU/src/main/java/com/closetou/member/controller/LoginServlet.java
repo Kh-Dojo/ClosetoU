@@ -24,6 +24,8 @@ public class LoginServlet extends HttpServlet {
 		String userId = request.getParameter("userId");
 		String userPwd = request.getParameter("userPwd");
 		
+		String userRole = request.getParameter("userRole");
+		
 		System.out.println(userId + ", " + userPwd);
 		
 		Member loginMember = new MemberService().login(userId, userPwd);
@@ -51,6 +53,7 @@ public class LoginServlet extends HttpServlet {
 			request.getRequestDispatcher("/views/common/msg.jsp").forward(request, response);
 			
 		}
+		
 		
 	}
 

@@ -1,0 +1,12 @@
+@charset "UTF-8";
+
+/* 프로필 사진 등록 칸 CSS 속성*/
+
+.profile {
+	display: flex;
+	justify-content: centet;
+}
+
+#newProfile {
+	visibility: hidden;
+}
