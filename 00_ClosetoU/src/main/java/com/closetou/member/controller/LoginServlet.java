@@ -43,7 +43,7 @@ public class LoginServlet extends HttpServlet {
 			
 			// 1. 공용으로 사용하는 에러 메세지 출력 페이지에
 			//	  전달할 메시지와 메시지 출력 후 이동할 페이지를 request 객체에 저장한다.
-			request.setAttribute("msg", "아이디나 비밀번호가 일치하지 않습니다.");
+			request.setAttribute("msg", "아이디나 비밀번호 틀렸지롱~");
 			request.setAttribute("location", "/");
 			
 			// 2. request 객체의 데이터를 유지해서

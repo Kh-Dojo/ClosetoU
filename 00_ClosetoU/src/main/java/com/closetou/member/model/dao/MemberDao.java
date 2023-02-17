@@ -31,6 +31,7 @@ public class MemberDao {
 				member.setNo(rs.getInt("NO"));
 				member.setId(rs.getString("USER_ID"));
 				member.setPassword(rs.getString("PASSWORD"));
+				member.setRole(rs.getString("ROLE"));
 				member.setName(rs.getString("USER_NAME"));
 				member.setNickname(rs.getString("NICKNAME"));
 				member.setPhone(rs.getString("PHONE"));
