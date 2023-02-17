@@ -14,6 +14,7 @@ public class BoardTradeServlet extends HttpServlet {
 	public BoardTradeServlet() {
 	}
 
+	// 거래 메인 페이지로 보내는 메소드입니다.
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 		 
