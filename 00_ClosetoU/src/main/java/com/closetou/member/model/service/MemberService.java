@@ -3,6 +3,8 @@ package com.closetou.member.model.service;
 
 import static com.closetou.common.jdbc.JDBCTemplate.getConnection;
 import static com.closetou.common.jdbc.JDBCTemplate.close;
+import static com.closetou.common.jdbc.JDBCTemplate.commit;
+import static com.closetou.common.jdbc.JDBCTemplate.rollback;
 
 import java.sql.Connection;
 
@@ -18,8 +20,6 @@ public class MemberService {
 			return null;
 		} 			
 			return member;
-		
-		
 	}
 
 	public Member findMemberById(String userId) {
@@ -34,6 +34,46 @@ public class MemberService {
 
 	public Boolean isDuplicateId(String userId) {
 		return this.findMemberById(userId) != null;
+	}
+
+	public int updatePwd(int no, String userPwd) {
+		int result = 0;
+		Connection connection = getConnection();
+		
+		result = new MemberDao().updateMemberPwd(connection, no, userPwd);
+		
+		if(result > 0) {
+			commit(connection);
+		} else {
+			rollback(connection);
+		}
+		
+		close(connection);
+		
+		return result;
+	}
+
+	public int save(Member member) {
+		int result = 0;
+		Connection connection = getConnection();
+		
+		if(member.getNo() > 0) {
+			// update 작업
+			result = new MemberDao().updateMember(connection, member);
+		} else {
+			// insert 작업
+			result = new MemberDao().insertMember(connection, member);
+		}
+		
+		if(result > 0) {
+			commit(connection);
+		} else {
+			rollback(connection);
+		}
+		
+		close(connection);
+		
+		return result;
 	}
 
 
