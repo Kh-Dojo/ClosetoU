@@ -50,17 +50,14 @@
 				<c:if test="${ not empty loginMember }">
 					<table>
 						<tr>
-							<td class="main_login_msg" colspan="3">${ loginMember.name }님
-								안녕하세요. <br> <br>
-							</td>
-							<td></td>
+							<th rowspan="2"><img class="main-profile-img" src="${ path }/resources/img/logo_ver1.PNG"></th>
+							<th class="main_login_msg" colspan="3">${ loginMember.name }님 안녕하세요. <br> <br></th>
 						</tr>
 						<tr>
 							<td><c:if
 									test="${ not empty loginMember && loginMember.role == 'ROLE_USER'}">
 									<button id="btn_userInfo" class="btn_small"
-										onclick="location.href='${ path }/member/myPage'">마이
-										페이지</button>
+										onclick="location.href='${ path }/member/myPage'">마이 페이지</button>
 								</c:if></td>
 							<td><c:if
 									test="${ not empty loginMember && loginMember.role == 'ROLE_ADMIN'}">
@@ -83,8 +80,8 @@
 				<ul class="gnb">
 					<li><a href="#">사이트 이용 안내</a></li>
 					<li><a href="#">의류 기부 신청</a></li>
-					<li><a href="${ path }/boardtrade">중고거래 및 나눔</a></li>
-					<li><a href="#">자유로운 수다방</a></li>
+					<li><a href="${ path }/views/board/trade.jsp">중고거래 및 나눔</a></li>
+					<li><a href="${ path }/views/board/communityBoardList.jsp">자유로운 수다방</a></li>
 				</ul>
 			</div>
 		</nav>
