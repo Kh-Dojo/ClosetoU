@@ -1,12 +1,40 @@
 @charset "UTF-8";
 
-/* 프로필 사진 등록 칸 CSS 속성*/
-
-.profile {
-	display: flex;
-	justify-content: centet;
+section {
+  width: 1200px;
+  height: 400px;
+  margin: auto;
 }
 
-#newProfile {
-	visibility: hidden;
+section > * {
+  box-sizing: border-box;
+  float: left;
+}
+
+/* 프로필 사진 등록 칸 CSS 속성 */
+
+/* 사이드 메뉴 */
+#sidemenu {
+	width: 25%;
+	height: auto;
+}
+
+#view-container {
+	width: 75%;
+	height: auto;
+	box-sizing: border-box;
+	float: left;
+}
+
+h2 {
+	text-align: center;
+}
+
+#sub_menu_name_area > ul {
+	list-style:none;
+}
+ 
+#sub_menu_name_area > ul > li > a {
+	text-decoration:none;
+	color:black;
 }

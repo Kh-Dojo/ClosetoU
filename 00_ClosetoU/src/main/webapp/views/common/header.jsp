@@ -9,10 +9,10 @@
 <meta charset="UTF-8">
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=<device-width>, initial-scale=1.0">
-<script src="${ path }/resources/js/jquery-3.6.3"></script>
+<script src="${ path }/resources/js/jquery-3.6.3.js"></script>
 <link rel="stylesheet" href="${ path }/resources/css/header.css">
 
-<title>ClosetoU 메인페이지</title>
+<title>CloseToU 메인페이지</title>
 </head>
 <body>
 	<header>
@@ -43,6 +43,13 @@
 									placeholder="비밀번호" required></td>
 								<td><input type="submit" value="로그인"></td>
 							</tr>
+							<tr>
+							<td colspan="2">
+								<label><input type="checkbox" name="saveId"
+											${ empty cookie.saveId ? "" : "checked" }>아이디 저장</label>
+								<input type="button" value="회원가입" onclick="location.href = '${ path }/views/member/enroll.jsp';"> 
+							</td>
+						</tr>
 						</table>
 					</form>
 				</c:if>
@@ -50,8 +57,9 @@
 				<c:if test="${ not empty loginMember }">
 					<table>
 						<tr>
-							<th rowspan="2"><img class="main-profile-img" src="${ path }/resources/img/logo_ver1.PNG"></th>
-							<th class="main_login_msg" colspan="3">${ loginMember.name }님 안녕하세요. <br> <br></th>
+							<th rowspan="2"><c:if
+									test="${ not empty loginMember && loginMember.role == 'ROLE_USER'}"><img style="border-radius:70%;" width="70ox" height="70px" class="main-profile-img" src="${ path }/resources/img/logo_ver1.PNG"></c:if></th>
+							<th class="main_login_msg" colspan="3">${ loginMember.name }님 안녕하세요.<br></th>
 						</tr>
 						<tr>
 							<td><c:if
@@ -61,10 +69,8 @@
 								</c:if></td>
 							<td><c:if
 									test="${ not empty loginMember && loginMember.role == 'ROLE_ADMIN'}">
-									<button id="btn_admin" class="btn_small">
-										<a href="${ path }/admin/members"
-											style="text-decoration: none; color: black;">관리자 페이지</a>
-									</button>
+									<button id="btn_admin" class="btn_small"
+										onclick="location.href='${ path }/admin/members'">관리자 페이지</button>
 								</c:if></td>
 							<td>
 								<button id="btn_logout" class="btn_small"

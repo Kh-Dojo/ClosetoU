@@ -32,5 +32,9 @@ public class MemberService {
 		return member;
 	}
 
+	public Boolean isDuplicateId(String userId) {
+		return this.findMemberById(userId) != null;
+	}
+
 
 }
