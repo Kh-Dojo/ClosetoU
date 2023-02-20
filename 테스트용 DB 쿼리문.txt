@@ -95,4 +95,201 @@ INSERT INTO MEMBER (
     DEFAULT
 );
 
+-- 0220 테스트 계정 추가 (CLOSETOU 계정에서 작업하세요.)
+INSERT INTO MEMBER (
+    NO, 
+    USER_ID, 
+    PASSWORD,
+    ROLE,
+    USER_NAME,
+    NICKNAME, 
+    PHONE,
+    ADD_PHONE,
+    EMAIL, 
+    ADDRESS, 
+    STATUS, 
+    ENROLL_DATE
+) VALUES(
+    SEQ_UNO.NEXTVAL, 
+    'user2', 
+    '1234', 
+    DEFAULT,
+    '공민지',
+    '공민지',
+    '010-1111-2222',
+    NULL,
+    'user2@iei.or.kr', 
+    '서울특별시 강서구 화곡동',
+    DEFAULT,
+    DEFAULT
+);
+
+INSERT INTO MEMBER (
+    NO, 
+    USER_ID, 
+    PASSWORD,
+    ROLE,
+    USER_NAME,
+    NICKNAME, 
+    PHONE,
+    ADD_PHONE,
+    EMAIL, 
+    ADDRESS, 
+    STATUS, 
+    ENROLL_DATE
+) VALUES(
+    SEQ_UNO.NEXTVAL, 
+    'user3', 
+    '1234', 
+    DEFAULT,
+    '천승준',
+    '천승준',
+    '010-2222-3333',
+    NULL,
+    'user3@iei.or.kr', 
+    '서울특별시 강동구 명일동',
+    DEFAULT,
+    DEFAULT
+);
+
+INSERT INTO MEMBER (
+    NO, 
+    USER_ID, 
+    PASSWORD,
+    ROLE,
+    USER_NAME,
+    NICKNAME, 
+    PHONE,
+    ADD_PHONE,
+    EMAIL, 
+    ADDRESS, 
+    STATUS, 
+    ENROLL_DATE
+) VALUES(
+    SEQ_UNO.NEXTVAL, 
+    'user4', 
+    '1234', 
+    DEFAULT,
+    '이정준',
+    '이정준',
+    '010-3333-4444',
+    NULL,
+    'user4@iei.or.kr', 
+    '서울특별시 강동구 명일동',
+    DEFAULT,
+    DEFAULT
+);
+
+INSERT INTO MEMBER (
+    NO, 
+    USER_ID, 
+    PASSWORD,
+    ROLE,
+    USER_NAME,
+    NICKNAME, 
+    PHONE,
+    ADD_PHONE,
+    EMAIL, 
+    ADDRESS, 
+    STATUS, 
+    ENROLL_DATE
+) VALUES(
+    SEQ_UNO.NEXTVAL, 
+    'user5', 
+    '1234', 
+    DEFAULT,
+    '김영근',
+    '김영근',
+    '010-4444-5555',
+    NULL,
+    'user5@iei.or.kr', 
+    '인천광역시 미추홀구 주안동',
+    DEFAULT,
+    DEFAULT
+);
+
+INSERT INTO MEMBER (
+    NO, 
+    USER_ID, 
+    PASSWORD,
+    ROLE,
+    USER_NAME,
+    NICKNAME, 
+    PHONE,
+    ADD_PHONE,
+    EMAIL, 
+    ADDRESS, 
+    STATUS, 
+    ENROLL_DATE
+) VALUES(
+    SEQ_UNO.NEXTVAL, 
+    'user6', 
+    '1234', 
+    DEFAULT,
+    '이주희',
+    '이주희',
+    '010-5555-6666',
+    NULL,
+    'user6@iei.or.kr', 
+    '경기도 성남시 중원구',
+    DEFAULT,
+    DEFAULT
+);
+
+INSERT INTO MEMBER (
+    NO, 
+    USER_ID, 
+    PASSWORD,
+    ROLE,
+    USER_NAME,
+    NICKNAME, 
+    PHONE,
+    ADD_PHONE,
+    EMAIL, 
+    ADDRESS, 
+    STATUS, 
+    ENROLL_DATE
+) VALUES(
+    SEQ_UNO.NEXTVAL, 
+    'user7', 
+    '1234', 
+    DEFAULT,
+    '이정훈',
+    '이정훈',
+    '010-6666-7777',
+    NULL,
+    'user7@iei.or.kr', 
+    '경기도 동두천시 동두천동',
+    DEFAULT,
+    DEFAULT
+);
+
+INSERT INTO MEMBER (
+    NO, 
+    USER_ID, 
+    PASSWORD,
+    ROLE,
+    USER_NAME,
+    NICKNAME, 
+    PHONE,
+    ADD_PHONE,
+    EMAIL, 
+    ADDRESS, 
+    STATUS, 
+    ENROLL_DATE
+) VALUES(
+    SEQ_UNO.NEXTVAL, 
+    'user8', 
+    '1234', 
+    DEFAULT,
+    '이정수',
+    '이정수',
+    '010-7777-8888',
+    NULL,
+    'user8@iei.or.kr', 
+    '서울특별시 동작구 사당동',
+    DEFAULT,
+    DEFAULT
+);
+
 COMMIT;
