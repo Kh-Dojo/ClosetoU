@@ -86,7 +86,7 @@
 				<ul class="gnb">
 					<li><a href="#">사이트 이용 안내</a></li>
 					<li><a href="#">의류 기부 신청</a></li>
-					<li><a href="${ path }/views/board/trade.jsp">중고거래 및 나눔</a></li>
+					<li><a href="${ path }/views/board/trade">중고거래 및 나눔</a></li>
 					<li><a href="${ path }/views/board/communityBoardList.jsp">자유로운 수다방</a></li>
 				</ul>
 			</div>

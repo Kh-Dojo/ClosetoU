@@ -40,13 +40,7 @@
 		</div>
 		<div id="item_area">
 
-			<c:if test="${ empty trlist }">
-				<div>검색 결과가 없습니다.</div>
-			</c:if>
-			<c:if test="${ not empty trlist }">
-				trlist가 존재합니다.
-				${ trlist[0].clothInfo }
-				<%-- <c:forEach var="tradearticle" items="${ trList }">
+			<%-- <c:forEach var="tradearticle" items="${ trList }">
 					<div id="item_list">
 						<div class="item_box">
 							<div class="item_thumbnail">${ tradearticle.clothInfo }</div>
@@ -60,8 +54,38 @@
 						</div>
 					</div>
 				</c:forEach> --%>
-				<div id="pagebar_area">페이지바 영역입니다</div>
-			</c:if>
+			<div id="pagebar_area">
+				<!-- 맨 처음으로 -->
+				<button
+					onclick="location.href='${ path }/views/board/tradelist?page=1'">&lt;&lt;</button>
+
+				<!-- 이전 페이지로 -->
+				<button
+					onclick="location.href='${ path }/views/board/tradelist?page=${ pageInfo.prevPage }'">&lt;</button>
+
+				<!--  10개 페이지 목록 -->
+				<c:forEach begin="${ pageInfo.startPage }"
+					end="${ pageInfo.endPage }" varStatus="status">
+					<c:choose>
+						<c:when test="${ status.current == pageInfo.currentPage}">
+							<button disabled>${ status.current }</button>
+						</c:when>
+						<c:otherwise>
+							<button
+								onclick="location.href='${ path }/views/board/tradelist?page=${ status.current }'">${ status.current }</button>
+						</c:otherwise>
+					</c:choose>
+				</c:forEach>
+
+
+				<!-- 다음 페이지로 -->
+				<button
+					onclick="location.href='${ path }/views/board/tradelist?page=${ pageInfo.nextPage }'">&gt;</button>
+
+				<!-- 맨 끝으로 -->
+				<button
+					onclick="location.href='${ path }/views/board/tradelist?page=${ pageInfo.maxPage }'">&gt;&gt;</button>
+			</div>
 		</div>
 	</section>
 	<script src="${ path }/resources/js/trade.js"></script>

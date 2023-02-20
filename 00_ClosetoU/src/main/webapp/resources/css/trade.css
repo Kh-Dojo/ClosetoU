@@ -3,7 +3,7 @@ article {
 	height: auto;
 	margin: 0 auto;
 	position: relative;
-	display : inline-block;
+	display: inline-block;
 }
 
 article>* {
@@ -71,4 +71,12 @@ section {
 	width: 100%;
 	height: 150px;
 	background-color: aquamarine;
+}
+
+#pagebar_area {
+	float: left;
+}
+
+#pagebar_area>* {
+	display: inline-block;
 }
