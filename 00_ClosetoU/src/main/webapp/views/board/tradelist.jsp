@@ -41,8 +41,8 @@
 		<div id="item_area">
 			<c:if test="${ not empty trlist }">
 					trlist 출력됩니다.
-
 			</c:if>
+
 
 			아이템들이 노출되는 공간입니다.
 			<div id="item_list">
@@ -58,7 +58,6 @@
 				</div>
 			</div>
 			<div id="pagebar_area">페이지바 영역입니다</div>
-
 		</div>
 	</article>
 
