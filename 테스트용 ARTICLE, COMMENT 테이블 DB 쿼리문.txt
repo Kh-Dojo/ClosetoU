@@ -150,3 +150,27 @@ INSERT INTO REPLY (
 
 COMMIT;
 
+-- 테스트용 ARTICLE 게시물 추가
+BEGIN
+    FOR N IN 1..52
+    LOOP
+        INSERT INTO 
+            ARTICLE 
+        VALUES
+            (SEQ_ARTICLE_NO.NEXTVAL, 
+            21, -- 있는 MEMBERNO으로
+            '거래',
+            '게시글 ' || SEQ_ARTICLE_NO.CURRVAL , 
+            '이 게시글은 영국에서 시작해서..' ||  SEQ_ARTICLE_NO.CURRVAL, 
+            0, 
+            'Y', 
+            DEFAULT, 
+            NULL, 
+            NULL);
+    END LOOP;
+
+    COMMIT;
+EXCEPTION
+    WHEN OTHERS THEN ROLLBACK;
+END;
+
