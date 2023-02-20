@@ -1,4 +1,9 @@
 /* 전체 틀 */
+body {
+	width: 1200px;
+	margin: 0 auto;
+}
+
 header {
     width: 1200px;
     height: auto;
@@ -7,10 +12,6 @@ header {
 }
 
 /* 상단 영역 css */
-.logo{
-	width:10%;
-}
-
 .logo > img {
 	width:120px;
 	float:left;
@@ -30,7 +31,7 @@ header {
 
 .login-container{
 	position:absolute; 
-    width: 20%;
+    width: 25%;
     right: 0px; 
 	top: 10px;
 }
@@ -43,20 +44,6 @@ header {
 .btn_small {
 	width:100px;
 }
-
-#main-profile {
-	width:70px;
-	height:70px;
-	border-radius:70%;
-	overflow:hidden;
-}
-
-.main-profile-img {
-	width:100%;
-	height:100%;
-	object-fit:cover;
-}
-
 
 /* 내비게이션 css */
 nav {
@@ -81,6 +68,7 @@ nav {
 	float:left;
 	margin-right:10px;
 }
+
 .gnb > li:last-child {
 	margin-right:0;
 }

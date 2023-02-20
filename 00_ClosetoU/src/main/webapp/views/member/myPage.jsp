@@ -14,6 +14,9 @@
 <style>
 	section #view-container {
 		text-align:center;
+		width: 75%;
+		height: auto;
+		box-sizing: border-box;
 	}
 	
 	section #view-container input {
@@ -35,16 +38,32 @@
 	}
 </style>
 <section id="content">
-	<h2 align="center">내 정보 수정</h2>
+
+	<div id="sidemenu">
+		<div id="main_menu_name_area">
+		    <!-- 헤더에 저장된 페이지 정보 중 어떤 메인메뉴를 클릭했나 가져옴 -->
+		    <h1> <% request.getHeader("main_menu_name"); %> 마이 페이지</h1>
+		</div>
+		<div id="sub_menu_name_area">
+	    	<ul>
+		        <li><a href="${ path }/views/member/myPage.jsp" class="sub_menu_name"><h3> <% request.getHeaders("sub_menu_name"); %> 내 정보 수정</h3></a></li>
+		        <li><a href="${ path }/views/member/myTrade.jsp" class="sub_menu_name"><h3> <% request.getHeaders("sub_menu_name"); %> 나의 거래 내역</h3></a></li>
+		        <li><a href="${ path }/views/member/myArticle.jsp" class="sub_menu_name"><h3> <% request.getHeaders("sub_menu_name"); %> 나의 게시글</h3></a></li>
+		        <li><a href="${ path }/views/member/myComment.jsp" class="sub_menu_name"><h3> <% request.getHeaders("sub_menu_name"); %> 나의 댓글</h3></a></li>
+		        <li><a href="${ path }/views/member/myAsk.jsp" class="sub_menu_name"><h3> <% request.getHeaders("sub_menu_name"); %> 1:1 문의 내역</h3></a></li>
+		    </ul>
+		</div>
+	</div>
+	
+	<h2>내 정보 수정</h2>
 	<div id="view-container">
 		<form id="memberFrm" action="${ path }/member/update" method="POST">
 			<table>
 				<tr>
 	                <th>프로필 이미지</th>
 					<td>
-						<input type="file" name="userProfile" id="userProfile" 
-							multiple="multiple" accept="image/*" >
-					</td> 	
+						<input type="file">
+					</td>
 	            </tr>
 				<tr>
 	                <th>아이디</th>
@@ -94,6 +113,13 @@
 							value="${ loginMember.address }">
 					</td> 	
 	            </tr>
+	            <tr>
+	                <th>상세 주소</th>
+					<td>
+						<input type="text" name="address_detail" id="address_detail"
+							value="${ loginMember.address }">
+					</td> 	
+	            </tr>
 	            
 	        </table>
 	        <button type="button" id="btnUpdatePwd">비밀번호변경</button>
@@ -101,23 +127,8 @@
 	        <input type="button" id="btnDelete" value="탈퇴">
 	 	</form>
  	</div>
- 	
- 	jsp로 연결된 sidemenu 입니다
-
-	<div id="main_menu_name_area">
-	    <!-- 헤더에 저장된 페이지 정보 중 어떤 메인메뉴를 클릭했나 가져옴 -->
-	    <h1> <% request.getHeader("main_menu_name"); %> 마이 페이지</h1>
-	</div>
-	<div id="sub_menu_name_area">
-    	<ul>
-	        <li><a href="${ path }/views/member/myPage.jsp"><h3> <% request.getHeaders("sub_menu_name"); %> 내 정보 수정</h3></a></li>
-	        <li><a href="${ path }/views/member/myTrade.jsp"><h3> <% request.getHeaders("sub_menu_name"); %> 나의 거래 내역</h3></a></li>
-	        <li><a href="${ path }/views/member/myArticle.jsp"><h3> <% request.getHeaders("sub_menu_name"); %> 나의 게시글</h3></a></li>
-	        <li><a href="${ path }/views/member/myComment.jsp"><h3> <% request.getHeaders("sub_menu_name"); %> 나의 댓글</h3></a></li>
-	        <li><a href="${ path }/views/member/myAsk.jsp"><h3> <% request.getHeaders("sub_menu_name"); %> 1:1 문의 내역</h3></a></li>
-	    </ul>
-	</div>
 </section>
+<jsp:include page="/views/common/footer.jsp" /> 
 <script>
 	$(document).ready(() => {
 		$('#btnUpdatePwd').on('click', () => {
@@ -137,6 +148,23 @@
 
 </script>
 
+<script src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
+<script>
+	window.onload = function(){
+    document.getElementById("address").addEventListener("click", function(){ //주소입력칸을 클릭하면
+        //카카오 지도 발생
+        new daum.Postcode({
+            oncomplete: function(data) { //선택시 입력값 세팅
+                document.getElementById("address").value = data.address; // 주소 넣기
+                document.querySelector("input[name=address_detail]").focus(); //상세입력 포커싱
+            }
+        }).open();
+    });
+}
+</script>
 
-
-<jsp:include page="/views/common/footer.jsp" /> 
+<script>
+$('.sub_menu_name').on('click', function(){
+	$(this).addClass('active');
+});
+</script>
