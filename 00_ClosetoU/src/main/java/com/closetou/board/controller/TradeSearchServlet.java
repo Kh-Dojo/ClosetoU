@@ -9,6 +9,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import com.closetou.article.model.vo.Article;
 import com.closetou.article.model.vo.TradeArticle;
 import com.closetou.board.model.service.BoardService;
 
@@ -21,22 +22,24 @@ public class TradeSearchServlet extends HttpServlet {
 
 	// 거래 페이지에서 검색창을 이용해 검색했을 때 실행되는 서블릿
 	@Override
-	protected void doGet(HttpServletRequest request, HttpServletResponse response)
+	protected void doPost(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
-
+		System.out.println("검색 서블릿 doPost 실행");
+		
 		// 검색창의 결과값과 체크한 속성값을 매개변수로 받음.
 		String keyword = request.getParameter("search");
 		String[] attribute = request.getParameterValues("item_attribute");
 		
 		// 결과를 받을 변수와 리턴되는 (페이지를 구성할) 아이템 개수를 받을 변수선언
-		ArrayList<TradeArticle> list = null;
-		int result = 0;
+		ArrayList<Article> list = null;
+		ArrayList<TradeArticle> trList = null;
 
 		// 의류 검색 서비스로 넘김 (반환값은 조회된 결과에 따른 TradeArticle 객체의 배열)
-		list = new BoardService().searchItem(keyword, attribute);
+		list = new BoardService().searchArticle(keyword);
+		trList = new BoardService().searchItem(keyword, attribute);
 
 		// 검색 결과가 하나도 없을 경우 검색결과가 없다고 출력하고 메인페이지로 돌아감
-		if (list.isEmpty()) {
+		if (trList.isEmpty() && list.isEmpty()) {
 			request.setAttribute("msg", "검색결과가 없습니다.");
 			request.setAttribute("location", "/");
 			request.getRequestDispatcher("/views/common/msg.jsp").forward(request, response);
@@ -46,8 +49,8 @@ public class TradeSearchServlet extends HttpServlet {
 
 		// 검색 결과가 있을 경우 해당 값을 기반으로 페이지 구성
 		request.setAttribute("list", list);
-
-		request.getRequestDispatcher("/veiws/boardtrade.jsp").forward(request, response);
+		request.setAttribute("trlist", trList);
+		request.getRequestDispatcher("./views/board/tradelist.jsp").forward(request, response);
 		
 	}
 
