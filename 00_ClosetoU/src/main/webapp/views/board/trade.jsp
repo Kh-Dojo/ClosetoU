@@ -9,9 +9,9 @@
 <script src="${ path }/resources/js/jquery-3.6.3.js"></script>
 
 <link rel="stylesheet" href="${ path }/resources/css/trade.css" />
-<section>
+<article>
 	<div id="sidemenu"><jsp:include page="/views/common/sidemenu.jsp" /></div>
-	<article>
+	<section>
 		article 자리입니다.
 		<div id="search_section">
 			<form action="${ path }/itemsearch" method="POST">
@@ -41,7 +41,6 @@
 		<div id="item_area">
 			<c:if test="${ not empty trlist }">
 					trlist 출력됩니다.
-
 			</c:if>
 
 			아이템들이 노출되는 공간입니다.
@@ -60,10 +59,9 @@
 			<div id="pagebar_area">페이지바 영역입니다</div>
 
 		</div>
-	</article>
+	</section>
+	<script src="${ path }/resources/js/trade.js"></script>
+</article>
 
-</section>
 <jsp:include page="/views/common/footer.jsp" />
-<script src="${ path }/resources/js/trade.js"></script>
-</body>
-</html>
+

@@ -9,9 +9,9 @@
 <script src="${ path }/resources/js/jquery-3.6.3.js"></script>
 
 <link rel="stylesheet" href="${ path }/resources/css/trade.css" />
-<section>
+<article>
 	<div id="sidemenu"><jsp:include page="/views/common/sidemenu.jsp" /></div>
-	<article>
+	<section>
 		article 자리입니다.
 		<div id="search_section">
 			<form action="${ path }/itemsearch" method="POST">
@@ -39,30 +39,33 @@
 			</form>
 		</div>
 		<div id="item_area">
-			<c:if test="${ not empty trlist }">
-					trlist 출력됩니다.
+
+			<c:if test="${ empty trlist }">
+				<div>검색 결과가 없습니다.</div>
 			</c:if>
-
-
-			아이템들이 노출되는 공간입니다.
-			<div id="item_list">
-				<div class="item_box">
-					<div class="item_thumbnail">아이템섬네일</div>
-					<div class="item_info">
-						<div>아이템 제목</div>
-						<div>아이템 가격</div>
+			<c:if test="${ not empty trlist }">
+				trlist가 존재합니다.
+				${ trlist[0].clothInfo }
+				<%-- <c:forEach var="tradearticle" items="${ trList }">
+					<div id="item_list">
+						<div class="item_box">
+							<div class="item_thumbnail">${ tradearticle.clothInfo }</div>
+							<div class="item_info">
+								<div>${ tradearticle.no }</div>
+								<div>${ tradearticle.price } 원</div>
+							</div>
+						</div>
+						<div class="item_box">
+							<div class="item_thumbnail"></div>
+						</div>
 					</div>
-				</div>
-				<div class="item_box">
-					<div class="item_thumbnail"></div>
-				</div>
-			</div>
-			<div id="pagebar_area">페이지바 영역입니다</div>
+				</c:forEach> --%>
+				<div id="pagebar_area">페이지바 영역입니다</div>
+			</c:if>
 		</div>
-	</article>
+	</section>
+	<script src="${ path }/resources/js/trade.js"></script>
+</article>
 
-</section>
 <jsp:include page="/views/common/footer.jsp" />
-<script src="${ path }/resources/js/trade.js"></script>
-</body>
-</html>
+

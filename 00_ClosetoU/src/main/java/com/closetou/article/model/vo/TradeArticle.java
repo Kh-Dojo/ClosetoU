@@ -11,6 +11,8 @@ public class TradeArticle {
 	
 	private int no;
 	
+	private int clothNumber;
+	
 	private int price;
 	
 	private String clothInfo;

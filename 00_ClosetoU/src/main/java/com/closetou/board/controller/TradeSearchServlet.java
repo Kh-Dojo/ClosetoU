@@ -2,6 +2,7 @@ package com.closetou.board.controller;
 
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.List;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -31,8 +32,8 @@ public class TradeSearchServlet extends HttpServlet {
 		String[] attribute = request.getParameterValues("item_attribute");
 		
 		// 결과를 받을 변수와 리턴되는 (페이지를 구성할) 아이템 개수를 받을 변수선언
-		ArrayList<Article> list = null;
-		ArrayList<TradeArticle> trList = null;
+		List<Article> list = null;
+		List<TradeArticle> trList = null;
 
 		// 의류 검색 서비스로 넘김 (반환값은 조회된 결과에 따른 TradeArticle 객체의 배열)
 		list = new BoardService().searchArticle(keyword);
