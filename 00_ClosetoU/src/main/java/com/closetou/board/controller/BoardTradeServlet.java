@@ -59,7 +59,6 @@ public class BoardTradeServlet extends HttpServlet {
 //
 //		System.out.println(trlist);
 
-		request.setAttribute("sideMenu", sideMenu);
 		request.setAttribute("pageInfo", pageInfo);
 		request.setAttribute("list", list);
 //		request.setAttribute("trlist", trlist);
