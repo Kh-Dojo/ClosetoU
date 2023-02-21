@@ -35,8 +35,6 @@ public class BoardTradeServlet extends HttpServlet {
 		PageInfo pageInfo = null;
 		List<Article> list = null;
 		List<TradeArticle> trlist = null;
-		SideMenu sideMenu = new SideMenu ("중고의류 거래 및 나눔", new String[] {"서브메뉴1", "서브메뉴2"} );
-		
 
 		try {
 			page = Integer.parseInt(request.getParameter("page"));
@@ -44,17 +42,11 @@ public class BoardTradeServlet extends HttpServlet {
 			page = 1;
 		}
 
-		System.out.println(page);
-
 		listCount = new BoardService().getBoardCountForTrade();
 		pageInfo = new PageInfo(page, 10, listCount, 15);
 		list = new BoardService().getArticleForTradeList(pageInfo);
 
-		System.out.println(list);
-
 		ArrayList<Integer> numbers = new ArticleService().noFromArticle(list);
-
-		System.out.println(numbers);
 
 //		if (numbers != null) {
 //
