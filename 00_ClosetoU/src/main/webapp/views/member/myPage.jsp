@@ -2,6 +2,8 @@
 <%@page import="java.util.Arrays"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@page import="com.oreilly.servlet.MultipartRequest"%>
+<%@page import="com.oreilly.servlet.multipart.DefaultFileRenamePolicy"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn" %>
 
@@ -57,12 +59,12 @@
 	
 	<h2>내 정보 수정</h2>
 	<div id="view-container">
-		<form id="memberFrm" action="${ path }/member/update" method="POST">
+		<form id="memberFrm" enctype="multipart/form=data" action="${ path }/member/update" method="POST">
 			<table>
 				<tr>
 	                <th>프로필 이미지</th>
-					<td>
-						<input type="file">
+					<td class="btn-file">
+						👉클릭하여 이미지 업로드👈<input type="file" name="userProfile">
 					</td>
 	            </tr>
 				<tr>
@@ -94,13 +96,6 @@
 	                </td>
 	            </tr>
 	            <tr>
-	                <th>추가 연락처</th>
-	                <td>
-	                    <input type="tel" name="phone" value="${ loginMember.addphone }"
-	                    	id="addphone" maxlength="13">
-	                </td>
-	            </tr>
-	            <tr>
 	                <th>이메일</th>
 					<td>
 						<input type="email" name="email" id="email" value="${ loginMember.email }">												
@@ -117,11 +112,11 @@
 	                <th>상세 주소</th>
 					<td>
 						<input type="text" name="address_detail" id="address_detail"
-							value="${ loginMember.address }">
+							value="${ loginMember.address_detail }">
 					</td> 	
 	            </tr>
-	            
 	        </table>
+	        <br>
 	        <button type="button" id="btnUpdatePwd">비밀번호 변경</button>
 	        <input type="submit" value="정보 수정">
 	        <input type="button" id="btnDelete" value="회원 탈퇴">
@@ -133,11 +128,18 @@
 <script>
 $(document).ready(() => {
 	$('#btnUpdatePwd').on('click', () => {
-		let url = '${ path }member/updatePwd';
+		let url = '${ path }/member/updatePwd';
 		let status = 'left=2500px,top=200px,width=500px,height=250px'; 
 	
 		open(url, 'updatePwd', status);
 	});
+	
+	$('#btnDelete').on('click', () => {
+		if(confirm('정말로 탈퇴하시겠습니까?')) {
+			location.replace('${ path }/member/delete');
+		}
+	});
+});
 </script>
 <script src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
 <script>

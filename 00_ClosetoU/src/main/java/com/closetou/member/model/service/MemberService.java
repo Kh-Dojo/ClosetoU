@@ -7,7 +7,10 @@ import static com.closetou.common.jdbc.JDBCTemplate.commit;
 import static com.closetou.common.jdbc.JDBCTemplate.rollback;
 
 import java.sql.Connection;
+import java.util.ArrayList;
+import java.util.List;
 
+import com.closetou.article.model.vo.Article;
 import com.closetou.member.model.dao.MemberDao;
 import com.closetou.member.model.vo.Member;
 
@@ -40,7 +43,7 @@ public class MemberService {
 		int result = 0;
 		Connection connection = getConnection();
 		
-		result = new MemberDao().updateMemberPwd(connection, no, userPwd);
+		result = new MemberDao().updatePwd(connection, no, userPwd);
 		
 		if(result > 0) {
 			commit(connection);
@@ -75,6 +78,36 @@ public class MemberService {
 		
 		return result;
 	}
+
+	public int delete(int no) {
+		int result = 0;
+		Connection connection = getConnection();
+		
+		result = new MemberDao().updateMemberStatus(connection, no, "N");
+		
+		if(result > 0) {
+			commit(connection);
+		} else {
+			rollback(connection);
+		}
+		
+		close(connection);
+		
+		return result;
+	}
+	
+	// 아티클로부터 NO를 추출하여 ArrayList 객체로 반환하는 메소드
+		@SuppressWarnings("null")
+		public ArrayList<Integer> noFromArticle(List<Article> list) {
+			ArrayList<Integer> numbers = new ArrayList<>();
+
+			for (Article article : list) {
+				int no = article.getNo();
+
+				numbers.add(no);
+			}
+			return numbers;
+		}
 
 
 }

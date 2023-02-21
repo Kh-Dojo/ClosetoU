@@ -67,19 +67,13 @@
 				<tr>	
 					<th>닉네임</th>
 					<td>
-						<input type="text" name="userName" id="userName" size="26" required>
+						<input type="text" name="userNickname" id="userNickname" size="26" required>
 					</td>
 	 			</tr>
 	 			<tr>
 					<th>연락처</th>
 					<td>
 						<input type="tel" name="phone" id="phone" maxlength="13" size="26" required>								
-					</td> 			
-	 			</tr>
-	 			<tr>
-					<th>추가 연락처</th>
-					<td>
-						<input type="tel" name="phone" id="phone" maxlength="13" size="26">								
 					</td> 			
 	 			</tr>
 	 			<tr>

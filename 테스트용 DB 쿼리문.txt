@@ -6,31 +6,31 @@ GRANT RESOURCE, CONNECT TO CLOSETOU;
 -- MEMBER 테이블 생성 및 코멘트, 시퀀스 작성 (CLOSETOU 계정에서 작업하세요.)
 CREATE TABLE MEMBER (
     NO NUMBER PRIMARY KEY,
-    USER_ID VARCHAR2(30) NOT NULL UNIQUE,
+    USER_ID VARCHAR2(20) NOT NULL UNIQUE,
     PASSWORD VARCHAR2(30) NOT NULL,
-    ROLE VARCHAR2(10) DEFAULT 'ROLE_USER',
+    ROLE VARCHAR2(12) DEFAULT 'ROLE_USER',
     USER_NAME VARCHAR2(20) NOT NULL,
     NICKNAME VARCHAR2(30) NOT NULL,
     PHONE VARCHAR2(13) NOT NULL,
-    ADD_PHONE VARCHAR2(13),
-    EMAIL VARCHAR2(100),
+    EMAIL VARCHAR2(50),
     ADDRESS VARCHAR2(200),
+    ADDRESS_DETAIL VARCHAR2(50),
     STATUS VARCHAR2(1) DEFAULT 'Y' CHECK(STATUS IN('Y', 'N')),
     ENROLL_DATE DATE DEFAULT SYSDATE
 );
 
-COMMENT ON COLUMN MEMBER.NO IS '회원번호';
-COMMENT ON COLUMN MEMBER.USER_ID IS '회원ID';
-COMMENT ON COLUMN MEMBER.PASSWORD IS '회원PWD';
-COMMENT ON COLUMN MEMBER.ROLE IS '회원권한';
-COMMENT ON COLUMN MEMBER.USER_NAME IS '회원명';
-COMMENT ON COLUMN MEMBER.NICKNAME IS '닉네임';
-COMMENT ON COLUMN MEMBER.PHONE IS '연락처';
-COMMENT ON COLUMN MEMBER.ADD_PHONE IS '추가연락처';
-COMMENT ON COLUMN MEMBER.EMAIL IS '이메일';
-COMMENT ON COLUMN MEMBER.ADDRESS IS '주소';
-COMMENT ON COLUMN MEMBER.STATUS IS '회원상태';
-COMMENT ON COLUMN MEMBER.ENROLL_DATE IS '등록일자';
+COMMENT ON COLUMN Member.NO IS '회원번호';
+COMMENT ON COLUMN Member.USER_ID IS '회원ID';
+COMMENT ON COLUMN Member.PASSWORD IS '회원PWD';
+COMMENT ON COLUMN Member.ROLE IS '회원권한';
+COMMENT ON COLUMN Member.USER_NAME IS '회원명';
+COMMENT ON COLUMN Member.NICKNAME IS '닉네임';
+COMMENT ON COLUMN Member.PHONE IS '연락처';
+COMMENT ON COLUMN Member.EMAIL IS '이메일';
+COMMENT ON COLUMN Member.ADDRESS IS '주소';
+COMMENT ON COLUMN Member.ADDRESS_DETAIL IS '상세주소';
+COMMENT ON COLUMN Member.STATUS IS '회원상태';
+COMMENT ON COLUMN Member.ENROLL_DATE IS '등록일자';
 
 CREATE SEQUENCE SEQ_UNO;
 
@@ -44,29 +44,29 @@ INSERT INTO MEMBER (
     USER_NAME,
     NICKNAME, 
     PHONE,
-    ADD_PHONE,
     EMAIL, 
     ADDRESS, 
+    ADDRESS_DETAIL, 
     STATUS, 
     ENROLL_DATE
 ) VALUES(
     SEQ_UNO.NEXTVAL, 
-    'test', 
+    'admin', 
     '1234', 
     'ROLE_ADMIN',
     '관리자',
     '관리자',
     '010-1234-5678',
-    NULL,
     'admin@iei.or.kr', 
     '서울시 강남구 역삼동',
+    '남도빌딩 4층 R강의장',
     DEFAULT,
     DEFAULT
 );
 
 COMMIT;
 
--- 테스트용 회원 계정 생성 (CLOSETOU 계정에서 작업하세요.)
+-- 테스트용 일반 회원 계정 생성 (CLOSETOU 계정에서 작업하세요.)
 INSERT INTO MEMBER (
     NO, 
     USER_ID, 
@@ -75,27 +75,26 @@ INSERT INTO MEMBER (
     USER_NAME,
     NICKNAME, 
     PHONE,
-    ADD_PHONE,
     EMAIL, 
-    ADDRESS, 
+    ADDRESS,
+    ADDRESS_DETAIL,
     STATUS, 
     ENROLL_DATE
 ) VALUES(
     SEQ_UNO.NEXTVAL, 
-    'user', 
+    'user1', 
     '1234', 
     DEFAULT,
-    '일반인',
-    '일반인',
+    '문인수',
+    '강사님짱',
     '010-2345-6789',
-    NULL,
-    'user@iei.or.kr', 
+    'user1@iei.or.kr', 
     '서울시 강남구 역삼동',
+    '남도빌딩 어딘가',
     DEFAULT,
     DEFAULT
 );
 
--- 0220 테스트 계정 추가 (CLOSETOU 계정에서 작업하세요.)
 INSERT INTO MEMBER (
     NO, 
     USER_ID, 
@@ -104,9 +103,9 @@ INSERT INTO MEMBER (
     USER_NAME,
     NICKNAME, 
     PHONE,
-    ADD_PHONE,
     EMAIL, 
-    ADDRESS, 
+    ADDRESS,
+    ADDRESS_DETAIL,
     STATUS, 
     ENROLL_DATE
 ) VALUES(
@@ -115,11 +114,11 @@ INSERT INTO MEMBER (
     '1234', 
     DEFAULT,
     '공민지',
-    '공민지',
+    '콩밍디',
     '010-1111-2222',
-    NULL,
     'user2@iei.or.kr', 
     '서울특별시 강서구 화곡동',
+    '화곡역과 까치산역 사이 어딘가',
     DEFAULT,
     DEFAULT
 );
@@ -132,9 +131,9 @@ INSERT INTO MEMBER (
     USER_NAME,
     NICKNAME, 
     PHONE,
-    ADD_PHONE,
     EMAIL, 
-    ADDRESS, 
+    ADDRESS,
+    ADDRESS_DETAIL,
     STATUS, 
     ENROLL_DATE
 ) VALUES(
@@ -143,11 +142,11 @@ INSERT INTO MEMBER (
     '1234', 
     DEFAULT,
     '천승준',
-    '천승준',
+    '블랙워그레이몬',
     '010-2222-3333',
-    NULL,
     'user3@iei.or.kr', 
     '서울특별시 강동구 명일동',
+    '무슨 아파트',
     DEFAULT,
     DEFAULT
 );
@@ -160,9 +159,9 @@ INSERT INTO MEMBER (
     USER_NAME,
     NICKNAME, 
     PHONE,
-    ADD_PHONE,
     EMAIL, 
-    ADDRESS, 
+    ADDRESS,
+    ADDRESS_DETAIL,
     STATUS, 
     ENROLL_DATE
 ) VALUES(
@@ -171,11 +170,11 @@ INSERT INTO MEMBER (
     '1234', 
     DEFAULT,
     '이정준',
-    '이정준',
+    '땅콩이형',
     '010-3333-4444',
-    NULL,
     'user4@iei.or.kr', 
     '서울특별시 강동구 명일동',
+    '땅콩이집',
     DEFAULT,
     DEFAULT
 );
@@ -188,9 +187,9 @@ INSERT INTO MEMBER (
     USER_NAME,
     NICKNAME, 
     PHONE,
-    ADD_PHONE,
     EMAIL, 
     ADDRESS, 
+    ADDRESS_DETAIL,
     STATUS, 
     ENROLL_DATE
 ) VALUES(
@@ -199,11 +198,11 @@ INSERT INTO MEMBER (
     '1234', 
     DEFAULT,
     '김영근',
-    '김영근',
+    '주안동불주먹',
     '010-4444-5555',
-    NULL,
     'user5@iei.or.kr', 
     '인천광역시 미추홀구 주안동',
+    '주안역 근처 어딘가',
     DEFAULT,
     DEFAULT
 );
@@ -216,9 +215,9 @@ INSERT INTO MEMBER (
     USER_NAME,
     NICKNAME, 
     PHONE,
-    ADD_PHONE,
     EMAIL, 
     ADDRESS, 
+    ADDRESS_DETAIL,
     STATUS, 
     ENROLL_DATE
 ) VALUES(
@@ -227,11 +226,11 @@ INSERT INTO MEMBER (
     '1234', 
     DEFAULT,
     '이주희',
-    '이주희',
+    '성남여신',
     '010-5555-6666',
-    NULL,
     'user6@iei.or.kr', 
     '경기도 성남시 중원구',
+    '산성역 근처 어딘가',
     DEFAULT,
     DEFAULT
 );
@@ -244,9 +243,9 @@ INSERT INTO MEMBER (
     USER_NAME,
     NICKNAME, 
     PHONE,
-    ADD_PHONE,
     EMAIL, 
     ADDRESS, 
+    ADDRESS_DETAIL,
     STATUS, 
     ENROLL_DATE
 ) VALUES(
@@ -255,11 +254,11 @@ INSERT INTO MEMBER (
     '1234', 
     DEFAULT,
     '이정훈',
-    '이정훈',
+    '동두천빈지노',
     '010-6666-7777',
-    NULL,
     'user7@iei.or.kr', 
     '경기도 동두천시 동두천동',
+    '동두천 어딘가',
     DEFAULT,
     DEFAULT
 );
@@ -272,9 +271,9 @@ INSERT INTO MEMBER (
     USER_NAME,
     NICKNAME, 
     PHONE,
-    ADD_PHONE,
     EMAIL, 
     ADDRESS, 
+    ADDRESS_DETAIL,
     STATUS, 
     ENROLL_DATE
 ) VALUES(
@@ -283,11 +282,11 @@ INSERT INTO MEMBER (
     '1234', 
     DEFAULT,
     '이정수',
-    '이정수',
+    '현정아잘지내니',
     '010-7777-8888',
-    NULL,
     'user8@iei.or.kr', 
     '서울특별시 동작구 사당동',
+    '사당역과 이수역 사이 어딘가',
     DEFAULT,
     DEFAULT
 );
