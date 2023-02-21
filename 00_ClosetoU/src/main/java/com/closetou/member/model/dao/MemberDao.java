@@ -33,9 +33,9 @@ public class MemberDao {
 				member.setName(rs.getString("USER_NAME"));
 				member.setNickname(rs.getString("NICKNAME"));
 				member.setPhone(rs.getString("PHONE"));
-				member.setAddphone(rs.getString("ADD_PHONE"));
 				member.setEmail(rs.getString("EMAIL"));
 				member.setAddress(rs.getString("ADDRESS"));
+				member.setAddress_detail(rs.getString("ADDRESS_DETAIL"));
 				member.setStatus(rs.getString("STATUS"));
 				member.setEnrollDate(rs.getDate("ENROLL_DATE"));
 			}
@@ -51,7 +51,7 @@ public class MemberDao {
 		return member;
 	}
 
-	public int updateMemberPwd(Connection connection, int no, String userPwd) {
+	public int updatePwd(Connection connection, int no, String userPwd) {
 		int result = 0;
 		PreparedStatement pstmt = null;
 		String query = "UPDATE MEMBER SET PASSWORD=? WHERE NO=?";
@@ -75,7 +75,7 @@ public class MemberDao {
 	public int updateMember(Connection connection, Member member) {
 		int result = 0;
 		PreparedStatement pstmt = null;
-		String query = "UPDATE MEMBER SET NAME=?, NICKNAME=?, PHONE=?, EMAIL=?,ADDRESS=? WHERE NO=?";
+		String query = "UPDATE MEMBER SET NAME=?, NICKNAME=?, PHONE=?, EMAIL=?,ADDRESS=?, ADDRESS_DETAIL=?, WHERE NO=?";
 		
 		try {
 			pstmt = connection.prepareStatement(query);
@@ -85,7 +85,8 @@ public class MemberDao {
 			pstmt.setString(3, member.getPhone());
 			pstmt.setString(4, member.getEmail());
 			pstmt.setString(5, member.getAddress());
-			pstmt.setInt(6, member.getNo());
+			pstmt.setString(6, member.getAddress_detail());
+			pstmt.setInt(7, member.getNo());
 			
 			result = pstmt.executeUpdate();
 		} catch (SQLException e) {
@@ -100,7 +101,7 @@ public class MemberDao {
 	public int insertMember(Connection connection, Member member) {
 		int result = 0;
 		PreparedStatement pstmt = null;
-		String query = "INSERT INTO MEMBER VALUES(SEQ_UNO.NEXTVAL,?,?,DEFAULT,?,?,?,NULL,?,?,DEFAULT,DEFAULT)";
+		String query = "INSERT INTO MEMBER VALUES(SEQ_UNO.NEXTVAL,?,?,DEFAULT,?,?,?,?,?,?,DEFAULT,DEFAULT)";
 		
 		try {					
 			pstmt = connection.prepareStatement(query);
@@ -112,6 +113,28 @@ public class MemberDao {
 			pstmt.setString(5, member.getPhone());
 			pstmt.setString(6, member.getEmail());
 			pstmt.setString(7, member.getAddress());
+			pstmt.setString(8, member.getAddress_detail());
+			
+			result = pstmt.executeUpdate();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(pstmt);
+		}
+		
+		return result;
+	}
+
+	public int updateMemberStatus(Connection connection, int no, String status) {
+		int result = 0;
+		PreparedStatement pstmt = null;
+		String query = "UPDATE MEMBER SET STATUS=? WHERE NO=?";
+		
+		try {
+			pstmt = connection.prepareStatement(query);
+			
+			pstmt.setString(1, status);
+			pstmt.setInt(2, no);
 			
 			result = pstmt.executeUpdate();
 		} catch (SQLException e) {

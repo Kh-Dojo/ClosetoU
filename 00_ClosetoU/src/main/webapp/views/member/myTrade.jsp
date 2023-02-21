@@ -12,8 +12,8 @@
 	table#tbl-board th, table#tbl-board td {border:1px solid; padding: 5px 0; text-align:center;} 
 	/*페이지바*/
 	div#pageBar{margin-top:10px; text-align:center; background-color:rgba(255, 204, 153, 0.3);}
-	#sidemenu {width: 25%; height: auto;}
-	article {width: 70%; height: auto; box-sizing: border-box; float: left;}
+	#sidemenu {width: 20%; height: auto;}
+	article {width: 75%; height: auto; box-sizing: border-box; float: left; padding-right:10px;}
 	section {width: 1200px; height: 400px; margin: auto;}
 	section > * {box-sizing: border-box; float: left;}
 	#sub_menu_name_area:active {color:rgb(220, 179, 14);}

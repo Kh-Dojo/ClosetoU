@@ -15,12 +15,12 @@ section > * {
 
 /* 사이드 메뉴 */
 #sidemenu {
-	width: 25%;
+	width: 20%;
 	height: auto;
 }
 
 #view-container {
-	width: 75%;
+	width: 80%;
 	height: auto;
 	box-sizing: border-box;
 	float: left;

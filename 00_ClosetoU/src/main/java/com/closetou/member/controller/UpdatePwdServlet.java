@@ -19,9 +19,9 @@ public class UpdatePwdServlet extends HttpServlet {
     }
 
     @Override
-	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-    	request.getRequestDispatcher("/member/updatePwd").forward(request, response);
-	}
+   	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+       	request.getRequestDispatcher("/views/member/updatePwd.jsp").forward(request, response);
+   	}
 
     @Override
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {

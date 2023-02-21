@@ -40,7 +40,7 @@ public class MemberService {
 		int result = 0;
 		Connection connection = getConnection();
 		
-		result = new MemberDao().updateMemberPwd(connection, no, userPwd);
+		result = new MemberDao().updatePwd(connection, no, userPwd);
 		
 		if(result > 0) {
 			commit(connection);
@@ -58,12 +58,29 @@ public class MemberService {
 		Connection connection = getConnection();
 		
 		if(member.getNo() > 0) {
-			// update 작업
+			// update
 			result = new MemberDao().updateMember(connection, member);
 		} else {
-			// insert 작업
+			// insert
 			result = new MemberDao().insertMember(connection, member);
 		}
+		
+		if(result > 0) {
+			commit(connection);
+		} else {
+			rollback(connection);
+		}
+		
+		close(connection);
+		
+		return result;
+	}
+
+	public int delete(int no) {
+		int result = 0;
+		Connection connection = getConnection();
+		
+		result = new MemberDao().updateMemberStatus(connection, no, "N");
 		
 		if(result > 0) {
 			commit(connection);

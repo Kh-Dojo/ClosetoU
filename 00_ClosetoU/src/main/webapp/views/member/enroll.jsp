@@ -77,12 +77,6 @@
 					</td> 			
 	 			</tr>
 	 			<tr>
-					<th>추가 연락처</th>
-					<td>
-						<input type="tel" name="phone" id="phone" maxlength="13" size="26">								
-					</td> 			
-	 			</tr>
-	 			<tr>
 					<th>이메일</th>
 					<td>
 						<input type="email" placeholder="abc@abc.com" name="email" id="email" size="26">												

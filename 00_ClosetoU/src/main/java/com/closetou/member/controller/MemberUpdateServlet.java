@@ -36,6 +36,7 @@ public class MemberUpdateServlet extends HttpServlet {
 			member.setPhone(request.getParameter("phone"));
 			member.setEmail(request.getParameter("email"));
 			member.setAddress(request.getParameter("address"));
+			member.setAddress_detail(request.getParameter("address_detail"));
 			
 			// 3. 회원 정보 수정
 			result = new MemberService().save(member);
