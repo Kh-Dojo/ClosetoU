@@ -2,6 +2,8 @@
 <%@page import="java.util.Arrays"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@page import="com.oreilly.servlet.MultipartRequest"%>
+<%@page import="com.oreilly.servlet.multipart.DefaultFileRenamePolicy"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn" %>
 
@@ -57,12 +59,12 @@
 	
 	<h2>내 정보 수정</h2>
 	<div id="view-container">
-		<form id="memberFrm" action="${ path }/member/update" method="POST">
+		<form id="memberFrm" enctype="multipart/form=data" action="${ path }/member/update" method="POST">
 			<table>
 				<tr>
 	                <th>프로필 이미지</th>
-					<td>
-						<input type="file">
+					<td class="btn-file">
+						👉클릭하여 이미지 업로드👈<input type="file" name="userProfile">
 					</td>
 	            </tr>
 				<tr>

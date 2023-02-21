@@ -53,7 +53,7 @@
 			<c:if test="${ empty list }">
 				<tr>
 					<td colspan="6">
-						조회된 게시글이 없습니다.
+						조회된 댓글이 없습니다.
 					</td>
 				</tr>	
 			</c:if>
