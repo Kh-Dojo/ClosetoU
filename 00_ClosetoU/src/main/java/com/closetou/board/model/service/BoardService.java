@@ -44,11 +44,11 @@ public class BoardService {
 	}
 
 	// 조회되는 결과의 개수를 확인하기 위한 메소드
-	public int getBoardCount() {
+	public int getBoardCountForTrade() {
 		int count = 0;
 		Connection connection = getConnection();
 
-		count = new BoardDao().getBoardCount(connection);
+		count = new BoardDao().getBoardCountForTrade(connection);
 
 		close(connection);
 

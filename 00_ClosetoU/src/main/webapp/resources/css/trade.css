@@ -3,7 +3,7 @@ article {
 	height: auto;
 	margin: 0 auto;
 	position: relative;
-	display: inline-block;
+	display: flex;
 }
 
 article>* {
@@ -13,12 +13,11 @@ article>* {
 }
 
 #sidemenu {
-	width: 25%;
-	height: auto;
+	width: 20%;
 }
 
 section {
-	width: 75%;
+	width: 80%;
 	height: auto;
 	box-sizing: border-box;
 	border: 1px solid black;
@@ -42,6 +41,10 @@ section {
 
 #show_options_textbox {
 	width: 500px;
+}
+
+#search_option_box {
+	display: none;
 }
 
 #item_area {
@@ -74,9 +77,16 @@ section {
 }
 
 #pagebar_area {
-	float: left;
+	width: 100%;
+	text-align: center;
 }
 
 #pagebar_area>* {
 	display: inline-block;
 }
+
+#tbl-board {
+	width: 100%;
+	border: 1px solid black;
+}
+

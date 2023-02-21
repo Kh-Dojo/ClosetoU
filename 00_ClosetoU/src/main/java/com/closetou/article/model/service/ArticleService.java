@@ -16,13 +16,14 @@ public class ArticleService {
 	// 아티클로부터 NO를 추출하여 ArrayList 객체로 반환하는 메소드
 	@SuppressWarnings("null")
 	public ArrayList<Integer> noFromArticle(List<Article> list) {
-		ArrayList<Integer> nos = null;
+		ArrayList<Integer> numbers = new ArrayList<>();
 
 		for (Article article : list) {
-			nos.add(article.getNo());
-		}
+			int no = article.getNo();
 
-		return nos;
+			numbers.add(no);
+		}
+		return numbers;
 	}
 
 	// No값으로 TradeArticle을 가져오는 메소드

@@ -12,7 +12,6 @@
 <article>
 	<div id="sidemenu"><jsp:include page="/views/common/sidemenu.jsp" /></div>
 	<section>
-		article 자리입니다.
 		<div id="search_section">
 			<form action="${ path }/itemsearch" method="POST">
 				<input type="search" name="search" id="search_bar"
@@ -39,52 +38,58 @@
 			</form>
 		</div>
 		<div id="item_area">
+			<table id="tbl-board">
+				<c:if test="${ empty list }">
+					<tr>
+						<th colspan="6">조회된 게시글이 없습니다.</th>
+					</tr>
+				</c:if>
+				<c:if test="${ not empty list }">
+					<c:forEach var="board" items="${ list }">
+						<div class="item_box">
+							<div>${ board.no }</div>
+							<div>${ board.title }</div>
+							<div>${ board.title }</div>
+						</div>
+					</c:forEach>
+				</c:if>
+			</table>
 
-			<%-- <c:forEach var="tradearticle" items="${ trList }">
-					<div id="item_list">
-						<div class="item_box">
-							<div class="item_thumbnail">${ tradearticle.clothInfo }</div>
-							<div class="item_info">
-								<div>${ tradearticle.no }</div>
-								<div>${ tradearticle.price } 원</div>
-							</div>
-						</div>
-						<div class="item_box">
-							<div class="item_thumbnail"></div>
-						</div>
-					</div>
-				</c:forEach> --%>
 			<div id="pagebar_area">
-				<!-- 맨 처음으로 -->
-				<button
-					onclick="location.href='${ path }/views/board/tradelist?page=1'">&lt;&lt;</button>
+				<div></div>
+				<div>
+					<!-- 맨 처음으로 -->
+					<button
+						onclick="location.href='${ path }/views/board/trade?page=1'">&lt;&lt;</button>
 
-				<!-- 이전 페이지로 -->
-				<button
-					onclick="location.href='${ path }/views/board/tradelist?page=${ pageInfo.prevPage }'">&lt;</button>
+					<!-- 이전 페이지로 -->
+					<button
+						onclick="location.href='${ path }/views/board/trade?page=${ pageInfo.prevPage }'">&lt;</button>
 
-				<!--  10개 페이지 목록 -->
-				<c:forEach begin="${ pageInfo.startPage }"
-					end="${ pageInfo.endPage }" varStatus="status">
-					<c:choose>
-						<c:when test="${ status.current == pageInfo.currentPage}">
-							<button disabled>${ status.current }</button>
-						</c:when>
-						<c:otherwise>
-							<button
-								onclick="location.href='${ path }/views/board/tradelist?page=${ status.current }'">${ status.current }</button>
-						</c:otherwise>
-					</c:choose>
-				</c:forEach>
+					<!--  10개 페이지 목록 -->
+					<c:forEach begin="${ pageInfo.startPage }"
+						end="${ pageInfo.endPage }" varStatus="status">
+						<c:choose>
+							<c:when test="${ status.current == pageInfo.currentPage}">
+								<button disabled>${ status.current }</button>
+							</c:when>
+							<c:otherwise>
+								<button
+									onclick="location.href='${ path }/views/board/trade?page=${ status.current }'">${ status.current }</button>
+							</c:otherwise>
+						</c:choose>
+					</c:forEach>
 
 
-				<!-- 다음 페이지로 -->
-				<button
-					onclick="location.href='${ path }/views/board/tradelist?page=${ pageInfo.nextPage }'">&gt;</button>
+					<!-- 다음 페이지로 -->
+					<button
+						onclick="location.href='${ path }/views/board/trade?page=${ pageInfo.nextPage }'">&gt;</button>
 
-				<!-- 맨 끝으로 -->
-				<button
-					onclick="location.href='${ path }/views/board/tradelist?page=${ pageInfo.maxPage }'">&gt;&gt;</button>
+					<!-- 맨 끝으로 -->
+					<button
+						onclick="location.href='${ path }/views/board/trade?page=${ pageInfo.maxPage }'">&gt;&gt;</button>
+				</div>
+				<div></div>
 			</div>
 		</div>
 	</section>

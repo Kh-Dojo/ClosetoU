@@ -14,9 +14,10 @@ import com.closetou.article.model.service.ArticleService;
 import com.closetou.article.model.vo.Article;
 import com.closetou.article.model.vo.TradeArticle;
 import com.closetou.board.model.service.BoardService;
+import com.closetou.board.model.vo.SideMenu;
 import com.closetou.common.util.PageInfo;
 
-@WebServlet(name = "boardtrade", urlPatterns = { "/views/board/trade", "/views/board/tradelist" })
+@WebServlet(name = "boardtrade", urlPatterns = { "/views/board/trade" })
 public class BoardTradeServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 
@@ -24,6 +25,7 @@ public class BoardTradeServlet extends HttpServlet {
 	}
 
 	// 거래 메인 페이지로 보내는 메소드입니다.
+	@SuppressWarnings("null")
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 
@@ -31,20 +33,45 @@ public class BoardTradeServlet extends HttpServlet {
 		int page = 0;
 		int listCount = 0;
 		PageInfo pageInfo = null;
+		List<Article> list = null;
+		List<TradeArticle> trlist = null;
+		SideMenu sideMenu = new SideMenu ("중고의류 거래 및 나눔", new String[] {"서브메뉴1", "서브메뉴2"} );
+		
 
 		try {
-			Integer.parseInt(request.getParameter("page"));
+			page = Integer.parseInt(request.getParameter("page"));
 		} catch (NumberFormatException e) {
 			page = 1;
 		}
 
-		listCount = new BoardService().getBoardCount();
+		System.out.println(page);
+
+		listCount = new BoardService().getBoardCountForTrade();
 		pageInfo = new PageInfo(page, 10, listCount, 15);
+		list = new BoardService().getArticleForTradeList(pageInfo);
 
+		System.out.println(list);
+
+		ArrayList<Integer> numbers = new ArticleService().noFromArticle(list);
+
+		System.out.println(numbers);
+
+//		if (numbers != null) {
+//
+//			for (Integer no : numbers) {
+//				TradeArticle tr = new ArticleService().getTradeArticleByNo(no);
+//				trlist.add(tr);
+//			}
+//
+//		}
+//
+//		System.out.println(trlist);
+
+		request.setAttribute("sideMenu", sideMenu);
 		request.setAttribute("pageInfo", pageInfo);
-
-		request.getRequestDispatcher("/views/board/tradelist.jsp").forward(request, response);
-
-	}
+		request.setAttribute("list", list);
+//		request.setAttribute("trlist", trlist);
+		request.getRequestDispatcher("/views/board/trade.jsp").forward(request, response);
+	};
 
 }
