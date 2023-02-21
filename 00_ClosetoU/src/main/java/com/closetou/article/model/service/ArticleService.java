@@ -2,6 +2,8 @@ package com.closetou.article.model.service;
 
 import static com.closetou.common.jdbc.JDBCTemplate.close;
 import static com.closetou.common.jdbc.JDBCTemplate.getConnection;
+import static com.closetou.common.jdbc.JDBCTemplate.commit;
+import static com.closetou.common.jdbc.JDBCTemplate.rollback;
 
 import java.sql.Connection;
 import java.util.ArrayList;
@@ -39,4 +41,31 @@ public class ArticleService {
 		return trart;
 	}
 
+	// 문의글 DB에 넣는 메소드
+	public int saveQna(Article article) {
+		int result = 0;
+		
+		Connection connection = getConnection();
+		
+		result = new ArticleDao().insertQna(connection, article);
+		
+		if(result > 0) {
+			commit(connection);
+		} else {
+			rollback(connection);
+		}
+		
+		close(connection);
+		
+		return result;
+	}
+
 }
+
+
+
+
+
+
+
+

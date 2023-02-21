@@ -67,4 +67,29 @@ public class BoardService {
 		return list;
 	}
 
+	// (자유게시판용)조회되는 결과의 갯수를 확인하기 위한 메소드
+	public int getBoardCountForCommunity() {
+		int count = 0;
+		Connection connection = getConnection();
+
+		count = new BoardDao().getBoardCountForCommunity(connection);
+
+		close(connection);
+
+		return count;
+	}
+
+	// 자유게시판 게시물의 리스트를 가져오기 위한 메소드
+	public List<Article> getArticleForCommunity(PageInfo pageInfo) {
+		List<Article> list = null;
+		Connection connection = getConnection();
+
+		list = new BoardDao().findAllArticleForCommunity(connection, pageInfo);
+
+		close(connection);
+
+		return list;
+	}
+
+
 }
