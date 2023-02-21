@@ -217,4 +217,29 @@ public class ArticleDao {
 		return artlist;
 	}
 
+	// 문의글 DB에 넣기
+	public int insertQna(Connection connection, Article article) {
+		int result = 0;
+		PreparedStatement pstmt = null;
+		
+		String query = "INSERT INTO ARTICLE VALUES(SEQ_ARTICLE_NO.NEXTVAL, ?, '문의', ?, ?, DEFAULT, DEFAULT, DEFAULT, NULL, NULL)";
+		
+		try {
+			pstmt = connection.prepareStatement(query);
+			
+			pstmt.setInt(1, article.getNo());
+			pstmt.setString(2, article.getTitle());
+			pstmt.setString(3, article.getContent());
+			
+			result = pstmt.executeUpdate();
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(pstmt);
+		}	
+		
+		return result;
+	}
+
 }

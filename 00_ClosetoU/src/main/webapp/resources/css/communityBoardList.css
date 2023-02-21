@@ -1,0 +1,10 @@
+@charset "UTF-8";
+
+section#board-list-container{width:600px; margin:0 auto; text-align:center;}
+	section#board-list-container h2{margin:10px 0;}
+	table#tbl-board{width:100%; margin:0 auto; border:1px solid black; border-collapse:collapse; clear:both; }
+	table#tbl-board th, table#tbl-board td {border:1px solid; padding: 5px 0; text-align:center;} 
+	/*글쓰기버튼*/
+	input#btn-add{float:right; margin: 0 0 15px;}
+	/*페이지바*/
+	div#pageBar{margin-top:10px; text-align:center; background-color:rgba(0, 188, 212, 0.3);}

@@ -43,12 +43,12 @@ public class BoardService {
 		return result;
 	}
 
-	// 조회되는 결과의 개수를 확인하기 위한 메소드
-	public int getBoardCount() {
+	// (자유게시판용)조회되는 결과의 갯수를 확인하기 위한 메소드
+	public int getBoardCountForCommunity() {
 		int count = 0;
 		Connection connection = getConnection();
 
-		count = new BoardDao().getBoardCount(connection);
+		count = new BoardDao().getBoardCountForCommunity(connection);
 
 		close(connection);
 
@@ -56,11 +56,11 @@ public class BoardService {
 	}
 
 	// 게시물의 리스트를 가져오기 위한 메소드
-	public List<Article> getArticleForTradeList(PageInfo pageInfo) {
+	public List<Article> getArticleForCommunity(PageInfo pageInfo) {
 		List<Article> list = null;
 		Connection connection = getConnection();
 
-		list = new ArticleDao().findAllArticlesForTrade(connection, pageInfo);
+		list = new BoardDao().findAllArticleForCommunity(connection, pageInfo);
 
 		close(connection);
 
