@@ -15,7 +15,7 @@ import com.closetou.article.model.vo.TradeArticle;
 import com.closetou.common.util.PageInfo;
 
 public class ArticleDao {
-	
+
 	// 키워드로 Article을 검색하는 메소드(미완성)
 	public List<Article> searchArticle(Connection connection, String keyword) {
 		ArrayList<Article> result = new ArrayList<>();
@@ -47,7 +47,7 @@ public class ArticleDao {
 
 		return result;
 	}
-	
+
 	// 키워드로 TradeArticle을 검색하는 메소드(미완성)
 	public List<TradeArticle> searchTradeArticle(Connection connection, String keyword, String[] attribute) {
 
@@ -101,86 +101,85 @@ public class ArticleDao {
 
 		return trlist;
 	}
-	
 
 	// article의 no값으로 tradeArticle을 찾아 객체로 반환하는 메소드
-		public TradeArticle findTradeArticleByNo(Connection connection, int no) {
-			TradeArticle trart = null;
-			PreparedStatement pstmt = null;
-			ResultSet rs = null;
-			String query = "SELECT "
-					+ "FROM"
-					+ "    TRADE_ARTICLE"
-					+ "WHERE"
-					+ "    ARTICLE_NO = ?";
-			
-			
-			try {
-				pstmt = connection.prepareStatement(query);
+	public TradeArticle findTradeArticleByNo(Connection connection, int no) {
+		TradeArticle trart = null;
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+		String query = "SELECT * FROM TRADE_ARTICLE WHERE ARTICLE_NO = ?";
 
-				pstmt.setInt(1, no);
+		try {
+			pstmt = connection.prepareStatement(query);
 
-				rs = pstmt.executeQuery();
+			pstmt.setInt(1, no);
 
-				if (rs.next()) {
-					trart = new TradeArticle();
+			rs = pstmt.executeQuery();
 
-					trart.setNo(rs.getInt("ARTICLE_NO"));
-					trart.setClothNumber(rs.getInt("CLOTH_NO"));
-					trart.setPrice(rs.getInt("PRICE"));
-					trart.setClothInfo(rs.getString("CLOTH_INFO"));
+			if (rs.next()) {
+				trart = new TradeArticle();
 
-					if (rs.getString("TRADE_ENDED").equals("N")) {
-						trart.setTradeEnd(false);
-					} else {
-						trart.setTradeEnd(true);
-					}
-					if (rs.getString("FREE").equals("N")) {
-						trart.setFree(false);
-					} else {
-						trart.setFree(true);
-					}
+				trart.setNo(rs.getInt("ARTICLE_NO"));
+				trart.setClothNumber(rs.getInt("CLOTH_NO"));
+				trart.setPrice(rs.getInt("PRICE"));
+				trart.setClothInfo(rs.getString("CLOTH_INFO"));
 
-					trart.setTradeMethod(rs.getString("TRADE_METHOD"));
-					trart.setLocation(rs.getString("LOCATION"));
+				if (rs.getString("TRADE_ENDED").equals("N")) {
+					trart.setTradeEnd(false);
+				} else {
+					trart.setTradeEnd(true);
+				}
+				if (rs.getString("FREE").equals("N")) {
+					trart.setFree(false);
+				} else {
+					trart.setFree(true);
 				}
 
-			} catch (SQLException e) {
-				e.printStackTrace();
-			} finally {
-				close(rs);
-				close(pstmt);
+				trart.setTradeMethod(rs.getString("TRADE_METHOD"));
+				trart.setLocation(rs.getString("LOCATION"));
 			}
 
-			return trart;
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(rs);
+			close(pstmt);
 		}
-		
+
+		return trart;
+	}
+
 	// 종류가 '거래'인 Article을 가져오는 메소드
 	public List<Article> findAllArticlesForTrade(Connection connection, PageInfo pageInfo) {
+
+		System.out.println("findAllArticlesForTrade dao 실행");
+
 		List<Article> artlist = new ArrayList<>();
 		PreparedStatement pstmt = null;
 		ResultSet rs = null;
-		String query = "SELECT RNUM, NO, USER_NO, TYPE, TITLE, CONTENT, READCOUNT, VISABLE, POST_DATE, EDITED, EDIT_DATE"
-				+ "FROM" 
-				+ "    (SELECT " 
-				+ "        ROWNUM AS RNUM," 
-				+ "        NO, " 
-				+ "        USER_NO, "
-				+ "        TYPE, " 
-				+ "        TITLE, " 
-				+ "        CONTENT, " 
-				+ "        READCOUNT, "
-				+ "        VISABLE, " 
-				+ "        POST_DATE, " 
-				+ "        EDITED, "
-				+ "        EDIT_DATE" 
+		String query = "SELECT"
+				+ "    RNUM, NO, USER_NO, TYPE, TITLE, CONTENT, READCOUNT, VISABLE, POST_DATE, EDITED, EDIT_DATE\r\n"
+				+ "FROM"
+				+ "    (SELECT"
+				+ "        ROWNUM AS RNUM,"
+				+ "        NO,"
+				+ "        USER_NO,"
+				+ "        TYPE,"
+				+ "        TITLE,"
+				+ "        CONTENT,"
+				+ "        READCOUNT,"
+				+ "        VISABLE,"
+				+ "        POST_DATE,"
+				+ "        EDITED,"
+				+ "        EDIT_DATE"
 				+ "    FROM"
-				+ "        ARTICLE" 
-				+ "    WHERE" 
-				+ "        TYPE IN ('거래')" 
+				+ "        ARTICLE"
+				+ "    WHERE"
+				+ "        TYPE IN ('거래')"
 				+ "    ORDER BY"
 				+ "        NO DESC)"
-				+ "WHERE RNUM BETWEEN ? AND ?";
+				+ "WHERE"
+				+ "    RNUM BETWEEN ? AND ?";
 
 		try {
 			pstmt = connection.prepareStatement(query);

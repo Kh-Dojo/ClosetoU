@@ -13,7 +13,7 @@ CREATE TABLE ARTICLE (
     TITLE VARCHAR2(100) NOT NULL, -- 게시물제목
     CONTENT VARCHAR2(2000) NOT NULL,-- 게시물 내용
     READCOUNT NUMBER DEFAULT 0 NOT NULL, -- 조회수
-    VISABLE CHAR(1) DEFAULT 'N' NOT NULL, -- 비공개처리여부
+    VISABLE CHAR(1) DEFAULT 'Y' NOT NULL, -- 비공개처리여부
     POST_DATE DATE DEFAULT SYSDATE NOT NULL,-- 최초등록일자
     EDITED VARCHAR2(500), -- 수정내역
     EDIT_DATE DATE,-- 최종 수정일자
@@ -86,7 +86,7 @@ CREATE TABLE REPLY (
 	ARTICLE_NO NUMBER NOT NULL,
 	ID_NO NUMBER NOT NULL,
 	CONTENT	VARCHAR2(500) NOT NULL,
-	VISABLE	CHAR(1)	DEFAULT 'N' NOT NULL,
+	VISABLE	CHAR(1)	DEFAULT 'Y' NOT NULL,
 	SECRET CHAR(1) NOT NULL,
 	COMMENT_DATE DATE DEFAULT SYSDATE NOT NULL,
 	EDITED VARCHAR2(500),
@@ -149,4 +149,28 @@ INSERT INTO REPLY (
 );
 
 COMMIT;
+
+-- 테스트용 ARTICLE 게시물 추가
+BEGIN
+    FOR N IN 1..52
+    LOOP
+        INSERT INTO 
+            ARTICLE 
+        VALUES
+            (SEQ_ARTICLE_NO.NEXTVAL, 
+            21, -- 있는 MEMBERNO으로
+            '거래',
+            '게시글 ' || SEQ_ARTICLE_NO.CURRVAL , 
+            '이 게시글은 영국에서 시작해서..' ||  SEQ_ARTICLE_NO.CURRVAL, 
+            0, 
+            'Y', 
+            DEFAULT, 
+            NULL, 
+            NULL);
+    END LOOP;
+
+    COMMIT;
+EXCEPTION
+    WHEN OTHERS THEN ROLLBACK;
+END;
 

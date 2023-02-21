@@ -12,7 +12,6 @@
 <article>
 	<div id="sidemenu"><jsp:include page="/views/common/sidemenu.jsp" /></div>
 	<section>
-		article 자리입니다.
 		<div id="search_section">
 			<form action="${ path }/itemsearch" method="POST">
 				<input type="search" name="search" id="search_bar"
@@ -39,25 +38,59 @@
 			</form>
 		</div>
 		<div id="item_area">
-			<c:if test="${ not empty trlist }">
-					trlist 출력됩니다.
-			</c:if>
+			<table id="tbl-board">
+				<c:if test="${ empty list }">
+					<tr>
+						<th colspan="6">조회된 게시글이 없습니다.</th>
+					</tr>
+				</c:if>
+				<c:if test="${ not empty list }">
+					<c:forEach var="board" items="${ list }">
+						<div class="item_box">
+							<div>${ board.no }</div>
+							<div>${ board.title }</div>
+							<div>${ board.title }</div>
+						</div>
+					</c:forEach>
+				</c:if>
+			</table>
 
-			아이템들이 노출되는 공간입니다.
-			<div id="item_list">
-				<div class="item_box">
-					<div class="item_thumbnail">아이템섬네일</div>
-					<div class="item_info">
-						<div>아이템 제목</div>
-						<div>아이템 가격</div>
-					</div>
+			<div id="pagebar_area">
+				<div></div>
+				<div>
+					<!-- 맨 처음으로 -->
+					<button
+						onclick="location.href='${ path }/views/board/trade?page=1'">&lt;&lt;</button>
+
+					<!-- 이전 페이지로 -->
+					<button
+						onclick="location.href='${ path }/views/board/trade?page=${ pageInfo.prevPage }'">&lt;</button>
+
+					<!--  10개 페이지 목록 -->
+					<c:forEach begin="${ pageInfo.startPage }"
+						end="${ pageInfo.endPage }" varStatus="status">
+						<c:choose>
+							<c:when test="${ status.current == pageInfo.currentPage}">
+								<button disabled>${ status.current }</button>
+							</c:when>
+							<c:otherwise>
+								<button
+									onclick="location.href='${ path }/views/board/trade?page=${ status.current }'">${ status.current }</button>
+							</c:otherwise>
+						</c:choose>
+					</c:forEach>
+
+
+					<!-- 다음 페이지로 -->
+					<button
+						onclick="location.href='${ path }/views/board/trade?page=${ pageInfo.nextPage }'">&gt;</button>
+
+					<!-- 맨 끝으로 -->
+					<button
+						onclick="location.href='${ path }/views/board/trade?page=${ pageInfo.maxPage }'">&gt;&gt;</button>
 				</div>
-				<div class="item_box">
-					<div class="item_thumbnail"></div>
-				</div>
+				<div></div>
 			</div>
-			<div id="pagebar_area">페이지바 영역입니다</div>
-
 		</div>
 	</section>
 	<script src="${ path }/resources/js/trade.js"></script>
