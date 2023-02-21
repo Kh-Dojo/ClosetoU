@@ -25,13 +25,13 @@
 			</tr>
 			<tr>
 				<th>작성자</th>
-				<td>${ board.writerId }</td>
+				<td>${ article.userNickname }</td>
 			</tr>
 			<tr>
 				<th>조회수</th>
-				<td>${ board.readCount }</td>
+				<td>${ article.readCount }</td>
 			</tr>
-			<tr>
+			<%-- <tr>
 <!-- 230214 6교시 게시글 내에서 첨부파일 이름 보이게 만들기 test 속성-->
 				<th>첨부파일</th>
 				<td>
@@ -46,24 +46,24 @@
 							<span> ${ board.originalFileName }</span>
 						</a>
 						<!-- webapp 밑에 다운로드를 받아서 저장했다면 url로 파일에 접근이 가능해 a태그로도 파일을 저장하고 열 수 있다. -->
-						<%--
+						
 						<a href="${ path }/resources/upload/board/${ board.renamedFileName}"
                     	 					download="${ board.originalFileName }" >
                   			<span> ${ board.originalFileName } </span>
                   		</a>
-						--%>
+						
 					</c:if>
 				</td>
-			</tr>
+			</tr> --%>
 			<tr>
 				<th>내 용</th>
-				<td>${ board.content }</td>
+				<td>${ article.content }</td>
 			</tr>
 			<%--글작성자/관리자인경우 수정삭제 가능 --%>
 			<tr>
 				<th colspan="2">
 <!-- 230214 3교시 수정 삭제 로그인 한 작성자만 보이게 하기 -->
-					<c:if test="${ not empty loginMember && loginMember.id == board.writerId }">
+					<c:if test="${ not empty loginMember && loginMember.nickname == article.userNickname }">
 <!-- 230214 6교시 게시글 내 수정 버튼 누르면 수정 페이지로 이동 -->
 						<button type="button" onclick="location.href='${ path }/board/update?no=${ board.no }'">수정</button>
 <!-- 230216 2교시 게시글 삭제하기 -->						
