@@ -232,6 +232,64 @@ public class ArticleDao {
 
 		return result;
 	}
+	
+	// 게시판에서 제목 클릭하면 상세 페이지 나오게 만들기
+	// 상세 게시글에 들어갈 값 불러오는 메소드
+	public Article findArticleByNoForCommunity(Connection connection, int no) {
+		
+		Article article = null;
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+		
+		String query = "SELECT A.NO, "
+				+ "       A.TYPE, "
+				+ "       A.TITLE, "
+				+ "       M.NICKNAME,  "
+				+ "       A.CONTENT, "
+				+ "       A.READCOUNT, "
+				+ "       A.POST_DATE, "
+				+ "       A.EDITED, "
+				+ "       A.EDIT_DATE "
+				+ "FROM ARTICLE A "
+				+ "JOIN MEMBER M ON(A.USER_NO = M.NO) "
+				+ "WHERE A.VISABLE = 'Y' AND TYPE IN('공지', '자유') AND A.NO=?;";
+		
+		try {
+			pstmt = connection.prepareStatement(query);
+			
+			pstmt.setInt(1, no);
+			
+			rs = pstmt.executeQuery();
+			
+			if(rs.next()) {
+				article = new Article();
+				
+				article.setNo(rs.getInt("NO"));
+				article.setType(rs.getString("TYPE"));
+				article.setTitle(rs.getString("TITLE"));
+				article.setUserNickname(rs.getString("NICKNAME"));
+				article.setContent(rs.getString("CONTENT"));
+				article.setReadCount(rs.getInt("READCOUNT"));
+//				article.setOriginalFileName(rs.getString("ORIGINAL_FILENAME"));
+//				article.setRenamedFileName(rs.getString("RENAMED_FILENAME"));
+				article.setPostDate(rs.getDate("POST_DATE"));
+				article.setEdited(rs.getString("EDITED"));
+				article.setEditDate(rs.getDate("EDIT_DATE"));
+//// 230216 5교시 댓글 조회
+//				// dao에서 게시글 상세 조회를 할 때 그 게시글에 관련된 댓글까지 조회될 수 있게 수정
+//				board.setReplies(this.getRepliesByNo(connection, no));
+//				board.setCreateDate(rs.getDate("CREATE_DATE"));
+//				board.setModifyDate(rs.getDate("MODIFY_DATE"));
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(rs);
+			close(pstmt);
+		}
+		
+		return article;
+	}
 
 	public List<TradeArticle> findTradeArticleByNos(Connection connection, ArrayList<Integer> numbers) {
 		List<TradeArticle> trarts = new ArrayList<>();

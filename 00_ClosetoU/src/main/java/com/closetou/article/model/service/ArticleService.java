@@ -62,6 +62,20 @@ public class ArticleService {
 		return result;
 	}
 
+  
+	// 게시판에서 제목 클릭하면 상세 페이지 나오게 만들기
+	// 상세 게시글 들어가면 값 보여주는 메소드
+	public Article getArticleByNoForCommunity(int no) {
+		Article article = null;
+		
+		Connection connection = getConnection();
+		
+		article = new ArticleDao().findArticleByNoForCommunity(connection, no);
+		
+		close(connection);
+		
+		return article;
+
 
 	public List<TradeArticle> getTradeArticleByNos(ArrayList<Integer> numbers) {
 		List<TradeArticle> result = null;
@@ -75,6 +89,7 @@ public class ArticleService {
 		return result;
 		
 	
+
 	}
 
 }
