@@ -94,13 +94,6 @@
 	                </td>
 	            </tr>
 	            <tr>
-	                <th>추가 연락처</th>
-	                <td>
-	                    <input type="tel" name="phone" value="${ loginMember.addphone }"
-	                    	id="addphone" maxlength="13">
-	                </td>
-	            </tr>
-	            <tr>
 	                <th>이메일</th>
 					<td>
 						<input type="email" name="email" id="email" value="${ loginMember.email }">												
@@ -117,11 +110,11 @@
 	                <th>상세 주소</th>
 					<td>
 						<input type="text" name="address_detail" id="address_detail"
-							value="${ loginMember.address }">
+							value="${ loginMember.address_detail }">
 					</td> 	
 	            </tr>
-	            
 	        </table>
+	        <br>
 	        <button type="button" id="btnUpdatePwd">비밀번호 변경</button>
 	        <input type="submit" value="정보 수정">
 	        <input type="button" id="btnDelete" value="회원 탈퇴">
@@ -133,11 +126,18 @@
 <script>
 $(document).ready(() => {
 	$('#btnUpdatePwd').on('click', () => {
-		let url = '${ path }member/updatePwd';
+		let url = '${ path }/member/updatePwd';
 		let status = 'left=2500px,top=200px,width=500px,height=250px'; 
 	
 		open(url, 'updatePwd', status);
 	});
+	
+	$('#btnDelete').on('click', () => {
+		if(confirm('정말로 탈퇴하시겠습니까?')) {
+			location.replace('${ path }/member/delete');
+		}
+	});
+});
 </script>
 <script src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
 <script>

@@ -24,11 +24,11 @@ public class Member {
 	
 	private String phone;
 	
-	private String addphone;
-	
 	private String email;
 	
 	private String address;
+	
+	private String address_detail;
 	
 	private String status;
 	

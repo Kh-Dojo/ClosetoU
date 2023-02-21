@@ -10,7 +10,7 @@
 <title>비밀번호 변경</title>
 <style>
     div#updatePassword-container{
-        background:yellowgreen;
+        background:#f1c40f;
     }
     div#updatePassword-container table {
         margin:0 auto;
@@ -24,7 +24,7 @@
 </head>
 <body>
 	<div id="updatePassword-container">
-		<form action="${ path }member/updatePwd" method="POST">
+		<form action="${ path }/member/updatePwd" method="POST">
 			<table>
 				<tr>
 					<th>변경할 비밀번호</th>
