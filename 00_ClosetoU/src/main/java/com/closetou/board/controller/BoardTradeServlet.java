@@ -14,7 +14,6 @@ import com.closetou.article.model.service.ArticleService;
 import com.closetou.article.model.vo.Article;
 import com.closetou.article.model.vo.TradeArticle;
 import com.closetou.board.model.service.BoardService;
-import com.closetou.board.model.vo.SideMenu;
 import com.closetou.common.util.PageInfo;
 
 @WebServlet(name = "boardtrade", urlPatterns = { "/views/board/trade" })
@@ -46,22 +45,20 @@ public class BoardTradeServlet extends HttpServlet {
 		pageInfo = new PageInfo(page, 10, listCount, 15);
 		list = new BoardService().getArticleForTradeList(pageInfo);
 
-		ArrayList<Integer> numbers = new ArticleService().noFromArticle(list);
-
-//		if (numbers != null) {
-//
-//			for (Integer no : numbers) {
-//				TradeArticle tr = new ArticleService().getTradeArticleByNo(no);
-//				trlist.add(tr);
-//			}
-//
-//		}
-//
-//		System.out.println(trlist);
+		ArrayList<Integer> numbers = new ArticleService().noFromArticle(list);	
+		
+		System.out.println(numbers);
+		
+		trlist = new ArticleService().getTradeArticleByNos(numbers);
+		
+		
+		System.out.println(trlist);
+		
+		
 
 		request.setAttribute("pageInfo", pageInfo);
 		request.setAttribute("list", list);
-//		request.setAttribute("trlist", trlist);
+		request.setAttribute("trlist", trlist);
 		request.getRequestDispatcher("/views/board/trade.jsp").forward(request, response);
 	};
 

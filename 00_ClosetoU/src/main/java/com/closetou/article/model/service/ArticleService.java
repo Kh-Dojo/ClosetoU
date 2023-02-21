@@ -28,6 +28,7 @@ public class ArticleService {
 		return numbers;
 	}
 
+	
 	// No값으로 TradeArticle을 가져오는 메소드
 	public TradeArticle getTradeArticleByNo(int no) {
 		TradeArticle trart = null;
@@ -40,6 +41,7 @@ public class ArticleService {
 
 		return trart;
 	}
+	
 
 	// 문의글 DB에 넣는 메소드
 	public int saveQna(Article article) {
@@ -58,6 +60,21 @@ public class ArticleService {
 		close(connection);
 		
 		return result;
+	}
+
+
+	public List<TradeArticle> getTradeArticleByNos(ArrayList<Integer> numbers) {
+		List<TradeArticle> result = null;
+		
+		Connection connection = getConnection();
+		
+		result = new ArticleDao().findTradeArticleByNos(connection, numbers);
+		
+		close(connection);
+				
+		return result;
+		
+	
 	}
 
 }
