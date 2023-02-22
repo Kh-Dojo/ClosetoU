@@ -142,8 +142,6 @@ public class ArticleDao {
 	// 종류가 '거래'인 Article을 가져오는 메소드
 	public List<Article> findAllArticlesForTrade(Connection connection, PageInfo pageInfo) {
 
-		System.out.println("findAllArticlesForTrade dao 실행");
-
 		List<Article> artlist = new ArrayList<>();
 		PreparedStatement pstmt = null;
 		ResultSet rs = null;
@@ -304,8 +302,6 @@ public class ArticleDao {
 		query += numbers.get(numbers.size()-1);
 		query += ")";
 		
-		System.out.println(query);
-
 		try {
 			pstmt = connection.prepareStatement(query);
 			rs = pstmt.executeQuery();
