@@ -6,7 +6,6 @@
 
 <script src="${ path }/resources/js/jquery-3.6.3.js"></script>
 
-<link rel="stylesheet" href="${ path }/resources/css/communityBoardList.css" />
 <jsp:include page="/views/common/header.jsp" />
 
 <style>
@@ -24,7 +23,7 @@
 	#sub_menu_name_area > ul {list-style:none;}
  	#sub_menu_name_area > ul > li > a {text-decoration:none; color:black;}
 </style>
-<section>
+<section id="content">
 	<div id="sidemenu">
 		<div id="main_menu_name_area">
 		    <!-- 헤더에 저장된 페이지 정보 중 어떤 메인메뉴를 클릭했나 가져옴 -->
@@ -64,14 +63,21 @@
 			</c:if>
 			<!-- list 가 비어있지 않으면 아래와 같이 화면을 그리겠다. 조회된 게시글 갯수만큼 그려줌 -->
 			<c:if test="${ not empty list }">
-				<c:forEach var="article" items="${ path }/board/communityBoardList }">
+				<c:forEach var="article" items="${ path }/views/board/communityBoardList.jsp }">
 					<tr>
 						<td>${ article.rowNum }</td>		<!--순번 -->
 						<td>
 <!-- 230214 2교시 게시판에서 제목 클릭시 게시글 상세페이지 나타나게 링크 걸기 -->
-							<a href="${ path }/board/communityBoardView?no=${ article.no }">
-								${ article.title }
-							</a>
+							<c:if test="${ article.type eq '공지' }">
+								<a href="${ path }/communityBoardView?no=${ article.no }">
+									<span>[${ article.type }]</span> ${ article.title }
+								</a>
+							</c:if>
+							<c:if test="${ article.type eq '자유' }">
+								<a href="${ path }/communityBoardView?no=${ article.no }">
+									${ article.title }
+								</a>
+							</c:if>
 						</td>		<!-- 제목 -->
 						<td>${ article.userNickname }</td>	<!-- 작성자 -->
 						<td>${ article.postDate }</td>	<!-- 작성일 -->
@@ -83,10 +89,10 @@
 		<div id="pageBar">
 <!-- 230213 8교시 게시판 페이지 설정 맨 처음으로 ~ 맨 끝으로 onclick= 설정으로 url에 페이지값을 넘길 수 있음-->
 			<!-- 맨 처음으로 -->
-			<button onclick="location.href= '${ path }/board/communityBoardList?page=1'">&lt;&lt;</button>
+			<button onclick="location.href= '${ path }/views/board/communityBoardList?page=1'">&lt;&lt;</button>
 
 			<!-- 이전 페이지로 -->
-			<button onclick="location.href= '${ path }/board/communityBoardList?page=${ pageInfo.prevPage }'">&lt;</button>
+			<button onclick="location.href= '${ path }/views/board/communityBoardList?page=${ pageInfo.prevPage }'">&lt;</button>
 
 			<!--  10개 페이지 목록 8교시 페이지 버튼 누르면 버튼 disabled상태 되고 해당 페이지로 이동-->
 			<c:forEach begin="${ pageInfo.startPage }" end="${ pageInfo.endPage }" varStatus="status">	
@@ -98,22 +104,22 @@
 						<button disabled>${ status.current }</button>
 					</c:when>
 					<c:otherwise>
-						<button onclick="location.href= '${ path }/board/communityBoardList?page=${ status.current }'">${ status.current }</button>
+						<button onclick="location.href= '${ path }/views/board/communityBoardList?page=${ status.current }'">${ status.current }</button>
 					</c:otherwise>
 				</c:choose>
 			</c:forEach>
 
 			<!-- 다음 페이지로 -->
-			<button onclick="location.href= '${ path }/board/communityBoardList?page=${ pageInfo.nextPage }'">&gt;</button>
+			<button onclick="location.href= '${ path }/views/board/communityBoardList?page=${ pageInfo.nextPage }'">&gt;</button>
 
 			<!-- 맨 끝으로 -->
-			<button onclick="location.href= '${ path }/board/communityBoardList?page=${ pageInfo.maxPage }'">&gt;&gt;</button>
+			<button onclick="location.href= '${ path }/views/board/communityBoardList?page=${ pageInfo.maxPage }'">&gt;&gt;</button>
 		</div>
 	</div>
-</section>
 
 <%-- 	<script src="${ path }/resources/js/communityBoardList.js"></script> --%>
 </article>
+</section>
 
 <jsp:include page="/views/common/footer.jsp" />
 

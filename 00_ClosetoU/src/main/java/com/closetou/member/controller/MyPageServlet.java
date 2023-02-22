@@ -25,7 +25,7 @@ public class MyPageServlet extends HttpServlet {
 		if(loginMember != null) {
 			request.getRequestDispatcher("/views/member/myPage.jsp").forward(request, response);			
 		} else {
-			request.setAttribute("msg", "회원 정보 수정은 로그인 후에만 가능합니다.");
+			request.setAttribute("msg", "마이 페이지에 접속하려면 로그인 먼저 해 주세요.");
 			request.setAttribute("location", "/");
 			
 			request.getRequestDispatcher("/views/common/msg.jsp").forward(request, response);
