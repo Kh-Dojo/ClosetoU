@@ -302,7 +302,9 @@ DROP TABLE ARTICLE;
 CREATE TABLE ARTICLE
     (NO	        NUMBER		        PRIMARY KEY,
 	PHOTO_NO	NUMBER,
-	USER_NO	    NUMBER		        NOT NULL,
+    USER_NO	    NUMBER		        NOT NULL,
+    ORIGINAL_FILENAME VARCHAR2(100),
+    RENAMED_FILENAME VARCHAR2(100),
 	TYPE	    VARCHAR2(10)		NOT NULL,
 	TITLE	    VARCHAR2(100)		NOT NULL,
 	CONTENT	    VARCHAR2(2000)		NOT NULL,
@@ -393,9 +395,11 @@ BEGIN
             (SEQ_ARTICLE_NO.NEXTVAL,
             1, -- PHOTO
             1, -- USER
+            NULL,
+            NULL,
             '공지',
             '공지글 ' || SEQ_ARTICLE_NO.CURRVAL , 
-            '이 게시글은 영국에서 시작해서..' ||  SEQ_ARTICLE_NO.CURRVAL, 
+            '이 공지글은 영국에서 시작해서..' ||  SEQ_ARTICLE_NO.CURRVAL, 
             DEFAULT, 
             'Y', 
             DEFAULT, 
@@ -412,6 +416,8 @@ BEGIN
             (SEQ_ARTICLE_NO.NEXTVAL,
             1, -- PHOTO
             2, -- USER
+            NULL,
+            NULL,
             '문의',
             '문의글 ' || SEQ_ARTICLE_NO.CURRVAL , 
             '이 게시글은 영국에서 시작해서..' ||  SEQ_ARTICLE_NO.CURRVAL, 
@@ -430,9 +436,11 @@ BEGIN
             (SEQ_ARTICLE_NO.NEXTVAL,
             1, -- PHOTO
             3, -- USER
+            NULL,
+            NULL,
             '거래',
             '거래글 ' || SEQ_ARTICLE_NO.CURRVAL , 
-            '이 게시글은 영국에서 시작해서..' ||  SEQ_ARTICLE_NO.CURRVAL, 
+            '이 거래글은 영국에서 시작해서..' ||  SEQ_ARTICLE_NO.CURRVAL, 
             DEFAULT, 
             'Y', 
             SYSDATE, 
@@ -448,6 +456,8 @@ BEGIN
             (SEQ_ARTICLE_NO.NEXTVAL,
             1, -- PHOTO
             4, -- USER
+            NULL,
+            NULL,
             '거래',
             '거래글 ' || SEQ_ARTICLE_NO.CURRVAL , 
             '이 게시글은 영국에서 시작해서..' ||  SEQ_ARTICLE_NO.CURRVAL, 
@@ -466,9 +476,11 @@ BEGIN
             (SEQ_ARTICLE_NO.NEXTVAL,
             1, -- PHOTO
             4, -- USER
+            NULL,
+            NULL,
             '자유',
-            '거래글 ' || SEQ_ARTICLE_NO.CURRVAL , 
-            '이 게시글은 영국에서 시작해서..' ||  SEQ_ARTICLE_NO.CURRVAL, 
+            '자유게시글 ' || SEQ_ARTICLE_NO.CURRVAL , 
+            '이 자유게시글은 영국에서 시작해서..' ||  SEQ_ARTICLE_NO.CURRVAL, 
             DEFAULT, 
             'Y', 
             SYSDATE, 
@@ -485,9 +497,11 @@ BEGIN
             (SEQ_ARTICLE_NO.NEXTVAL,
             1, -- PHOTO
             4, -- USER
+            NULL,
+            NULL,
             '자유',
-            '거래글 ' || SEQ_ARTICLE_NO.CURRVAL , 
-            '이 게시글은 영국에서 시작해서..' ||  SEQ_ARTICLE_NO.CURRVAL, 
+            '자유게시글 ' || SEQ_ARTICLE_NO.CURRVAL , 
+            '이 자유글은 영국에서 시작해서..' ||  SEQ_ARTICLE_NO.CURRVAL, 
             DEFAULT, 
             'N', 
             SYSDATE, 
@@ -519,7 +533,6 @@ COMMIT;
 EXCEPTION
     WHEN OTHERS THEN ROLLBACK;
 END;
-
 
 
 
