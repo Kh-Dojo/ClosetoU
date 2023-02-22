@@ -10,7 +10,7 @@
 
 <link rel="stylesheet" href="${ path }/resources/css/trade.css" />
 <article>
-	<div id="sidemenu"><jsp:include page="/views/common/sidemenu.jsp" /></div>
+	<div id="sidemenu"><jsp:include page="/views/common/sidemenu/tradeSideMenu.jsp" /></div>
 	<section>
 		<div id="search_section">
 			<form action="${ path }/itemsearch" method="POST">
@@ -47,9 +47,12 @@
 				<c:if test="${ not empty list }">
 					<c:forEach var="board" items="${ list }">
 						<div class="item_box">
-							<div>${ board.no }</div>
 							<div>${ board.title }</div>
-							<div>${ board.title }</div>
+							<c:forEach var="tradeboard" items="${ trlist }">
+								<c:if test="${ board.no == tradeboard.no }">
+									<div>${ tradeboard.price }</div>
+								</c:if>
+							</c:forEach>
 						</div>
 					</c:forEach>
 				</c:if>

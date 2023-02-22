@@ -302,7 +302,9 @@ DROP TABLE ARTICLE;
 CREATE TABLE ARTICLE
     (NO	        NUMBER		        PRIMARY KEY,
 	PHOTO_NO	NUMBER,
-	USER_NO	    NUMBER		        NOT NULL,
+    USER_NO	    NUMBER		        NOT NULL,
+    ORIGINAL_FILENAME VARCHAR2(100),
+    RENAMED_FILENAME VARCHAR2(100),
 	TYPE	    VARCHAR2(10)		NOT NULL,
 	TITLE	    VARCHAR2(100)		NOT NULL,
 	CONTENT	    VARCHAR2(2000)		NOT NULL,
@@ -393,9 +395,11 @@ BEGIN
             (SEQ_ARTICLE_NO.NEXTVAL,
             1, -- PHOTO
             1, -- USER
+            NULL,
+            NULL,
             '공지',
             '공지글 ' || SEQ_ARTICLE_NO.CURRVAL , 
-            '이 게시글은 영국에서 시작해서..' ||  SEQ_ARTICLE_NO.CURRVAL, 
+            '이 공지글은 영국에서 시작해서..' ||  SEQ_ARTICLE_NO.CURRVAL, 
             DEFAULT, 
             'Y', 
             DEFAULT, 
@@ -412,6 +416,8 @@ BEGIN
             (SEQ_ARTICLE_NO.NEXTVAL,
             1, -- PHOTO
             2, -- USER
+            NULL,
+            NULL,
             '문의',
             '문의글 ' || SEQ_ARTICLE_NO.CURRVAL , 
             '이 게시글은 영국에서 시작해서..' ||  SEQ_ARTICLE_NO.CURRVAL, 
@@ -430,9 +436,11 @@ BEGIN
             (SEQ_ARTICLE_NO.NEXTVAL,
             1, -- PHOTO
             3, -- USER
+            NULL,
+            NULL,
             '거래',
             '거래글 ' || SEQ_ARTICLE_NO.CURRVAL , 
-            '이 게시글은 영국에서 시작해서..' ||  SEQ_ARTICLE_NO.CURRVAL, 
+            '이 거래글은 영국에서 시작해서..' ||  SEQ_ARTICLE_NO.CURRVAL, 
             DEFAULT, 
             'Y', 
             SYSDATE, 
@@ -448,6 +456,8 @@ BEGIN
             (SEQ_ARTICLE_NO.NEXTVAL,
             1, -- PHOTO
             4, -- USER
+            NULL,
+            NULL,
             '거래',
             '거래글 ' || SEQ_ARTICLE_NO.CURRVAL , 
             '이 게시글은 영국에서 시작해서..' ||  SEQ_ARTICLE_NO.CURRVAL, 
@@ -466,9 +476,11 @@ BEGIN
             (SEQ_ARTICLE_NO.NEXTVAL,
             1, -- PHOTO
             4, -- USER
+            NULL,
+            NULL,
             '자유',
-            '거래글 ' || SEQ_ARTICLE_NO.CURRVAL , 
-            '이 게시글은 영국에서 시작해서..' ||  SEQ_ARTICLE_NO.CURRVAL, 
+            '자유게시글 ' || SEQ_ARTICLE_NO.CURRVAL , 
+            '이 자유게시글은 영국에서 시작해서..' ||  SEQ_ARTICLE_NO.CURRVAL, 
             DEFAULT, 
             'Y', 
             SYSDATE, 
@@ -485,9 +497,11 @@ BEGIN
             (SEQ_ARTICLE_NO.NEXTVAL,
             1, -- PHOTO
             4, -- USER
+            NULL,
+            NULL,
             '자유',
-            '거래글 ' || SEQ_ARTICLE_NO.CURRVAL , 
-            '이 게시글은 영국에서 시작해서..' ||  SEQ_ARTICLE_NO.CURRVAL, 
+            '자유게시글 ' || SEQ_ARTICLE_NO.CURRVAL , 
+            '이 자유글은 영국에서 시작해서..' ||  SEQ_ARTICLE_NO.CURRVAL, 
             DEFAULT, 
             'N', 
             SYSDATE, 
@@ -515,13 +529,42 @@ BEGIN
     
     
 COMMIT;
+
    
 EXCEPTION
     WHEN OTHERS THEN ROLLBACK;
 END;
 
+-- REPLY 테이블 생성
 
+CREATE TABLE REPLY (
+	NO NUMBER NOT NULL,
+	ARTICLE_NO NUMBER NOT NULL,
+	ID_NO NUMBER NOT NULL,
+	CONTENT	VARCHAR2(500) NOT NULL,
+	VISABLE	CHAR(1)	DEFAULT 'Y' NOT NULL,
+	SECRET CHAR(1) NOT NULL,
+	COMMENT_DATE DATE DEFAULT SYSDATE NOT NULL,
+	EDITED VARCHAR2(500),
+	EDIT_DATE DATE,
+    
+    CONSTRAINT REPLY_NO_PK PRIMARY KEY(NO),
+    CONSTRAINT REPLY_ARTICLE_NO_FK FOREIGN KEY(ARTICLE_NO) REFERENCES ARTICLE(NO),
+    CONSTRAINT REPLY_ID_NO_FK FOREIGN KEY(ID_NO) REFERENCES MEMBER(NO),
+    CONSTRAINT REPLY_VISABLE_CK CHECK(VISABLE IN('Y', 'N')),
+    CONSTRAINT REPLY_SECRET_CK CHECK(SECRET IN('Y', 'N'))
+);
 
+COMMENT ON COLUMN REPLY.NO IS '댓글번호';
+COMMENT ON COLUMN REPLY.ARTICLE_NO IS '게시물번호';
+COMMENT ON COLUMN REPLY.ID_NO IS '댓글작성자번호';
+COMMENT ON COLUMN REPLY.CONTENT IS '댓글내용';
+COMMENT ON COLUMN REPLY.VISABLE IS '비공개처리여부(Y/N)';
+COMMENT ON COLUMN REPLY.SECRET IS '비밀댓글여부(Y/N)';
+COMMENT ON COLUMN REPLY.COMMENT_DATE IS '댓글등록일자';
+COMMENT ON COLUMN REPLY.EDITED IS '수정내역';
+COMMENT ON COLUMN REPLY.EDIT_DATE IS '최종수정일자';
 
+CREATE SEQUENCE SEQ_REPLY_NO;
 
 
