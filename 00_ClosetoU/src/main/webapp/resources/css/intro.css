@@ -1,0 +1,31 @@
+@charset "UTF-8";
+/* 안내 사이트 */
+#content {
+	
+}
+
+#sidemenu {
+	width: 20%;
+	height: auto;
+	float:left;
+}
+
+#view-container {
+	width: 80%;
+	height: auto;
+	box-sizing: border-box;
+	float: right;
+}
+
+h2 {
+	text-align: center;
+}
+
+#sub_menu_name_area > ul {
+	list-style:none;
+}
+ 
+#sub_menu_name_area > ul > li > a {
+	text-decoration:none;
+	color:black;
+}

@@ -18,7 +18,7 @@
 <section id="content">
 	<div id="sidemenu"><jsp:include page="/views/common/sidemenu/introSideMenu.jsp" /></div>
 	<div id="view-container">
-		<img src="${ path }/resources/img/donationIntro.png">
+		<img src="${ path }/resources/img/useIntro.png">
 	</div>
 </section>
 </body>
