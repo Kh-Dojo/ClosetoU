@@ -12,10 +12,15 @@ header {
 }
 
 /* 상단 영역 css */
-.logo > img {
-	width:120px;
+#header-wrap .logo {
+	width:500px;
+	height:500px;
+}
+
+#header-wrap .logo > img {
+	width:200px;
+	height:200px;
 	float:left;
-	height:60px;
 }
 
 .title {
