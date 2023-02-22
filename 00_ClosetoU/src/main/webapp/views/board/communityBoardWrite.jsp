@@ -10,7 +10,7 @@
 <link rel="stylesheet" href="${ path }/resources/css/communityBoardWrite.css" />
 
 <section>
-<div id="sidemenu"><jsp:include page="/views/common/sidemenu.jsp" /></div>
+<div id="sidemenu"><jsp:include page="/views/common/sidemenu/communitySideMenu.jsp" /></div>
 <article id="content">
 	<div id='board-write-container'>
 		<h2>게시판 작성</h2>
@@ -28,13 +28,23 @@
 					<td><input type="text" name="title" id="title"></td>
 				</tr>
 				<tr>
-					<th><label for="">말머리 : </label></th>
-					<td>
-				        <select name="type" id="type">    
-				                <option value="공지">공지</option>
-				                <option value="자유">자유</option>
-				        </select>
-        			</td>
+					<c:if test="${ loginMember.role eq 'ROLE_ADMIN' }">
+						<th><label for="">말머리</label></th>
+						<td>
+					        <select name="type" id="type">    
+					                <option value="공지">공지</option>
+					                <option value="자유">자유</option>
+					        </select>
+	        			</td>
+					</c:if>
+					<c:if test="${ loginMember.role eq 'ROLE_USER' }">
+						<th><label for="">말머리</label></th>
+						<td>
+					        <select name="type" id="type">    
+					                <option value="자유">자유</option>
+					        </select>
+	        			</td>
+					</c:if>
 				</tr>
 				<tr>
 					<th>작성자</th>

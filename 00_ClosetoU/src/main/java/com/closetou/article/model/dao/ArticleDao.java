@@ -380,4 +380,33 @@ public class ArticleDao {
 		return result;
 	}
 
+	public int updateReadCount(Connection connection, Article article) {
+		int result = 0;
+		PreparedStatement pstmt = null;
+		
+		String query = "UPDATE ARTICLE SET READ_COUNT=? WHERE NO=?";
+		
+		try {
+			pstmt = connection.prepareStatement(query);
+			
+			article.setReadCount(article.getReadCount() + 1);		// 기존 readCount에 1 더해서 그 값을 받음
+			
+			pstmt.setInt(1, article.getReadCount());
+			pstmt.setInt(2, article.getNo());
+			
+			result = pstmt.executeUpdate();
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(pstmt);
+		}
+		
+		
+		
+		
+		
+		return result;
+	}
+
 }

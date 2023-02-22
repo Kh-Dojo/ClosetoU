@@ -105,8 +105,6 @@ public class communityWriteServlet extends HttpServlet {
         	
         	int result = new ArticleService().save(article);
         	
-        	System.out.println("아티크응으으을 article : " + article);
-        	System.out.println("리절트드으으으 result : " + result);
         	
         	if(result > 0) {	// 게시글 작성 성공
         		request.setAttribute("msg", "게시글 등록 성공.");
