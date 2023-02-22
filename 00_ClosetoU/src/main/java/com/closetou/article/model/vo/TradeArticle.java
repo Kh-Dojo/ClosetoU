@@ -15,8 +15,6 @@ public class TradeArticle {
 	
 	private int price;
 	
-	private String clothInfo;
-	
 	private String tradeEnd;
 	
 	private String free;

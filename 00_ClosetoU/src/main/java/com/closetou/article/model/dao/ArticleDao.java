@@ -81,23 +81,6 @@ public class ArticleDao {
 //			close(rs);
 //			close(pstmt);
 //		}
-//
-
-		for (int i = 0; i < 3; i++) {
-
-			TradeArticle rs = new TradeArticle();
-
-			rs.setNo(i);
-			rs.setPrice(0);
-			rs.setClothInfo("의류정보");
-			rs.setTradeEnd("N");
-			rs.setFree("N");
-			rs.setTradeMethod("직거래");
-			rs.setLocation("서울");
-
-			trlist.add(rs);
-
-		}
 
 		return trlist;
 	}
@@ -122,7 +105,6 @@ public class ArticleDao {
 				trart.setNo(rs.getInt("ARTICLE_NO"));
 				trart.setClothNumber(rs.getInt("CLOTH_NO"));
 				trart.setPrice(rs.getInt("PRICE"));
-				trart.setClothInfo(rs.getString("CLOTH_INFO"));
 				trart.setTradeEnd("TRADE_ENDED");
 				trart.setFree("FREE");
 				trart.setTradeMethod(rs.getString("TRADE_METHOD"));
@@ -304,7 +286,6 @@ public class ArticleDao {
 				trart.setNo(rs.getInt("ARTICLE_NO"));
 				trart.setClothNumber(rs.getInt("CLOTH_NO"));
 				trart.setPrice(rs.getInt("PRICE"));
-				trart.setClothInfo(rs.getString("CLOTH_INFO"));
 				trart.setTradeEnd("TRADE_ENDED");
 				trart.setFree("FREE");
 				trart.setTradeMethod(rs.getString("TRADE_METHOD"));
@@ -407,6 +388,42 @@ public class ArticleDao {
 		
 		
 		return result;
+	}
+
+	// 가장 최근에 작성한 Article의 No를 가져오는 메소드
+	public int getMostRecentlyArticleNoByMemberNo(Connection connection, int no) {
+		int recentNo = 0;
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+		String query = "SELECT "
+				+ "    MAX(NO) "
+				+ "FROM "
+				+ "    ( "
+				+ "        SELECT "
+				+ "            NO "
+				+ "        FROM "
+				+ "            ARTICLE "
+				+ "        WHERE"
+				+ "            USER_NO = ?"
+				+ "    )";
+		
+		try {
+			pstmt = connection.prepareStatement(query);
+			pstmt.setInt(1, no);
+
+			rs = pstmt.executeQuery();
+			
+			if(rs.next()) {
+				recentNo = rs.getInt("MAX(NO)");
+			}
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(rs);
+			close(pstmt);
+		}
+		return recentNo;
 	}
 
 }
