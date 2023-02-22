@@ -14,7 +14,12 @@
 <jsp:include page="/views/common/header.jsp" />
 
 <style>
+	section {
+		position: relative;
+	}
+
 	section #view-container {
+		position:absolute;
 		text-align:center;
 		width: 75%;
 		height: auto;

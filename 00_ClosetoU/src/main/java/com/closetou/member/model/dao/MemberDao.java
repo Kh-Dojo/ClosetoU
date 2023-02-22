@@ -310,7 +310,6 @@ public class MemberDao {
 		ResultSet rs = null;
 		String query = "SELECT COUNT(*) FROM ARTICLE WHERE VISABLE='Y' AND TYPE IN('문의')";
 
-
 		try {
 			pstmt = connection.prepareStatement(query);
 			rs = pstmt.executeQuery();

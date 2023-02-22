@@ -59,7 +59,7 @@
 						<tr>
 							<th rowspan="2"><c:if
 									test="${ not empty loginMember && loginMember.role == 'ROLE_USER'}"><img style="border-radius:70%;" width="70ox" height="70px" class="main-profile-img" src="${ path }/resources/img/logo_ver1.PNG"></c:if></th>
-							<th class="main_login_msg" colspan="3">${ loginMember.name }님 안녕하세요.<br></th>
+							<th class="main_login_msg" colspan="3">${ loginMember.nickname }님 안녕하세요.<br></th>
 						</tr>
 						<tr>
 							<td><c:if
@@ -84,9 +84,9 @@
 		<nav>
 			<div id="nav-wrap">
 				<ul class="gnb">
-					<li><a href="#">사이트 이용 안내</a></li>
-					<li><a href="${ path }/views/donation/donation_Form">의류 기부 신청</a></li>
-					<li><a href="${ path }/views/board/trade">중고거래 및 나눔</a></li>
+					<li><a href="${ path }/views/intro/donation_Intro.jsp">사이트 이용 안내</a></li>
+					<li><a href="${ path }/views/donation/donation_Form.jsp">의류 기부 신청</a></li>
+					<li><a href="${ path }/views/board/trade.jsp">중고거래 및 나눔</a></li>
 					<li><a href="${ path }/board/communityBoardList">자유로운 수다방</a></li>
 				</ul>
 			</div>
