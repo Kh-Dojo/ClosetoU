@@ -50,6 +50,8 @@ public class BoardTradeServlet extends HttpServlet {
 		ArrayList<Integer> numbers = new ArticleService().noFromArticle(list);	
 		trlist = new ArticleService().getTradeArticleByNos(numbers);
 		
+		System.out.println(trlist);
+		
 		request.setAttribute("pageInfo", pageInfo);
 		request.setAttribute("list", list);
 		request.setAttribute("trlist", trlist);

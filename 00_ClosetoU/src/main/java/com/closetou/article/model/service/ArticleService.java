@@ -130,6 +130,41 @@ public class ArticleService {
 		return result;
 	}
 
+	public int saveForTrade(Article article) {
+		int result = 0;
+		Connection connection = getConnection();
+		
+		//수정한 내용으로 게시글이 바뀌게 만들기
+		if(article.getNo() > 0) {
+			// update 작업
+			result = new ArticleDao().updateBoard(connection, article);
+		} else {
+			// insert 작업
+			result = new ArticleDao().insertBoard(connection, article);
+		}
+		
+		close(connection);
+		
+		return result;
+	}
+	
+
+	public int getMostRecentlyArticleNoByMemberNo(int no) {
+		int recentNo = 0;
+		
+		Connection connection = getConnection();
+		
+		recentNo = new ArticleDao().getMostRecentlyArticleNoByMemberNo(connection, no);
+		
+		close(connection);
+		
+		return recentNo;
+	}
+
+	
+	
+	
+	
 }
 
 
