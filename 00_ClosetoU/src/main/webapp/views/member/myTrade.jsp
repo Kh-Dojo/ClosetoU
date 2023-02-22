@@ -22,21 +22,7 @@
  	#sub_menu_name_area > ul > li > a {text-decoration:none; color:black;}
 </style>
 <section>
-	<div id="sidemenu">
-		<div id="main_menu_name_area">
-		    <!-- 헤더에 저장된 페이지 정보 중 어떤 메인메뉴를 클릭했나 가져옴 -->
-		    <h1> <% request.getHeader("main_menu_name"); %> 마이 페이지</h1>
-		</div>
-		<div id="sub_menu_name_area">
-	    	<ul>
-		        <li><a href="${ path }/views/member/myPage.jsp"><h3> <% request.getHeaders("sub_menu_name"); %> 내 정보 수정</h3></a></li>
-		        <li><a href="${ path }/views/member/myTrade.jsp"><h3> <% request.getHeaders("sub_menu_name"); %> 나의 거래 내역</h3></a></li>
-		        <li><a href="${ path }/views/member/myArticle.jsp"><h3> <% request.getHeaders("sub_menu_name"); %> 나의 게시글</h3></a></li>
-		        <li><a href="${ path }/views/member/myComment.jsp"><h3> <% request.getHeaders("sub_menu_name"); %> 나의 댓글</h3></a></li>
-		        <li><a href="${ path }/views/member/myAsk.jsp"><h3> <% request.getHeaders("sub_menu_name"); %> 1:1 문의 내역</h3></a></li>
-		    </ul>
-		</div>
-	</div>
+	<div id="sidemenu"><jsp:include page="/views/common/sidemenu/myPageSideMenu.jsp" /></div>
 	
 	<article>
 		<h2 align="center">나의 거래 내역 </h2>
