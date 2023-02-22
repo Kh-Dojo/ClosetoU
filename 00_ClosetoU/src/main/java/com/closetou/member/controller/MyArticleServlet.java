@@ -12,6 +12,7 @@ import javax.servlet.http.HttpServletResponse;
 import com.closetou.article.model.vo.Article;
 import com.closetou.board.model.service.BoardService;
 import com.closetou.common.util.PageInfo;
+import com.closetou.member.model.service.MemberService;
 
 /**
  * Servlet implementation class MyArticleServlet
@@ -39,12 +40,12 @@ public class MyArticleServlet extends HttpServlet {
 			page = 1;
 		}
 		
-		listCount = new BoardService().getBoardCountForCommunity();
+		listCount = new MemberService().getBoardCountForCommunity();
 		pageInfo= new PageInfo(page, 10, listCount, 10);	// 한 페이지에 몇 개의 글 나오게 할 지 지정하는 메소드
 		
 		System.out.println(listCount);
 		
-		list = new BoardService().getArticleForCommunity(pageInfo);
+		list = new MemberService().getArticleForCommunity(pageInfo);
 		
 		System.out.println(list);
 		System.out.println(page);

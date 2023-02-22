@@ -1,5 +1,23 @@
-@charset "UTF-8";
 
-th {
+* {
+	font-family: 'Nanum Gothic';
 	color: rgb(220, 179, 14);
+}
+
+thead th {
+	background-color: #006dcc;
+	color : white;
+	text-align:center;
+}
+
+td:first-child,
+th:first-child {
+	border-top-left-radius: 6px;
+	border-bottom-left-radius: 6px;
+}
+
+td:last-child,
+th:last-child {
+	border-top-left-radius: 6px;
+	border-bottom-left-radius: 6px;
 }

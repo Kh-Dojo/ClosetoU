@@ -75,9 +75,7 @@ public class ArticleService {
 		close(connection);
 		
 		return article;
-		
 	}
-
 
 	public List<TradeArticle> getTradeArticleByNos(ArrayList<Integer> numbers) {
 		List<TradeArticle> result = null;
