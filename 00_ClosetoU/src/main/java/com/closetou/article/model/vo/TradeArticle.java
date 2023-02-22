@@ -17,9 +17,9 @@ public class TradeArticle {
 	
 	private String clothInfo;
 	
-	private boolean tradeEnd;
+	private String tradeEnd;
 	
-	private boolean free;
+	private String free;
 	
 	private String tradeMethod;
 	

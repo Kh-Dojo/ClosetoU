@@ -45,9 +45,16 @@
 						<td>${ article.rowNum }</td>		<!--순번 -->
 						<td>
 <!-- 230214 2교시 게시판에서 제목 클릭시 게시글 상세페이지 나타나게 링크 걸기 -->
-							<a href="${ path }/communityBoardView?no=${ article.no }">
-								${ article.title }
-							</a>
+							<c:if test="${ article.type eq '공지' }">
+								<a href="${ path }/communityBoardView?no=${ article.no }">
+									<span>[${ article.type }]</span> ${ article.title }
+								</a>
+							</c:if>
+							<c:if test="${ article.type eq '자유' }">
+								<a href="${ path }/communityBoardView?no=${ article.no }">
+									${ article.title }
+								</a>
+							</c:if>
 						</td>		<!-- 제목 -->
 						<td>${ article.userNickname }</td>	<!-- 작성자 -->
 						<td>${ article.postDate }</td>	<!-- 작성일 -->
