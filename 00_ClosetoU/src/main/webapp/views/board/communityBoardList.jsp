@@ -9,7 +9,7 @@
 
 <link rel="stylesheet" href="${ path }/resources/css/communityBoardList.css" />
 	<section>
-	<div id="sidemenu"><jsp:include page="/views/common/sidemenu.jsp" /></div>
+	<div id="sidemenu"><jsp:include page="/views/common/sidemenu/communitySideMenu.jsp" /></div>
 <article id="content">
 	<h2 align="center">게시판 </h2>
 	

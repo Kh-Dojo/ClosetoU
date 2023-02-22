@@ -65,12 +65,24 @@ public class ArticleService {
   
 	// 게시판에서 제목 클릭하면 상세 페이지 나오게 만들기
 	// 상세 게시글 들어가면 값 보여주는 메소드
-	public Article getArticleByNoForCommunity(int no) {
+	public Article getArticleByNoForCommunity(int no, boolean hasRead) {
 		Article article = null;
 		
 		Connection connection = getConnection();
 		
 		article = new ArticleDao().findArticleByNoForCommunity(connection, no);
+		
+		if (article != null && !hasRead) {	// 230216 8교시 읽지 않았어야만 if문 안의 게시글 증가 로직 실행되게 if 문 걸어줌
+					
+			int result = new ArticleDao().updateReadCount(connection, article);
+					
+			if(result > 0) {
+				commit(connection);
+			} else {
+				rollback(connection);
+			}
+		
+		}
 		
 		close(connection);
 		
