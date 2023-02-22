@@ -9,8 +9,9 @@
 
 <link rel="stylesheet" href="${ path }/resources/css/communityBoardWrite.css" />
 
-<article>
-<section id="content">
+<section>
+<div id="sidemenu"><jsp:include page="/views/common/sidemenu.jsp" /></div>
+<article id="content">
 	<div id='board-write-container'>
 		<h2>게시판 작성</h2>
 <!-- 230214 4교시 글 작성할 때 첨부파일 넣으면 서버로 전달
@@ -20,7 +21,7 @@
 					(알아서 풀기 후 lib폴더 안의 cos.jar를 이클립스 웹프로젝트 WEB-INF lib폴더에 복붙)
 				파일 중복 이름 처리, 인코딩 방식을 지정해 쉽게 처리해주는 라이브러리
 				-->
-		<form action="${ path }/board/write" method="POST"  enctype="multipart/form-data">
+		<form action="${ path }/ariticle/communityWrite" method="POST"  enctype="multipart/form-data">
 			<table id='tbl-board'>
 				<tr>
 					<th>제목</th>
@@ -48,9 +49,9 @@
 			</table>
 		</form>
 	</div>
-</section>
-<%-- <script src="${ path }/resources/js/communityBoardWrite.js"></script> --%>
 </article>
+<%-- <script src="${ path }/resources/js/communityBoardWrite.js"></script> --%>
+</section>
 
 <jsp:include page="/views/common/footer.jsp" />
 

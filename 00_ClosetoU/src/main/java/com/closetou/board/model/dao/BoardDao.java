@@ -77,25 +77,25 @@ public class BoardDao {
 		PreparedStatement pstmt = null;
 		ResultSet rs = null;
 		
-		String query = "SELECT RNUM, NO, TITLE, NICKNAME, POST_DATE, READCOUNT, VISABLE, TYPE "
+		String query = "SELECT RNUM, NO, TITLE, NICKNAME, POST_DATE, READ_COUNT, VISABLE, TYPE "
 				+ "FROM (SELECT ROWNUM AS RNUM, "
 				+ "             NO, "
 				+ "             TITLE, "
 				+ "             NICKNAME, "
 				+ "             POST_DATE, "
-				+ "             READCOUNT, "
-				+ "             VISABLE,"
-				+ "				TYPE "
-				+ "        FROM (SELECT A.NO, "
-				+ "                     A.TITLE, "
-				+ "                     M.NICKNAME, "
-				+ "                     A.POST_DATE, "
-				+ "                     A.READCOUNT, "
-				+ "                     A.VISABLE, "
-				+ "						A.TYPE "
-				+ "              FROM ARTICLE A "
-				+ "              JOIN MEMBER M ON(A.USER_NO = M.NO) "
-				+ "              WHERE A.VISABLE = 'Y' AND TYPE IN ('공지','자유') ORDER BY A.NO DESC) "
+				+ "             READ_COUNT, "
+				+ "             VISABLE, "
+				+ "             TYPE  "
+				+ "       FROM (SELECT A.NO, "
+				+ "                    A.TITLE, "
+				+ "                    M.NICKNAME, "
+				+ "                    A.POST_DATE, "
+				+ "                    A.READ_COUNT, "
+				+ "                    A.VISABLE, "
+				+ "                    A.TYPE "
+				+ "             FROM ARTICLE A "
+				+ "             JOIN MEMBER M ON(A.USER_NO = M.NO) "
+				+ "             WHERE A.VISABLE = 'Y' AND TYPE IN ('공지','자유') ORDER BY A.NO DESC) "
 				+ "        ) WHERE RNUM BETWEEN ? and ?";
 		
 		try {
@@ -115,7 +115,7 @@ public class BoardDao {
 				article.setTitle(rs.getString("TITLE"));
 				article.setUserNickname(rs.getString("NICKNAME"));
 				article.setPostDate(rs.getDate("POST_DATE"));
-				article.setReadCount(rs.getInt("READCOUNT"));
+				article.setReadCount(rs.getInt("READ_COUNT"));
 				article.setVisable(rs.getString("VISABLE"));
 				article.setType(rs.getString("TYPE"));
 				

@@ -21,7 +21,9 @@ public class communityBoardViewServlet extends HttpServlet {
 
     // 게시판에서 제목 클릭하면 상세 페이지 나오게 만들기
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-
+		
+		request.setCharacterEncoding("UTF-8");
+		
 		Article article = null;
 		
 		int no = Integer.parseInt(request.getParameter("no"));

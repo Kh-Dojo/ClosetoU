@@ -14,6 +14,8 @@ public class Article {
 	
 	private int no;
 	
+	private int photoNo;
+	
 	private int rowNum;
 	
 	private int userNo;
@@ -25,6 +27,10 @@ public class Article {
 	private String title;
 	
 	private String content;
+	
+	private String originalFileName;
+	
+	private String renamedFileName;
 	
 	private int readCount;
 
