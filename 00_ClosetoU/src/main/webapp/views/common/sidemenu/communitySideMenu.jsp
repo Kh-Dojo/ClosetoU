@@ -6,8 +6,8 @@
 
 <div id="main_menu_name_area">
 	<%-- 헤더에 저장된 페이지 정보 중 어떤 메인메뉴를 클릭했나 가져옴 --%>
-	<h1 id="mainmenu">의류 중고 거래 및 나눔</h1>
+	<h1 id="mainmenu">자유로운 수다방</h1>
 </div>
 <div id="sub_menu_name_area">
-	<h3 class="submenu"><a href="${ path }/article/tradeWrite">거래 글 등록</a></h3>	
+	<h3 class="submenu"><a href="#">서브메뉴링크</a></h3>	
 </div>

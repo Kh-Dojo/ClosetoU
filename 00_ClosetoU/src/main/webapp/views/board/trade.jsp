@@ -10,7 +10,7 @@
 
 <link rel="stylesheet" href="${ path }/resources/css/trade.css" />
 <article>
-	<div id="sidemenu"><jsp:include page="/views/common/sidemenu.jsp" /></div>
+	<div id="sidemenu"><jsp:include page="/views/common/sidemenu/tradeSideMenu.jsp" /></div>
 	<section>
 		<div id="search_section">
 			<form action="${ path }/itemsearch" method="POST">
