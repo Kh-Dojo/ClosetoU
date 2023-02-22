@@ -46,9 +46,9 @@
 
 	<h1 id="admin-page">관리자 페이지</h1>
     <div class="button-container">
-        <button class="button-num" style="white-space: normal; width: 250px;" onclick="location.href='userManage.html';">회원 관리</button>
-        <button class="button-num" style="white-space: normal; width: 250px;" onclick="location.href='noticeManage.html';">공지사항 관리</button>
-        <button class="button-num" style="white-space: normal; width: 250px;" onclick="location.href='postManage.html';">게시글 // 댓글 관리</button>
+        <button class="button-num" style="white-space: normal; width: 250px;" onclick="location.href='/00_ClosetoU/views/admin/userManage.jsp';">회원 관리</button>
+        <button class="button-num" style="white-space: normal; width: 250px;" onclick="location.href='/00_ClosetoU/views/admin/noticeManage.jsp';">공지사항 관리</button>
+        <button class="button-num" style="white-space: normal; width: 250px;" onclick="location.href='/00_ClosetoU/views/admin/postManage.jsp';">게시글 // 댓글 관리</button>
         <button class="button-num" id="btn-4" style="white-space: normal; width: 250px;">미구현</button>
     </div>
     
