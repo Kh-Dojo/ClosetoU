@@ -1,16 +1,19 @@
 package com.closetou.member.model.service;
 
 
-import static com.closetou.common.jdbc.JDBCTemplate.getConnection;
 import static com.closetou.common.jdbc.JDBCTemplate.close;
 import static com.closetou.common.jdbc.JDBCTemplate.commit;
+import static com.closetou.common.jdbc.JDBCTemplate.getConnection;
 import static com.closetou.common.jdbc.JDBCTemplate.rollback;
 
 import java.sql.Connection;
 import java.util.ArrayList;
 import java.util.List;
 
+import com.closetou.article.model.dao.ArticleDao;
 import com.closetou.article.model.vo.Article;
+import com.closetou.board.model.dao.BoardDao;
+import com.closetou.common.util.PageInfo;
 import com.closetou.member.model.dao.MemberDao;
 import com.closetou.member.model.vo.Member;
 
@@ -107,6 +110,28 @@ public class MemberService {
 				numbers.add(no);
 			}
 			return numbers;
+		}
+
+		public List<Article> getArticleForCommunity(PageInfo pageInfo) {
+			List<Article> list = null;
+			Connection connection = getConnection();
+
+			list = new ArticleDao().findAllArticlesForTrade(connection, pageInfo);
+
+			close(connection);
+
+			return list;
+		}
+
+		public int getBoardCountForCommunity() {
+			int count = 0;
+			Connection connection = getConnection();
+
+			count = new BoardDao().getBoardCountForCommunity(connection);
+
+			close(connection);
+
+			return count;
 		}
 
 

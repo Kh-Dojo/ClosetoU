@@ -26,74 +26,89 @@
 	
 	section #enroll-container table th {
 		padding:0 10px; 
-		text-align:right;
+		text-align:center;
+		height:60px;
+		font-size:25pt;
 	}
 	
 	section #enroll-container table td {
 		padding:0 10px; 
-		text-align:left;
+		width:150px;
+		height:25px;
+		text-align:center;
+		color: rgb(220, 179, 14);
+		font-weight: bold;
 	}
 </style>
 
 <section id="content">
-	<h2 align="center">📌회원 가입 정보📌</h2>
 	<div id="enroll-container">	 	
 	 	<form name="memberEnrollFrm" action="${ path }/member/enroll" method="POST">
-	 		<table>
-	 			<tr>
-					<th>아이디</th>
-					<td>
-						<input type="text" name="userId" id="newId" size="26" placeholder="아이디를 입력해주세요" required>
-						<input type="button" id="checkIdDuplicate" value="중복 검사" >
-					</td> 			
-	 			</tr>
-	 			<tr>
-					<th>패스워드</th>
-					<td>
-						<input type="password" name="userPwd" id="pass1" size="26" placeholder="사용할 비밀번호를 입력해주세요." required>
-					</td> 			
-	 			</tr>
-	 			<tr>
-					<th>패스워드확인</th>
-					<td>
-						<input type="password" id="pass2" size="26">
-					</td> 			
-	 			</tr>
-	 			<tr>
-					<th>이름</th>
-					<td>
-						<input type="text" name="userName" id="userName" size="26" required>				
-					</td>
-				<tr>	
-					<th>닉네임</th>
-					<td>
-						<input type="text" name="userNickname" id="userNickname" size="26" required>
-					</td>
-	 			</tr>
-	 			<tr>
-					<th>연락처</th>
-					<td>
-						<input type="tel" name="phone" id="phone" maxlength="13" size="26" required>								
-					</td> 			
-	 			</tr>
-	 			<tr>
-					<th>이메일</th>
-					<td>
-						<input type="email" placeholder="abc@abc.com" name="email" id="email" size="26">												
-					</td> 			
-	 			</tr>
-	 			<tr>
-					<th>주소</th>
-					<td>
-						<input type="text" name="address" id="address" size="26">
-					</td> 			
-	 			</tr>
-	 			<tr>
-					<th>상세 주소</th>
-					<td>
-						<input type="text" name="address_detail" id="address_detail" size="26">
-					</td> 			
-	 			</tr>
+	 		<table class="table table-bordered table-hover" style="text-align:center;">
+	 			<thead>
+	 				<tr>
+	 					<th colspan="3">📌회원 가입 정보📌</th>
+	 				</tr>
+	 			</thead>
+	 			<tbody>
+	 			<br>
+		 			<tr>
+						<td style="width:110px">아이디</td>
+						<td>
+							<input type="text" class="form-control" name="userId" id="newId" placeholder="아이디를 입력해주세요" required>
+						</td>
+						<td style="width:110px">
+							<input type="button" id="checkIdDuplicate" value="중복 검사" >
+						</td>
+		 			</tr>
+		 			<tr>
+						<td style="width:110px">비밀번호</td>
+						<td>
+							<input type="password" class="form-control" name="userPwd" id="pass1" placeholder="비밀번호를 입력하세요." required>
+						</td> 			
+		 			</tr>
+		 			<tr>
+						<td style="width:110px">비밀번호 확인</td>
+						<td>
+							<input type="password" id="pass2">
+						</td> 			
+		 			</tr>
+		 			<tr>
+						<td style="width:110px">이름</td>
+						<td>
+							<input type="text" name="userName" id="userName" required>				
+						</td>
+					<tr>	
+						<td style="width:110px">닉네임</td>
+						<td>
+							<input type="text" name="userNickname" id="userNickname" required>
+						</td>
+		 			</tr>
+		 			<tr>
+						<td style="width:110px">연락처</td>
+						<td>
+							<input type="tel" name="phone" id="phone" maxlength="13" required>								
+						</td> 			
+		 			</tr>
+		 			<tr>
+						<td style="width:110px">이메일</td>
+						<td>
+							<input type="email" placeholder="abc@abc.com" name="email" id="email">												
+						</td> 			
+		 			</tr>
+		 			<tr>
+						<td style="width:110px">주소</td>
+						<td>
+							<input type="text" name="address" id="address">
+						</td> 			
+		 			</tr>
+		 			<tr>
+						<td style="width:110px">상세 주소</td>
+						<td>
+							<input type="text" name="address_detail" id="address_detail">
+						</td> 			
+		 			</tr>
+		 		</tbody>
 	 		</table> 
 	 		<input type="submit" id="enrollSubmit" value="가입">	
 	 		<input type="reset" value="취소">	
