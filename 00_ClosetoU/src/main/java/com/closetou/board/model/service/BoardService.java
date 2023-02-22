@@ -4,12 +4,14 @@ import static com.closetou.common.jdbc.JDBCTemplate.close;
 import static com.closetou.common.jdbc.JDBCTemplate.getConnection;
 
 import java.sql.Connection;
+import java.util.ArrayList;
 import java.util.List;
 
 import com.closetou.article.model.dao.ArticleDao;
 import com.closetou.article.model.vo.Article;
 import com.closetou.article.model.vo.TradeArticle;
 import com.closetou.board.model.dao.BoardDao;
+import com.closetou.cloth.model.vo.ClothCategory;
 import com.closetou.common.util.PageInfo;
 
 public class BoardService {
@@ -89,6 +91,19 @@ public class BoardService {
 		close(connection);
 
 		return list;
+	}
+
+	// 거래게시글 작성 시 등록될 의류 카테고리 리스트를 가져오기 위한 메소드
+	public ArrayList<ClothCategory> getClothCategories() {
+		ArrayList<ClothCategory> cate = new ArrayList<>();
+		
+		Connection connection = getConnection();
+		
+		cate = new BoardDao().getClothCategories(connection);
+		
+		close(connection);
+		
+		return cate;
 	}
 
 

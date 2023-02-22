@@ -1,0 +1,36 @@
+@charset "UTF-8";
+
+section {
+	width: 1200px;
+	height: auto;
+	margin: 0 auto;
+	position: relative;
+	display: flex;
+}
+
+section>* {
+	box-sizing: border-box;
+	border: 1px solid black;
+	float: left;
+}
+
+#sidemenu {
+	width: 20%;
+}
+
+article {
+	width: 80%;
+	height: auto;
+	box-sizing: border-box;
+	border: 1px solid black;
+	float: left;
+}
+
+#submenuarea {
+	text-align: center;
+}
+
+
+#categoryoptions {
+	display: none;
+}

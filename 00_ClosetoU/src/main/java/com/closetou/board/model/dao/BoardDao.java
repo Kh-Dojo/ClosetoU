@@ -10,6 +10,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import com.closetou.article.model.vo.Article;
+import com.closetou.cloth.model.vo.ClothCategory;
 import com.closetou.common.util.PageInfo;
 
 public class BoardDao {
@@ -131,6 +132,37 @@ public class BoardDao {
 		}
 		
 		return list;
+	}
+
+
+	public ArrayList<ClothCategory> getClothCategories(Connection connection) {
+		ArrayList<ClothCategory> categories = new ArrayList<>();
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+		String query = "SELECT CLOTH_CODE, CLOTH_CATEGORY FROM CLOTH_CATEGORY";
+		
+		try {
+			pstmt = connection.prepareStatement(query);
+			
+			rs = pstmt.executeQuery();
+			
+			while(rs.next()) {
+				ClothCategory ccate = new ClothCategory();
+				
+				ccate.setClothCode(rs.getString("CLOTH_CODE"));
+				ccate.setClothCategory(rs.getString("CLOTH_CATEGORY"));
+			
+			categories.add(ccate);
+			}
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}  finally {
+			close(rs);
+			close(pstmt);
+		}
+		
+		return categories;
 	}
 	
 
