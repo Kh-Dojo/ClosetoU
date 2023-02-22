@@ -9,7 +9,7 @@
 
 <link rel="stylesheet" href="${ path }/resources/css/communityBoardList.css" />
 	<section>
-	<div id="sidemenu"><jsp:include page="/views/common/sidemenu.jsp" /></div>
+	<div id="sidemenu"><jsp:include page="/views/common/sidemenu/communitySideMenu.jsp" /></div>
 <article id="content">
 	<h2 align="center">게시판 </h2>
 	
@@ -53,6 +53,9 @@
 							<c:if test="${ article.type eq '자유' }">
 								<a href="${ path }/communityBoardView?no=${ article.no }">
 									${ article.title }
+									<c:if test="${ not empty board.originalFileName }">
+										<img width="20px" src="${ path }/resources/images/file.png">		<!-- path의 / = webapp -->
+									</c:if>
 								</a>
 							</c:if>
 						</td>		<!-- 제목 -->

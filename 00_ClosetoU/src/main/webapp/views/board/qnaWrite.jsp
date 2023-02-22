@@ -7,7 +7,7 @@
 
 <link rel="stylesheet" href="${ path }/resources/css/qnaWrite.css" />
 <section>
-	<div id="sidemenu"><jsp:include page="/views/common/sidemenu.jsp" /></div>
+	<div id="sidemenu"><jsp:include page="/views/common/sidemenu/myPageSideMenu.jsp" /></div>
 	<article id="qnaWrite">
 		article1 자리입니다.
 		<h2 class="title">문의하기</h2>

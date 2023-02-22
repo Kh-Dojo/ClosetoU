@@ -60,7 +60,7 @@ public class communityWriteServlet extends HttpServlet {
     	if(loginMember != null) {	// 로그인 상태
     		
         	// 파일이 저장될 경로 얻어오기
-        	String path = getServletContext().getRealPath("/resources/upload/board");	// / = 현재 웹 애플리케이션에서 webapp에 해당
+        	String path = getServletContext().getRealPath("/resources/boardUpfile");	// / = 현재 웹 애플리케이션에서 webapp에 해당
         	
         	// 파일의 최대 사이즈 지정(10MB로 지정)
         		// 사이즈 지정은 바이트 단위로 한다. 10485760byte
@@ -93,14 +93,15 @@ public class communityWriteServlet extends HttpServlet {
         	
         	Article article = new Article();
         	
+        	article.setUserNo(loginMember.getNo());
         	article.setUserNickname(loginMember.getNickname());
-        	// 폼 파라미터로 넘어온 값들 (파일에 대한 정보 X)
         	article.setTitle(mr.getParameter("title"));
         	article.setContent(mr.getParameter("content"));
-        	// 파일에 대한 정보를 가져올 때
         	article.setRenamedFileName(mr.getFilesystemName("upfile"));		// 클라이언트가 파일을 선택해서 올린 이름	   ex) 정처기해설집
         	article.setOriginalFileName(mr.getOriginalFileName("upfile"));	// 실제 서버에 업로드(저장) 될 때 파일 이름 ex)
         		// 두 개의 파일명을 다 저장해야 함. 서버 저장용, 클라이언트에게 다시 보낼 때 사용하는 용
+        	article.setType(mr.getParameter("type"));
+        	
         	
         	int result = new ArticleService().save(article);
         	
