@@ -21,16 +21,25 @@
 					(알아서 풀기 후 lib폴더 안의 cos.jar를 이클립스 웹프로젝트 WEB-INF lib폴더에 복붙)
 				파일 중복 이름 처리, 인코딩 방식을 지정해 쉽게 처리해주는 라이브러리
 				-->
-		<form action="${ path }/ariticle/communityWrite" method="POST"  enctype="multipart/form-data">
+		<form action="${ path }/article/communityWrite" method="POST"  enctype="multipart/form-data">
 			<table id='tbl-board'>
 				<tr>
 					<th>제목</th>
 					<td><input type="text" name="title" id="title"></td>
 				</tr>
 				<tr>
+					<th><label for="">말머리 : </label></th>
+					<td>
+				        <select name="type" id="type">    
+				                <option value="공지">공지</option>
+				                <option value="자유">자유</option>
+				        </select>
+        			</td>
+				</tr>
+				<tr>
 					<th>작성자</th>
 <!-- 230214 4교시 첨부파일 다운로드하기 글 작성할 때 첨부파일 넣으면 서버로 전달 -->
-					<td><input type="text" name="writer" value="${ loginMember.id }" readonly></td>
+					<td><input type="text" name="writer" value="${ loginMember.nickname }" readonly></td>
 				</tr>
 				<tr>
 					<th>첨부파일</th>
