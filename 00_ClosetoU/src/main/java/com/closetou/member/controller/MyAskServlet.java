@@ -10,20 +10,19 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import com.closetou.article.model.vo.Article;
-import com.closetou.board.model.service.BoardService;
 import com.closetou.common.util.PageInfo;
 import com.closetou.member.model.service.MemberService;
 
-@WebServlet(urlPatterns = { "/views/member/myArticle.jsp" })
-public class MyArticleServlet extends HttpServlet {
+@WebServlet(name = "myAsk", urlPatterns = { "/myAsk" })
+public class MyAskServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
-       
-    public MyArticleServlet() {
+
+    public MyAskServlet() {
     }
     
     @Override
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		request.setCharacterEncoding("UTF-8");
+    	request.setCharacterEncoding("UTF-8");
 		
 		int page = 0;
 		int listCount = 0;
@@ -37,19 +36,21 @@ public class MyArticleServlet extends HttpServlet {
 			page = 1;
 		}
 		
-		listCount = new MemberService().getBoardCountForCommunity();
+		listCount = new MemberService().getBoardAsk();
 		pageInfo= new PageInfo(page, 10, listCount, 10);	// 한 페이지에 몇 개의 글 나오게 할 지 지정하는 메소드
 		
 		System.out.println(listCount);
 		
-		list = new MemberService().getArticleForCommunity(pageInfo);
+		list = new MemberService().getArticleAsk(pageInfo);
 		
 		System.out.println(list);
 		System.out.println(page);
 		
 		request.setAttribute("pageInfo", pageInfo);
 		request.setAttribute("list", list);
-		request.getRequestDispatcher("/views/board/communityBoardList.jsp").forward(request, response);
-	}
+		request.getRequestDispatcher("/views/member/myAsk.jsp").forward(request, response);
+    
+    }
+    
 
 }

@@ -99,7 +99,7 @@ public class MemberService {
 		return result;
 	}
 	
-	// 아티클로부터 NO를 추출하여 ArrayList 객체로 반환하는 메소드
+	// 거래내역 관련 - 아티클로부터 NO를 추출하여 ArrayList 객체로 반환하는 메소드
 		@SuppressWarnings("null")
 		public ArrayList<Integer> noFromArticle(List<Article> list) {
 			ArrayList<Integer> numbers = new ArrayList<>();
@@ -112,27 +112,64 @@ public class MemberService {
 			return numbers;
 		}
 
-		public List<Article> getArticleForCommunity(PageInfo pageInfo) {
+		public List<Article> getArticleForTradeList(PageInfo pageInfo) {
 			List<Article> list = null;
 			Connection connection = getConnection();
 
-			list = new ArticleDao().findAllArticlesForTrade(connection, pageInfo);
+			list = new MemberDao().findAllArticlesForTrade(connection, pageInfo);
 
 			close(connection);
 
 			return list;
 		}
 
+	// 자유게시판 관련
+		// (자유게시판용)조회되는 결과의 갯수를 확인하기 위한 메소드
 		public int getBoardCountForCommunity() {
 			int count = 0;
 			Connection connection = getConnection();
 
-			count = new BoardDao().getBoardCountForCommunity(connection);
+			count = new MemberDao().getBoardCountForCommunity(connection);
 
 			close(connection);
 
 			return count;
 		}
+
+		// 자유게시판 게시물의 리스트를 가져오기 위한 메소드
+		public List<Article> getArticleForCommunity(PageInfo pageInfo) {
+			List<Article> list = null;
+			Connection connection = getConnection();
+
+			list = new MemberDao().findAllArticleForCommunity(connection, pageInfo);
+
+			close(connection);
+
+			return list;
+		}
+
+		public int getBoardAsk() {
+			int count = 0;
+			Connection connection = getConnection();
+
+			count = new MemberDao().getBoardAsk(connection);
+
+			close(connection);
+
+			return count;
+		}
+
+		public List<Article> getArticleAsk(PageInfo pageInfo) {
+			List<Article> list = null;
+			Connection connection = getConnection();
+
+			list = new MemberDao().findAllArticleForAsk(connection, pageInfo);
+
+			close(connection);
+
+			return list;
+		}
+		
 
 
 }
