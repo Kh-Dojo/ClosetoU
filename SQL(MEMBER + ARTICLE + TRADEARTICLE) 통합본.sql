@@ -1,7 +1,9 @@
 DROP TABLE TRADE_ARTICLE;
 DROP TABLE REPLY;
 DROP TABLE ARTICLE;
+DROP TABLE CLOTH CASCADE CONSTRAINT PURGE;
 DROP TABLE MEMBER;
+
 
 DROP SEQUENCE SEQ_REPLY_NO;
 DROP SEQUENCE SEQ_ARTICLE_NO;
@@ -295,10 +297,24 @@ INSERT INTO MEMBER (
 );
 
 COMMIT;
-
 -- 아티클 생성
-DROP TABLE ARTICLE;
+CREATE TABLE "CLOTH" (
+    "NO"    NUMBER PRIMARY KEY,
+	"PHOTO_ID"	    NUMBER		NOT NULL,
+	"CLOTH_NAME"	VARCHAR2(50)		NULL,
+	"CREATED_DATE"	DATE		NOT NULL
+);
 
+ALTER TABLE "CLOTH" MODIFY (CREATED_DATE DEFAULT SYSDATE);
+
+COMMENT ON COLUMN "CLOTH"."PHOTO_ID" IS '사진번호';
+COMMENT ON COLUMN "CLOTH"."CLOTH_NAME" IS '의류번호';
+COMMENT ON COLUMN "CLOTH"."CREATED_DATE" IS '등록일자';
+
+
+
+
+DROP TABLE ARTICLE;
 CREATE TABLE ARTICLE
     (NO	        NUMBER		        PRIMARY KEY,
 	PHOTO_NO	NUMBER,
@@ -333,7 +349,6 @@ CREATE TABLE "TRADE_ARTICLE" (
 	"ARTICLE_NO"	NUMBER		NOT NULL,
 	"CLOTH_NO"	    NUMBER		NOT NULL,
 	"PRICE"	        NUMBER		        NOT NULL,
-	"CLOTH_INFO"	VARCHAR2(1000)		NOT NULL,
 	"TRADE_ENDED"	CHAR(1)	DEFAULT 'N'	NOT NULL,
 	"FREE"      	CHAR(1)	DEFAULT 'N'	NOT NULL,
 	"TRADE_METHOD"	VARCHAR2(10)		NOT NULL,
@@ -345,8 +360,6 @@ COMMENT ON COLUMN "TRADE_ARTICLE"."ARTICLE_NO" IS '게시물번호';
 COMMENT ON COLUMN "TRADE_ARTICLE"."CLOTH_NO" IS '의류NO';
 
 COMMENT ON COLUMN "TRADE_ARTICLE"."PRICE" IS '가격';
-
-COMMENT ON COLUMN "TRADE_ARTICLE"."CLOTH_INFO" IS '의류설명';
 
 COMMENT ON COLUMN "TRADE_ARTICLE"."TRADE_ENDED" IS '판매완료';
 
@@ -375,165 +388,6 @@ REFERENCES "CLOTH" (
 );
 
 COMMIT;
-
-
--- 예시 아티클 생성기
-
-CREATE SEQUENCE SEQ_ARTICLE_NO;
-
-DROP SEQUENCE SEQ_TRADE_ARTICLE_NO;
-
-CREATE SEQUENCE SEQ_TRADE_ARTICLE_NO
-    START WITH 31;
-
-BEGIN
-    FOR N IN 1..15
-    LOOP
-        INSERT INTO 
-            ARTICLE 
-        VALUES
-            (SEQ_ARTICLE_NO.NEXTVAL,
-            1, -- PHOTO
-            1, -- USER
-            NULL,
-            NULL,
-            '공지',
-            '공지글 ' || SEQ_ARTICLE_NO.CURRVAL , 
-            '이 공지글은 영국에서 시작해서..' ||  SEQ_ARTICLE_NO.CURRVAL, 
-            DEFAULT, 
-            'Y', 
-            DEFAULT, 
-            NULL, 
-            NULL);
-    END LOOP;
-
-
-    FOR N IN 1..15
-    LOOP
-        INSERT INTO 
-            ARTICLE 
-        VALUES
-            (SEQ_ARTICLE_NO.NEXTVAL,
-            1, -- PHOTO
-            2, -- USER
-            NULL,
-            NULL,
-            '문의',
-            '문의글 ' || SEQ_ARTICLE_NO.CURRVAL , 
-            '이 게시글은 영국에서 시작해서..' ||  SEQ_ARTICLE_NO.CURRVAL, 
-            DEFAULT, 
-            'Y', 
-            SYSDATE, 
-            NULL, 
-            NULL);
-    END LOOP;
-
-    FOR N IN 1..30
-    LOOP
-        INSERT INTO 
-            ARTICLE 
-        VALUES
-            (SEQ_ARTICLE_NO.NEXTVAL,
-            1, -- PHOTO
-            3, -- USER
-            NULL,
-            NULL,
-            '거래',
-            '거래글 ' || SEQ_ARTICLE_NO.CURRVAL , 
-            '이 거래글은 영국에서 시작해서..' ||  SEQ_ARTICLE_NO.CURRVAL, 
-            DEFAULT, 
-            'Y', 
-            SYSDATE, 
-            NULL, 
-            NULL);
-    END LOOP;
-
-    FOR N IN 1..30
-    LOOP
-        INSERT INTO 
-            ARTICLE 
-        VALUES
-            (SEQ_ARTICLE_NO.NEXTVAL,
-            1, -- PHOTO
-            4, -- USER
-            NULL,
-            NULL,
-            '거래',
-            '거래글 ' || SEQ_ARTICLE_NO.CURRVAL , 
-            '이 게시글은 영국에서 시작해서..' ||  SEQ_ARTICLE_NO.CURRVAL, 
-            DEFAULT, 
-            'Y', 
-            SYSDATE, 
-            NULL, 
-            NULL);
-    END LOOP;
-    
-     FOR N IN 1..30
-    LOOP
-        INSERT INTO 
-            ARTICLE 
-        VALUES
-            (SEQ_ARTICLE_NO.NEXTVAL,
-            1, -- PHOTO
-            4, -- USER
-            NULL,
-            NULL,
-            '자유',
-            '자유게시글 ' || SEQ_ARTICLE_NO.CURRVAL , 
-            '이 자유게시글은 영국에서 시작해서..' ||  SEQ_ARTICLE_NO.CURRVAL, 
-            DEFAULT, 
-            'Y', 
-            SYSDATE, 
-            NULL, 
-            NULL);
-    END LOOP;
-    
-    
-         FOR N IN 1..5
-    LOOP
-        INSERT INTO 
-            ARTICLE 
-        VALUES
-            (SEQ_ARTICLE_NO.NEXTVAL,
-            1, -- PHOTO
-            4, -- USER
-            NULL,
-            NULL,
-            '자유',
-            '자유게시글 ' || SEQ_ARTICLE_NO.CURRVAL , 
-            '이 자유글은 영국에서 시작해서..' ||  SEQ_ARTICLE_NO.CURRVAL, 
-            DEFAULT, 
-            'N', 
-            SYSDATE, 
-            NULL, 
-            NULL);
-    END LOOP;
-    
-    -- 거래게시글 추가 입력
-    
-         FOR N IN 1..60
-    LOOP
-        INSERT INTO 
-            TRADE_ARTICLE 
-        VALUES
-            (SEQ_TRADE_ARTICLE_NO.NEXTVAL,
-            5, -- CLOTH_NO
-            150000, -- PRICE
-            '옷정보 ' || SEQ_TRADE_ARTICLE_NO.CURRVAL,
-            DEFAULT , 
-            DEFAULT ,
-            '직거래',
-            '서울');
-    END LOOP;
-    
-    
-    
-COMMIT;
-
-   
-EXCEPTION
-    WHEN OTHERS THEN ROLLBACK;
-END;
 
 -- REPLY 테이블 생성
 
@@ -567,4 +421,176 @@ COMMENT ON COLUMN REPLY.EDIT_DATE IS '최종수정일자';
 
 CREATE SEQUENCE SEQ_REPLY_NO;
 
+
+
+-- 예시 아티클 생성기
+
+CREATE SEQUENCE SEQ_ARTICLE_NO;
+
+DROP SEQUENCE SEQ_TRADE_ARTICLE_NO;
+
+CREATE SEQUENCE SEQ_TRADE_ARTICLE_NO
+    START WITH 31;
+
+BEGIN
+    FOR N IN 1..15
+    LOOP
+        INSERT INTO 
+            ARTICLE 
+        VALUES
+            (SEQ_ARTICLE_NO.NEXTVAL,
+            1, -- PHOTO
+            1, -- USER
+            NULL,
+            NULL,
+            '공지',
+            '공지글 ' || SEQ_ARTICLE_NO.CURRVAL , 
+            '이 공지글은 영국에서 시작해서..' ||  SEQ_ARTICLE_NO.CURRVAL, 
+            DEFAULT, 
+            'Y', 
+            DEFAULT, 
+            NULL, 
+            NULL);
+    END LOOP;
+
+COMMIT;
+
+    FOR N IN 1..15
+    LOOP
+        INSERT INTO 
+            ARTICLE 
+        VALUES
+            (SEQ_ARTICLE_NO.NEXTVAL,
+            1, -- PHOTO
+            2, -- USER
+            NULL,
+            NULL,
+            '문의',
+            '문의글 ' || SEQ_ARTICLE_NO.CURRVAL , 
+            '이 게시글은 영국에서 시작해서..' ||  SEQ_ARTICLE_NO.CURRVAL, 
+            DEFAULT, 
+            'Y', 
+            SYSDATE, 
+            NULL, 
+            NULL);
+    END LOOP;
+
+COMMIT;
+
+    FOR N IN 1..30
+    LOOP
+        INSERT INTO 
+            ARTICLE 
+        VALUES
+            (SEQ_ARTICLE_NO.NEXTVAL,
+            1, -- PHOTO
+            3, -- USER
+            NULL,
+            NULL,
+            '거래',
+            '거래글 ' || SEQ_ARTICLE_NO.CURRVAL , 
+            '이 거래글은 영국에서 시작해서..' ||  SEQ_ARTICLE_NO.CURRVAL, 
+            DEFAULT, 
+            'Y', 
+            SYSDATE, 
+            NULL, 
+            NULL);
+    END LOOP;
+
+COMMIT;
+
+    FOR N IN 1..30
+    LOOP
+        INSERT INTO 
+            ARTICLE 
+        VALUES
+            (SEQ_ARTICLE_NO.NEXTVAL,
+            1, -- PHOTO
+            4, -- USER
+            NULL,
+            NULL,
+            '거래',
+            '거래글 ' || SEQ_ARTICLE_NO.CURRVAL , 
+            '이 게시글은 영국에서 시작해서..' ||  SEQ_ARTICLE_NO.CURRVAL, 
+            DEFAULT, 
+            'Y', 
+            SYSDATE, 
+            NULL, 
+            NULL);
+    END LOOP;
+
+COMMIT;
+    
+     FOR N IN 1..30
+    LOOP
+        INSERT INTO 
+            ARTICLE 
+        VALUES
+            (SEQ_ARTICLE_NO.NEXTVAL,
+            1, -- PHOTO
+            4, -- USER
+            NULL,
+            NULL,
+            '자유',
+            '자유게시글 ' || SEQ_ARTICLE_NO.CURRVAL , 
+            '이 자유게시글은 영국에서 시작해서..' ||  SEQ_ARTICLE_NO.CURRVAL, 
+            DEFAULT, 
+            'Y', 
+            SYSDATE, 
+            NULL, 
+            NULL);
+    END LOOP;
+    
+COMMIT;    
+         FOR N IN 1..5
+    LOOP
+        INSERT INTO 
+            ARTICLE 
+        VALUES
+            (SEQ_ARTICLE_NO.NEXTVAL,
+            1, -- PHOTO
+            4, -- USER
+            NULL,
+            NULL,
+            '자유',
+            '자유게시글 ' || SEQ_ARTICLE_NO.CURRVAL , 
+            '이 자유글은 영국에서 시작해서..' ||  SEQ_ARTICLE_NO.CURRVAL, 
+            DEFAULT, 
+            'N', 
+            SYSDATE, 
+            NULL, 
+            NULL);
+    END LOOP;
+ 
+COMMIT;
+    
+    -- 거래게시글 추가 입력
+    
+INSERT INTO 
+        CLOTH
+VALUES
+    (1,
+    1,
+    '의류명',
+    DEFAULT);
+    
+         FOR N IN 1..60
+    LOOP
+        INSERT INTO 
+            TRADE_ARTICLE 
+        VALUES
+            (SEQ_TRADE_ARTICLE_NO.NEXTVAL,
+            1, -- CLOTH_NO
+            150000, -- PRICE
+            DEFAULT , 
+            DEFAULT ,
+            '직거래',
+            '서울');
+    END LOOP;
+          
+COMMIT;
+   
+EXCEPTION
+    WHEN OTHERS THEN ROLLBACK;
+END;
 

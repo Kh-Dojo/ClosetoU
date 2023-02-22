@@ -7,51 +7,57 @@
 <jsp:include page="/views/common/header.jsp" />
 <script src="${ path }/resources/js/jquery-3.6.3.js"></script>
 
-<link rel="stylesheet" href="${ path }/resources/css/communityBoardWrite.css" />
-
+<link rel="stylesheet" href="${ path }/resources/css/tradeWrite.css" />
 <section>
-<div id="sidemenu"><jsp:include page="/views/common/sidemenu.jsp" /></div>
-<article id="content">
-	<div id='board-write-container'>
-		<h2>게시판 작성</h2>
-<!-- 230214 4교시 글 작성할 때 첨부파일 넣으면 서버로 전달
-				enctype="multipart/form-data"을 지정해야 파일을 파일 그대로 보냄. 파일명만 보내는 것이 아니라
-				인코딩 타입 변경 속성 폼태그의 인코딩 타입이 multipart/form-data 으로 변경
-				http://www.servlets.com/의 COS File Upload Library 다운받아 등록
-					(알아서 풀기 후 lib폴더 안의 cos.jar를 이클립스 웹프로젝트 WEB-INF lib폴더에 복붙)
-				파일 중복 이름 처리, 인코딩 방식을 지정해 쉽게 처리해주는 라이브러리
-				-->
-		<form action="${ path }/ariticle/communityWrite" method="POST"  enctype="multipart/form-data">
-			<table id='tbl-board'>
-				<tr>
-					<th>제목</th>
-					<td><input type="text" name="title" id="title"></td>
-				</tr>
-				<tr>
-					<th>작성자</th>
-<!-- 230214 4교시 첨부파일 다운로드하기 글 작성할 때 첨부파일 넣으면 서버로 전달 -->
-					<td><input type="text" name="writer" value="${ loginMember.id }" readonly></td>
-				</tr>
-				<tr>
-					<th>첨부파일</th>
-					<td><input type="file" name="upfile"></td>
-				</tr>
-				<tr>
-					<th>내용</th>
-					<td><textarea name="content" cols="50" rows="15" ></textarea></td>
-				</tr>
-				<tr>
-					<th colspan="2">
-						<input type="submit" value="등록">
-						<input type="reset" value="취소">
-					</th>
-				</tr>
-			</table>
-		</form>
-	</div>
-</article>
-<%-- <script src="${ path }/resources/js/communityBoardWrite.js"></script> --%>
+	<div id="sidemenu"><jsp:include
+			page="/views/common/sidemenu/tradeSideMenu.jsp" /></div>
+	<article id="content">
+		<div id='board-write-container'>
+			<div id="submenuarea">
+				<h2>거래 글 등록</h2>
+			</div>
+			<form action="${ path }/ariticle/communityWrite" method="POST"
+				enctype="multipart/form-data">
+				<div id="cloth_enroll">
+					<div id="photoarea">
+						<input type="file" name="upfile">
+					</div>
+				</div>
+				<div>
+					<input type="text" name="cloth_name" placeholder="상품명을 입력해주세요.">
+					<button id="togglecategory_btn" type="button">카테고리 등록</button>
+				</div>
+				<div id="categoryoptions">
+					<c:forEach var="category" items="${ categorylist }">
+						<c:choose>
+							<c:when test="${ category.clothCode == '00' }">
+								<input type="checkbox" name="clothcategory"
+									value="${ category.clothCategory }" checked>${ category.clothCategory }						
+								</c:when>
+							<c:otherwise>
+								<input type="checkbox" name="clothcategory"
+									value="${ category.clothCategory }">${ category.clothCategory }
+								
+								</c:otherwise>
+						</c:choose>
+					</c:forEach>
+				</div>
+				<div id="content">
+					<div>
+						<input type="text" name="title" id="title" placeholder="제목">
+					</div>
+					<div>
+						<textarea name="content" cols="50" rows="15"></textarea>
+					</div>
+					<div>
+						<input type="submit" value="등록"> <input type="reset"
+							value="취소">
+					</div>
+				</div>
+			</form>
+		</div>
+	</article>
 </section>
-
+<script src="${ path }/resources/js/tradeWrite.js"></script>
 <jsp:include page="/views/common/footer.jsp" />
 

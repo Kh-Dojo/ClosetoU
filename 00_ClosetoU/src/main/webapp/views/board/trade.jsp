@@ -9,9 +9,9 @@
 <script src="${ path }/resources/js/jquery-3.6.3.js"></script>
 
 <link rel="stylesheet" href="${ path }/resources/css/trade.css" />
-<article>
+<section>
 	<div id="sidemenu"><jsp:include page="/views/common/sidemenu/tradeSideMenu.jsp" /></div>
-	<section>
+	<article>
 		<div id="search_section">
 			<form action="${ path }/itemsearch" method="POST">
 				<input type="search" name="search" id="search_bar"
@@ -95,9 +95,9 @@
 				<div></div>
 			</div>
 		</div>
-	</section>
+	</article>
 	<script src="${ path }/resources/js/trade.js"></script>
-</article>
+</section>
 
 <jsp:include page="/views/common/footer.jsp" />
 

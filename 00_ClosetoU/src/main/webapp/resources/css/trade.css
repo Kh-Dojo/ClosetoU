@@ -1,4 +1,4 @@
-article {
+section {
 	width: 1200px;
 	height: auto;
 	margin: 0 auto;
@@ -6,7 +6,7 @@ article {
 	display: flex;
 }
 
-article>* {
+section>* {
 	box-sizing: border-box;
 	border: 1px solid black;
 	float: left;
@@ -16,7 +16,7 @@ article>* {
 	width: 20%;
 }
 
-section {
+article {
 	width: 80%;
 	height: auto;
 	box-sizing: border-box;
