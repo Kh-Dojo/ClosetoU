@@ -7,7 +7,7 @@
 
 	<footer style="background-color: beige" align="center">
 	jsp include로 연결된 footer입니다. <br><br>
-		<a href="${ path }/board/communityBoardList">FAQ</a> | <a href="${ path }/views/board/qnaWrite.jsp" onclick="loginCheck();">1:1 문의</a> | <a href="https://www.hometax.go.kr/" target="_blank">국세청 홈택스</a> 
+		<a href="${ path }/board/communityBoardList">FAQ</a> | <a id="aQna" href="${ path }/views/board/qnaWrite.jsp">1:1 문의</a> | <a href="https://www.hometax.go.kr/" target="_blank">국세청 홈택스</a> 
 		<hr>
 		<p>
 		의류기부 중고거래 관련 문의(평일 09:00 ~ 17:00)<br>
@@ -18,6 +18,15 @@
 			&lt;Copyright 2023 <strong>ClosetToU</strong>. All rights reserved.&gt;
 		</p>
 	</footer>
+	<script>
+	$('#aQna').on('clcik', () => {
+		if(${ empty loginMember }) {
+			alert('로그인 후 이용해 주세요.')
+			
+			$('#userId').focus();
+		}			
+	});
+	</script>
 <!-- <script>
 	window.onload = function(){
 	    function loginCheck() {
@@ -47,7 +56,7 @@
 	        	  location.href = '${ path }/views/board/qnaWrite.jsp';
 	          }
 		}
-    }    --%>
-</script>
+    }    
+</script>--%>
 </body>
 </html>

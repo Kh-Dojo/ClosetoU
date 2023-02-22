@@ -9,27 +9,32 @@
 
 <link rel="stylesheet" href="${ path }/resources/css/communityBoardView.css" />
 
-<article>
-<section id="content">   
+<section>   
+<div id="sidemenu"><jsp:include page="/views/common/sidemenu.jsp" /></div>
+<article id="content">
 	<div id="board-write-container">
 		<h2>게시판</h2>
 		<table id="tbl-board">
 			<tr>
 				<th>글번호</th>
 <!-- 230214 3교시 상세 게시글 화면에 그려주기 -->
-				<td>${ article.no }</td>
+				<td>${ Article.no }</td>
 			</tr>
 			<tr>
 				<th>제 목</th>
-				<td>${ article.title }</td>
+				<td>${ Article.title }</td>
 			</tr>
 			<tr>
 				<th>작성자</th>
-				<td>${ article.userNickname }</td>
+				<td>${ Article.userNickname }</td>
+			</tr>
+			<tr>
+				<th>날짜</th>
+				<td>${ Article.postDate }</td>
 			</tr>
 			<tr>
 				<th>조회수</th>
-				<td>${ article.readCount }</td>
+				<td>${ Article.readCount }</td>
 			</tr>
 			<%-- <tr>
 <!-- 230214 6교시 게시글 내에서 첨부파일 이름 보이게 만들기 test 속성-->
@@ -57,15 +62,15 @@
 			</tr> --%>
 			<tr>
 				<th>내 용</th>
-				<td>${ article.content }</td>
+				<td>${ Article.content }</td>
 			</tr>
 			<%--글작성자/관리자인경우 수정삭제 가능 --%>
 			<tr>
 				<th colspan="2">
 <!-- 230214 3교시 수정 삭제 로그인 한 작성자만 보이게 하기 -->
-					<c:if test="${ not empty loginMember && loginMember.nickname == article.userNickname }">
+					<c:if test="${ not empty loginMember && loginMember.nickname == Article.userNickname }">
 <!-- 230214 6교시 게시글 내 수정 버튼 누르면 수정 페이지로 이동 -->
-						<button type="button" onclick="location.href='${ path }/board/update?no=${ board.no }'">수정</button>
+						<button type="button" onclick="location.href='${ path }/board/communityBoardUpdate?no=${ Article.no }'">수정</button>
 <!-- 230216 2교시 게시글 삭제하기 -->						
 						<button type="button" id="btnDelete">삭제</button>
 					</c:if>
@@ -109,7 +114,7 @@
     	   	</c:forEach>
 	    </table>
     </div>
-</section>
+</article>
 <%-- <script src="${ path }/resources/js/communityBoardView.js"></script> --%>
 <script>
 /* 제이쿼리 영억 */
@@ -154,7 +159,8 @@
 
 	});
 </script>
-</article>
+
+</section>
 
 <jsp:include page="/views/common/footer.jsp" />
 

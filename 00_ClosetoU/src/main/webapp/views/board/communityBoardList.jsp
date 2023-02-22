@@ -8,16 +8,16 @@
 <script src="${ path }/resources/js/jquery-3.6.3.js"></script>
 
 <link rel="stylesheet" href="${ path }/resources/css/communityBoardList.css" />
-<article>
-	<section id="content">
-	
+	<section>
+	<div id="sidemenu"><jsp:include page="/views/common/sidemenu.jsp" /></div>
+<article id="content">
 	<h2 align="center">게시판 </h2>
 	
 	<div id="board-list-container">
 <!-- 230214 2교시 게시판 글쓰기 버튼 로그인 했을 때만 나타나게 만들기 -->
 		<c:if test="${ not empty loginMember }">
 <!-- 230214 4교시 게시판에서 글쓰기 버튼 누르면 글 작성페이지로 -->
-			<button type="button" onclick="location.href='${ path }/board/write'">글쓰기</button>
+			<button type="button" onclick="location.href='${ path }/article/communityWrite'">글쓰기</button>
 		</c:if>	
 
 		<table id="tbl-board">
@@ -102,10 +102,10 @@
 			<button onclick="location.href= '${ path }/board/communityBoardList?page=${ pageInfo.maxPage }'">&gt;&gt;</button>
 		</div>
 	</div>
-</section>
+</article>
 
 <%-- 	<script src="${ path }/resources/js/communityBoardList.js"></script> --%>
-</article>
+</section>
 
 <jsp:include page="/views/common/footer.jsp" />
 

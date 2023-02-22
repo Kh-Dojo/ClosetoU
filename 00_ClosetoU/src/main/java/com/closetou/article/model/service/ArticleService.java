@@ -92,6 +92,32 @@ public class ArticleService {
 
 	}
 
+	// 게시글 파일 업로드
+	public int save(Article article) {
+		int result = 0;
+		Connection connection = getConnection();
+		
+		//수정한 내용으로 게시글이 바뀌게 만들기
+		if(article.getNo() > 0) {
+			// update 작업
+			result = new ArticleDao().updateBoard(connection, article);
+		} else {
+			// insert 작업
+			result = new ArticleDao().insertBoard(connection, article);
+		}
+		
+		
+		if(result > 0) {
+			commit(connection);
+		} else {
+			rollback(connection);
+		}
+			
+		close(connection);
+		
+		return result;
+	}
+
 }
 
 

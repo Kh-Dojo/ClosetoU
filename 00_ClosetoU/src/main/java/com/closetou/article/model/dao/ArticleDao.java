@@ -211,7 +211,7 @@ public class ArticleDao {
 		int result = 0;
 		PreparedStatement pstmt = null;
 
-		String query = "INSERT INTO ARTICLE VALUES(SEQ_ARTICLE_NO.NEXTVAL, ?, '문의', ?, ?, DEFAULT, DEFAULT, DEFAULT, NULL, NULL)";
+		String query = "INSERT INTO ARTICLE VALUES(SEQ_ARTICLE_NO.NEXTVAL, NULL, ?, '문의', ?, ?, DEFAULT, DEFAULT, DEFAULT, NULL, NULL)";
 
 		try {
 			pstmt = connection.prepareStatement(query);
@@ -239,18 +239,10 @@ public class ArticleDao {
 		PreparedStatement pstmt = null;
 		ResultSet rs = null;
 		
-		String query = "SELECT A.NO, "
-				+ "       A.TYPE, "
-				+ "       A.TITLE, "
-				+ "       M.NICKNAME,  "
-				+ "       A.CONTENT, "
-				+ "       A.READCOUNT, "
-				+ "       A.POST_DATE, "
-				+ "       A.EDITED, "
-				+ "       A.EDIT_DATE "
+		String query = "SELECT A.NO, A.TYPE, A.TITLE, M.NICKNAME, A.CONTENT, A.READ_COUNT, A.POST_DATE, A.EDITED, A.EDIT_DATE "
 				+ "FROM ARTICLE A "
 				+ "JOIN MEMBER M ON(A.USER_NO = M.NO) "
-				+ "WHERE A.VISABLE = 'Y' AND TYPE IN('공지', '자유') AND A.NO=?;";
+				+ "WHERE A.VISABLE = 'Y' AND TYPE IN('공지', '자유') AND A.NO=?";
 		
 		try {
 			pstmt = connection.prepareStatement(query);
@@ -267,7 +259,7 @@ public class ArticleDao {
 				article.setTitle(rs.getString("TITLE"));
 				article.setUserNickname(rs.getString("NICKNAME"));
 				article.setContent(rs.getString("CONTENT"));
-				article.setReadCount(rs.getInt("READCOUNT"));
+				article.setReadCount(rs.getInt("READ_COUNT"));
 //				article.setOriginalFileName(rs.getString("ORIGINAL_FILENAME"));
 //				article.setRenamedFileName(rs.getString("RENAMED_FILENAME"));
 				article.setPostDate(rs.getDate("POST_DATE"));
@@ -331,6 +323,59 @@ public class ArticleDao {
 
 		return trarts;
 
+	}
+	
+	// 수정내용으로 게시글 바뀌게 UPDATE 작업 article service의save()
+	public int updateBoard(Connection connection, Article article) {
+		int result = 0;
+		PreparedStatement pstmt = null;
+		
+		String query = "UPDATE ARTICLE SET TITLE=?,CONTENT=?,ORIGINAL_FILENAME=?,RENAMED_FILENAME=?,MODIFY_DATE=SYSDATE WHERE NO=?";
+						// 깃 backend/TableScripts.sql의 144행 복붙
+		
+		try {
+			pstmt = connection.prepareStatement(query);
+			
+			pstmt.setString(1, board.getTitle());
+			pstmt.setString(2, board.getContent());
+			pstmt.setString(3, board.getOriginalFileName());
+			pstmt.setString(4, board.getRenamedFileName());
+			pstmt.setInt(5, board.getNo());
+			
+			result = pstmt.executeUpdate();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(pstmt);
+		}
+		 
+		return result;
+	}
+	
+	// 수정내용으로 게시글 바뀌게 insert 작업 article service의save()
+	public int insertBoard(Connection connection, Article article) {
+		int result = 0;
+		PreparedStatement pstmt = null;
+		String query = "INSERT INTO BOARD VALUES(SEQ_BOARD_NO.NEXTVAL,?,?,?,?,?,DEFAULT,DEFAULT,DEFAULT,DEFAULT)";
+		// 깃 backend/TableScripts.sql의 141행 복붙
+		
+		try {
+			pstmt = connection.prepareStatement(query);	// query문 받을 prepareStatement 생성
+			
+			pstmt.setInt(1, board.getWriterNo());
+			pstmt.setString(2, board.getTitle());
+			pstmt.setString(3, board.getContent());
+			pstmt.setString(4, board.getOriginalFileName());
+			pstmt.setString(5, board.getRenamedFileName());
+			
+			result = pstmt.executeUpdate();			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(pstmt);
+		}
+		
+		return result;
 	}
 
 }
