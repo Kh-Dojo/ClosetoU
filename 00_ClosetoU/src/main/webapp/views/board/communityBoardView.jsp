@@ -36,30 +36,30 @@
 				<th>조회수</th>
 				<td>${ Article.readCount }</td>
 			</tr>
-			<%-- <tr>
+			<tr>
 <!-- 230214 6교시 게시글 내에서 첨부파일 이름 보이게 만들기 test 속성-->
 				<th>첨부파일</th>
 				<td>
-					<c:if test="${ empty board.originalFileName }">
+					<c:if test="${ empty Article.originalFileName }">
 						<span> - </span>
 					</c:if>
-					<c:if test="${ not empty board.originalFileName }">
+					<c:if test="${ not empty Article.originalFileName }">
 <!-- 230216 3교시 첨부파일 다운로드하기 a 태그 추가 href, id 속성 a태그 클릭시, script 쪽으로 가기-->
 		<!-- 230214 4교시 첨부파일 다운로드하기 글 작성할 때 첨부파일 넣으면 서버로 전달 -->
 						<!-- webapp이 아닌 별도의 저장폴더를 쓴다면 파일을 스트림으로 읽어와서 그거로 다운받아야 함 -->
-						<a href="javascript:" id="fileDown">
-							<span> ${ board.originalFileName }</span>
+						<%-- <a href="javascript:" id="fileDown">
+							<span> ${ Article.originalFileName }</span>
 						</a>
 						<!-- webapp 밑에 다운로드를 받아서 저장했다면 url로 파일에 접근이 가능해 a태그로도 파일을 저장하고 열 수 있다. -->
-						
-						<a href="${ path }/resources/upload/board/${ board.renamedFileName}"
-                    	 					download="${ board.originalFileName }" >
-                  			<span> ${ board.originalFileName } </span>
+						 --%>
+						<a href="${ path }/resources/boardUpfile/${ Article.renamedFileName}"
+                    	 					download="${ Article.originalFileName }" >
+                  			<span> ${ Article.originalFileName } </span>
                   		</a>
 						
 					</c:if>
 				</td>
-			</tr> --%>
+			</tr>
 			<tr>
 				<th>내 용</th>
 				<td>${ Article.content }</td>
