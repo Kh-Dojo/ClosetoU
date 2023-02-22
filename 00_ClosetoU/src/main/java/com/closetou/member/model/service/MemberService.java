@@ -1,9 +1,9 @@
 package com.closetou.member.model.service;
 
 
-import static com.closetou.common.jdbc.JDBCTemplate.getConnection;
 import static com.closetou.common.jdbc.JDBCTemplate.close;
 import static com.closetou.common.jdbc.JDBCTemplate.commit;
+import static com.closetou.common.jdbc.JDBCTemplate.getConnection;
 import static com.closetou.common.jdbc.JDBCTemplate.rollback;
 
 import java.sql.Connection;
