@@ -18,6 +18,7 @@ import com.closetou.board.model.service.BoardService;
 import com.closetou.cloth.model.service.ClothService;
 import com.closetou.cloth.model.vo.Cloth;
 import com.closetou.cloth.model.vo.ClothCategory;
+import com.closetou.cloth.model.vo.ClothPhoto;
 import com.closetou.common.jdbc.JDBCTemplate;
 import com.closetou.common.util.FileRename;
 import com.closetou.member.model.vo.Member;
@@ -52,12 +53,13 @@ public class tradeWriteServlet extends HttpServlet {
 		HttpSession session = request.getSession(false);
 		Member loginMember = (session == null) ? null : (Member) session.getAttribute("loginMember");
 
-		String path = getServletContext().getRealPath("/resources/boardUpfile");
+		String path = getServletContext().getRealPath("/resources/clothImages");
 
 		// 최대 100MB;
 		int maxSize = 104857600;
 		Article article = new Article();
 		Cloth cloth = new Cloth();
+		ClothPhoto cloph = new ClothPhoto();
 		TradeArticle trart = new TradeArticle();
 
 		// 파일 인코딩 설정
@@ -65,6 +67,9 @@ public class tradeWriteServlet extends HttpServlet {
 
 		MultipartRequest mr = new MultipartRequest(request, path, maxSize, encoding, new FileRename());
 
+		
+		System.out.println(mr.getFilesystemName("cloth_upfile"));
+		
 		// article 객체 세팅
 		article.setUserNo(loginMember.getNo());
 		article.setUserNickname(loginMember.getNickname());
@@ -80,6 +85,8 @@ public class tradeWriteServlet extends HttpServlet {
 		cloth.setName(mr.getParameter("cloth_name"));
 		cloth.setCatagory(mr.getParameterValues("clothcategory"));
 
+		// cloth photo 내용 세팅
+		
 		// trart 내용 세팅
 		trart.setPrice(Integer.parseInt(mr.getParameter("price")));
 		if (Integer.parseInt(mr.getParameter("price")) == 0) {
@@ -93,6 +100,9 @@ public class tradeWriteServlet extends HttpServlet {
 		// 게시글 내용 저장
 		int tradeArticleSaveResult = new ArticleService().saveForTrade(article, cloth, trart);
 
+		
+		
+		
 		if (tradeArticleSaveResult == 0) {
 			request.setAttribute("msg", "거래글 등록 실패");
 			request.setAttribute("location", "/article/tradeWrite");
