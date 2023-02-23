@@ -18,17 +18,41 @@ import com.oreilly.servlet.MultipartRequest;
 // 게시물 수정
 
 @WebServlet(name = "communityBoardUpdate", urlPatterns = { "/board/communityBoardUpdate" })
-public class CommunityBoardUpdate extends HttpServlet {
+public class CommunityBoardUpdateServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
 
-    public CommunityBoardUpdate() {
+    public CommunityBoardUpdateServlet() {
     }
     
     // 로그인체크
 	@Override
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		response.getWriter().append("Served at: ").append(request.getContextPath());
+		
+		int no = Integer.parseInt(request.getParameter("no"));	// 파라미터에서 no값 가져와 integer로 읽어옴
+    	
+    	HttpSession session = request.getSession(false);
+		Member loginMember = (session == null) ? null : (Member) session.getAttribute("loginMember");
+    	
+		if (loginMember != null) {	// 로그인 상태
+
+// 230216 8교시 한 번 조회한 회원은 조회수 처리에 포함되지 않게 만들기 > getBoardByNo()를 ,true 포함시켜 수정. true는 이미 조회한 이력이 있는 상태
+			Article article = new ArticleService().getArticleByNoForCommunity(no, true);		//  게시글을 작성한 회원이 맞는지 체크 안쪽 if else 까지
+						
+			if(article != null && loginMember.getNickname().equals(article.getUserNickname())) {
+				request.setAttribute("Article", article);
+				request.getRequestDispatcher("/views/board/communityBoardUpdate.jsp").forward(request, response);
+			} else {
+				request.setAttribute("msg", "잘못된 접근입니다.");
+				request.setAttribute("location", "/board/communityBoardList");
+				request.getRequestDispatcher("/views/common/msg.jsp").forward(request, response);
+			}
+			
+		} else {	// 로그인 미상태
+			request.setAttribute("msg", "로그인 후 수정해 주세요.");
+			request.setAttribute("location", "/");
+			request.getRequestDispatcher("/views/common/msg.jsp").forward(request, response);
+		}
 	}
 	
 	// 수정
@@ -63,12 +87,17 @@ public class CommunityBoardUpdate extends HttpServlet {
 // 230216 8교시 한 번 조회한 회원은 조회수 처리에 포함되지 않게 만들기 > getBoardByNo()를 ,true 포함시켜 수정. true는 이미 조회한 이력이 있는 상태
 	    	Article article = new ArticleService().getArticleByNoForCommunity(Integer.parseInt(mr.getParameter("no")), true);
 
+
 	    	if(article != null && loginMember.getNickname().equals(article.getUserNickname())) {
 // 230214 8교시 수정한 내용으로 게시글이 바뀌게 만들기
 	    
+
+	    		
 //	    		board.setNo(Integer.parseInt(mr.getParameter("no")));	// 230216 1교시 코드 수정하며 밖으로 빼냄
 	    		article.setTitle(mr.getParameter("title"));
 	    		article.setContent(mr.getParameter("content"));
+	    		article.setType(mr.getParameter("type"));
+	    		
 	    		
 // 230216 1교시 첨부 파일을 포함해 게시글 수정하기
 	    		String originalFileName = mr.getOriginalFileName("upfile");
@@ -93,8 +122,9 @@ public class CommunityBoardUpdate extends HttpServlet {
 	    			article.setRenamedFileName(filesystemName);
 	    		}
 	    		
+
 	    		int result = new ArticleService().save(article);
-	    		
+
 	    		if(result > 0 ) {
 	    			request.setAttribute("msg", "게시글 수정 성공");
 	    			request.setAttribute("location", "/communityBoardView?no=" + article.getNo());

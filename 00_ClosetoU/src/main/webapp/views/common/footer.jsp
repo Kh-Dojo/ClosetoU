@@ -18,15 +18,6 @@
 			&lt;Copyright 2023 <strong>ClosetToU</strong>. All rights reserved.&gt;
 		</p>
 	</footer>
-	<script>
-	$('#aQna').on('clcik', () => {
-		if(${ empty loginMember }) {
-			alert('로그인 후 이용해 주세요.')
-			
-			$('#userId').focus();
-		}			
-	});
-	</script>
 <!-- <script>
 	window.onload = function(){
 	    function loginCheck() {
@@ -42,21 +33,63 @@
 	}
 </script>
  -->
-<%-- <script>
-	window.onload = function(){
-	    function loginCheck(){ 
-	         var id = '<%=(String)request.getAttribute("userId")%>';
-		//	var id = "<c:out value='${param.userId}'/>";
-			
+<script>
+	$(document).ready(() =>{
+		
+		$('#aQna').on('focus', () => {
+			/* if(${ empty loginMember }) { */
+				alert('로그인 후 이용해 주세요.')
+				
+			/* 	$('#userId').focus();
+			}	 */		
+		});
+	});
+	
+	<%-- <%-- window.onload = function(){
+		
+		function loginCheck(){ 
+	         var id = '<%=(String)request.getAttribute("no")%>';
+	         
+	
+		
 	          if(id=="null"){
 	             alert("로그인이 필요한 항목입니다. 로그인 후 문의해 주세요."); 
 	             location.href = "${ path }/index.jsp";
+	             $('#userId').focus();
 	          }
 	          else{
 	        	  location.href = '${ path }/views/board/qnaWrite.jsp';
 	          }
+		};
+		
+
+	};
+	
+	
+	//	var id = "<c:out value='${param.userId}'/>";
+    
+	/* 	$('#aQna').on('clcik', () => {
+		
+		if(${ empty loginMember }) {
+			alert('로그인 후 이용해 주세요.')
+			
+			$('#userId').focus();
+		} else {
+			location.href = '${ path }/views/board/qnaWrite.jsp';
+		}	
+	}); */
+    $('#cancel').on('click', () => {
+		if(confirm('게시글 작성을 취소하시겠습니까?')) {
+			location.replace('${ path }/board/communityBoardList');
 		}
-    }    
-</script>--%>
+	});
+};
+
+$('#cancel').on('click', () => {
+	if(confirm('게시글 작성을 취소하시겠습니까?')) {
+		location.replace('${ path }/board/communityBoardList');
+	}
+} --%> --%>
+</script>
 </body>
 </html>

@@ -2,6 +2,7 @@
 	pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions"%>
 <c:set var="path" value="${ pageContext.request.contextPath }" />
 
 
@@ -46,11 +47,11 @@
 					</tr>
 				</c:if>
 				<c:if test="${ not empty trlist }">
-					<c:forEach var="trboard" items="${ trlist }">
-						<div class="item_box">
-							<div>${ trboard.no }</div>
-						</div>
-					</c:forEach>
+						<c:forEach var="trboard" items="${ trlist }" varStatus="loop">
+							<div class="item_box">
+								<div>${ trboard.no }</div>
+							</div>
+						</c:forEach>
 				</c:if>
 			</table>
 

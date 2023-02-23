@@ -4,7 +4,7 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <c:set var="path" value="${ pageContext.request.contextPath }" />
 
-<jsp:include page="/views/common/header.jsp" />
+<jsp:include page="/views/common/sub-header.jsp" />
 <script src="${ path }/resources/js/jquery-3.6.3.js"></script>
 
 <link rel="stylesheet" href="${ path }/resources/css/communityBoardWrite.css" />
@@ -23,10 +23,6 @@
 				-->
 		<form action="${ path }/article/communityWrite" method="POST"  enctype="multipart/form-data">
 			<table id='tbl-board'>
-				<tr>
-					<th>제목</th>
-					<td><input type="text" name="title" id="title"></td>
-				</tr>
 				<tr>
 					<c:if test="${ loginMember.role eq 'ROLE_ADMIN' }">
 						<th><label for="">말머리</label></th>
@@ -47,6 +43,10 @@
 					</c:if>
 				</tr>
 				<tr>
+					<th>제목</th>
+					<td><input type="text" name="title" id="title"></td>
+				</tr>
+				<tr>
 					<th>작성자</th>
 <!-- 230214 4교시 첨부파일 다운로드하기 글 작성할 때 첨부파일 넣으면 서버로 전달 -->
 					<td><input type="text" name="writer" value="${ loginMember.nickname }" readonly></td>
@@ -62,7 +62,8 @@
 				<tr>
 					<th colspan="2">
 						<input type="submit" value="등록">
-						<input type="reset" value="취소">
+						<input type="reset" id="reset" value="초기화">
+						<button type="button" id="cancel">취소</button>
 					</th>
 				</tr>
 			</table>
@@ -70,6 +71,16 @@
 	</div>
 </article>
 <%-- <script src="${ path }/resources/js/communityBoardWrite.js"></script> --%>
+<script>
+$(document).ready(() => {
+	
+	$('#cancel').on('click', () => {
+		if(confirm('게시글 작성을 취소하시겠습니까?')) {
+			location.replace('${ path }/board/communityBoardList');
+		}
+	});
+});
+</script>
 </section>
 
 <jsp:include page="/views/common/footer.jsp" />

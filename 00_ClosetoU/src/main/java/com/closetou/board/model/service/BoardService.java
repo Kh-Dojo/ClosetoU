@@ -16,34 +16,50 @@ import com.closetou.common.util.PageInfo;
 
 public class BoardService {
 
-	// 아티클을 검색하는 메소드
-	public List<Article> searchArticle(String keyword) {
+	// (자유게시판용)조회되는 결과의 갯수를 확인하기 위한 메소드
+		public int getBoardCountForCommunity() {
+			int count = 0;
+			Connection connection = getConnection();
 
-		System.out.println("searchArticle service 실행");
+			count = new BoardDao().getBoardCountForCommunity(connection);
 
-		List<Article> result = null;
+			close(connection);
 
-		Connection connection = getConnection();
+			return count;
+		}	
 
-		result = new ArticleDao().searchArticle(connection, keyword);
+		
+		// 자유게시판 게시물의 리스트를 가져오기 위한 메소드
+		public List<Article> getArticleForCommunity(PageInfo pageInfo) {
+			List<Article> list = null;
+			Connection connection = getConnection();
 
-		close(connection);
+			list = new BoardDao().findAllArticleForCommunity(connection, pageInfo);
 
-		return result;
-	}
+			close(connection);
 
-	// 거래페이지에서 거래글과 아이템을 검색하는 메소드
-	public List<TradeArticle> searchItem(String keyword, String[] attribute) {
-		List<TradeArticle> result = null;
+			return list;
+		}
 
-		Connection connection = getConnection();
+		
 
-		result = new ArticleDao().searchTradeArticle(connection, keyword, attribute);
-
-		close(connection);
-
-		return result;
-	}
+			
+	
+//////////////////////////////	위 주희 아래 정준	//////////////////////////////////////
+	
+	// 거래게시글 작성 시 등록될 의류 카테고리 리스트를 가져오기 위한 메소드
+	public ArrayList<ClothCategory> getClothCategories() {
+			ArrayList<ClothCategory> cate = new ArrayList<>();
+			
+			Connection connection = getConnection();
+			
+			cate = new BoardDao().getClothCategories(connection);
+			
+			close(connection);
+			
+			return cate;
+		}	
+	
 
 	// 조회되는 결과의 개수를 확인하기 위한 메소드
 	public int getBoardCountForTrade() {
@@ -69,42 +85,8 @@ public class BoardService {
 		return list;
 	}
 
-	// (자유게시판용)조회되는 결과의 갯수를 확인하기 위한 메소드
-	public int getBoardCountForCommunity() {
-		int count = 0;
-		Connection connection = getConnection();
+	
 
-		count = new BoardDao().getBoardCountForCommunity(connection);
-
-		close(connection);
-
-		return count;
-	}
-
-	// 자유게시판 게시물의 리스트를 가져오기 위한 메소드
-	public List<Article> getArticleForCommunity(PageInfo pageInfo) {
-		List<Article> list = null;
-		Connection connection = getConnection();
-
-		list = new BoardDao().findAllArticleForCommunity(connection, pageInfo);
-
-		close(connection);
-
-		return list;
-	}
-
-	// 거래게시글 작성 시 등록될 의류 카테고리 리스트를 가져오기 위한 메소드
-	public ArrayList<ClothCategory> getClothCategories() {
-		ArrayList<ClothCategory> cate = new ArrayList<>();
-		
-		Connection connection = getConnection();
-		
-		cate = new BoardDao().getClothCategories(connection);
-		
-		close(connection);
-		
-		return cate;
-	}
-
+	
 
 }
