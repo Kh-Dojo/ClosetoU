@@ -111,9 +111,15 @@ public class MemberService {
 			}
 			return numbers;
 		}
-
-		public List<Article> getArticleForTradeList(PageInfo pageInfo) {
+		
+		// 거래 글 불러오기
+		public List<Article> getArticleForTradeList(PageInfo pageInfo, int no) {
+			Article article = new Article();
+			Member member = new Member();
 			List<Article> list = null;
+			
+			article.setUserNo(member.getNo());
+			
 			Connection connection = getConnection();
 
 			list = new MemberDao().findAllArticlesForTrade(connection, pageInfo);
@@ -122,31 +128,37 @@ public class MemberService {
 
 			return list;
 		}
-
-//	// 자유게시판 관련
-//		// (자유게시판용)조회되는 결과의 갯수를 확인하기 위한 메소드
-//		public int getBoardCountForCommunity() {
-//			int count = 0;
-//			Connection connection = getConnection();
-//
-//			count = new MemberDao().getBoardCountForCommunity(connection);
-//
-//			close(connection);
-//
-//			return count;
-//		}
-
+		
 		// 자유게시판 게시물의 리스트를 가져오기 위한 메소드
-		public List<Article> getArticleForCommunity(PageInfo pageInfo) {
+		public List<Article> getArticleForCommunity(PageInfo pageInfo, int no) {
+			Article article = new Article();
+			Member member = new Member();
 			List<Article> list = null;
+			
+			article.setUserNo(member.getNo());
+			
+			Connection connection = getConnection();
+			
+			list = new MemberDao().findAllArticleForCommunity(connection, pageInfo);
+			
+			close(connection);
+			
+			return list;
+		}
+
+	// 자유게시판 관련
+		// (자유게시판용)조회되는 결과의 갯수를 확인하기 위한 메소드
+		public int getBoardCountForCommunity(int no) {
+			int count = 0;
 			Connection connection = getConnection();
 
-			list = new MemberDao().findAllArticleForCommunity(connection, pageInfo);
+			count = new MemberDao().getBoardCountForCommunity(connection, no);
 
 			close(connection);
 
-			return list;
+			return count;
 		}
+
 		
 		// 1:1 문의 관련
 		public int getBoardAsk() {
@@ -171,6 +183,38 @@ public class MemberService {
 
 			return list;
 		}
+		
+		// No 관련
+		public Member findMemberByNo(int No) {
+			Connection connection = getConnection();
+			
+			Member member = new MemberDao().findMemberByNo(connection, No);
+			
+			close(connection);
+			
+			return member;
+		}
+
+		public Member loginNo(int No) {
+			Member member = this.findMemberByNo(No);
+			
+			return member;
+		}
+
+		public int getBoardCountForTrade(int no) {
+			int count = 0;
+			Connection connection = getConnection();
+
+			count = new MemberDao().getBoardCountForCommunity(connection, no);
+
+			close(connection);
+
+			return count;
+		}
+
+
+
+	
 		
 
 
