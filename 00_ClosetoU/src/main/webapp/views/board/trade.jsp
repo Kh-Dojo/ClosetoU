@@ -5,12 +5,13 @@
 <c:set var="path" value="${ pageContext.request.contextPath }" />
 
 
-<jsp:include page="/views/common/header.jsp" />
+<jsp:include page="/views/common/sub-header.jsp" />
 <script src="${ path }/resources/js/jquery-3.6.3.js"></script>
 
 <link rel="stylesheet" href="${ path }/resources/css/trade.css" />
 <section>
-	<div id="sidemenu"><jsp:include page="/views/common/sidemenu/tradeSideMenu.jsp" /></div>
+	<div id="sidemenu"><jsp:include
+			page="/views/common/sidemenu/tradeSideMenu.jsp" /></div>
 	<article>
 		<div id="search_section">
 			<form action="${ path }/itemsearch" method="POST">
@@ -39,20 +40,15 @@
 		</div>
 		<div id="item_area">
 			<table id="tbl-board">
-				<c:if test="${ empty list }">
+				<c:if test="${ empty trlist }">
 					<tr>
 						<th colspan="6">조회된 게시글이 없습니다.</th>
 					</tr>
 				</c:if>
-				<c:if test="${ not empty list }">
-					<c:forEach var="board" items="${ list }">
+				<c:if test="${ not empty trlist }">
+					<c:forEach var="trboard" items="${ trlist }">
 						<div class="item_box">
-							<div>${ board.title }</div>
-							<c:forEach var="tradeboard" items="${ trlist }">
-								<c:if test="${ board.no == tradeboard.no }">
-									<div>${ tradeboard.price }</div>
-								</c:if>
-							</c:forEach>
+							<div>${ trboard.no }</div>
 						</div>
 					</c:forEach>
 				</c:if>

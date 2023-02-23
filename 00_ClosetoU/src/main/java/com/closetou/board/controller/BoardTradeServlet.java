@@ -2,6 +2,7 @@ package com.closetou.board.controller;
 
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 import javax.servlet.ServletException;
@@ -48,9 +49,8 @@ public class BoardTradeServlet extends HttpServlet {
 
 		// 가져온 게시물들의 PK값을 기준으로 타테이블에 있는 속성들을 가져옴
 		ArrayList<Integer> numbers = new ArticleService().noFromArticle(list);	
-		trlist = new ArticleService().getTradeArticleByNos(numbers);
 		
-		System.out.println(trlist);
+		trlist = new ArticleService().getTradeArticleByNos(numbers);
 		
 		request.setAttribute("pageInfo", pageInfo);
 		request.setAttribute("list", list);

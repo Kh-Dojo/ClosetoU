@@ -128,32 +128,51 @@ public class ArticleDao {
 		PreparedStatement pstmt = null;
 		ResultSet rs = null;
 		String query = "SELECT "
-				+ "    RNUM, NO, USER_NO, TYPE, TITLE, CONTENT, READ_COUNT, VISABLE, POST_DATE, EDITED, EDIT_DATE "
-				+ "FROM" 
-				+ "    (SELECT " 
-				+ "        ROWNUM AS RNUM," 
-				+ "        NO," 
-				+ "        USER_NO,"
-				+ "        TYPE," 
-				+ "        TITLE," 
-				+ "        CONTENT," 
-				+ "        READ_COUNT," 
-				+ "        VISABLE,"
-				+ "        POST_DATE," 
-				+ "        EDITED," 
-				+ "        EDIT_DATE " 
-				+ "    FROM " 
-				+ "        ARTICLE "
-				+ "    WHERE" 
-				+ "        TYPE IN ('거래') " 
-				+ "    ORDER BY " 
-				+ "        NO DESC) " 
-				+ "WHERE "
-				+ "    RNUM BETWEEN ? AND ?";
+				+ "    * "
+				+ "FROM "
+				+ "    ( "
+				+ "        SELECT "
+				+ "            ROWNUM AS RNUM, "
+				+ "            NO, "
+				+ "            USER_NO, "
+				+ "            TYPE, "
+				+ "            TITLE, "
+				+ "            CONTENT, "
+				+ "            READ_COUNT, "
+				+ "            VISABLE, "
+				+ "            POST_DATE, "
+				+ "            EDITED, "
+				+ "            EDIT_DATE "
+				+ "        FROM "
+				+ "            ( "
+				+ "                SELECT "
+				+ "                    ROWNUM AS RNUM, "
+				+ "                    NO, "
+				+ "                    USER_NO, "
+				+ "                    TYPE, "
+				+ "                    TITLE, "
+				+ "                    CONTENT, "
+				+ "                    READ_COUNT, "
+				+ "                    VISABLE, "
+				+ "                    POST_DATE, "
+				+ "                    EDITED, "
+				+ "                    EDIT_DATE "
+				+ "                FROM "
+				+ "                    ARTICLE "
+				+ "                WHERE "
+				+ "                    TYPE IN ( '거래' ) "
+				+ "                ORDER BY "
+				+ "                    NO DESC "
+				+ "            ) "
+				+ "    ) "
+				+ "WHERE RNUM BETWEEN ? AND ?";
 
 		try {
 			pstmt = connection.prepareStatement(query);
 
+			System.out.println(pageInfo.getStartList());
+			System.out.println(pageInfo.getEndList());
+			
 			pstmt.setInt(1, pageInfo.getStartList());
 			pstmt.setInt(2, pageInfo.getEndList());
 
