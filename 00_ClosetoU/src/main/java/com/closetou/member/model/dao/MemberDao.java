@@ -10,6 +10,7 @@ import java.util.List;
 import static com.closetou.common.jdbc.JDBCTemplate.close;
 
 import com.closetou.article.model.vo.Article;
+import com.closetou.article.model.vo.Reply;
 import com.closetou.common.util.PageInfo;
 import com.closetou.member.model.vo.Member;
 
@@ -496,6 +497,92 @@ public class MemberDao {
 		}
 		
 		return member;
+	}
+
+	public int getBoardComment(Connection connection, int no) {
+		int count = 0;
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+		String query = "SELECT COUNT(*) FROM REPLY WHERE VISABLE='Y' AND ID_NO=?";
+
+
+		try {
+			pstmt = connection.prepareStatement(query);
+			
+			pstmt.setInt(1, no);
+
+			rs = pstmt.executeQuery();
+		
+
+			if (rs.next()) {
+				count = rs.getInt(1);
+			}
+
+		} catch (SQLException e) {
+			e.printStackTrace();
+	
+		} finally {
+			close(rs);
+			close(pstmt);
+		}
+
+		return count;
+	}
+
+	public List<Reply> findAllArticleForComment(Connection connection, PageInfo pageInfo, int no) {
+		List<Reply> replies = new ArrayList<>();
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+		String query = "SELECT RNUM, ID_NO, CONTENT, NICKNAME, COMMENT_DATE, EDIT_DATE, VISABLE "
+				+ "FROM (SELECT ROWNUM AS RNUM, "
+				+ "	       ARTICLE_NO,"
+				+ "           ID_NO,"
+				+ "		CONTENT,"
+				+ "		NICKNAME,  "
+				+ "		COMMENT_DATE,  "
+				+ "		EDIT_DATE, "
+				+ "		VISABLE "
+				+ "FROM (SELECT R.ARTICLE_NO,"
+				+ "    R.ID_NO,"
+				+ "	R.CONTENT,  "
+				+ "	M.NICKNAME,  "
+				+ "	R.COMMENT_DATE,  "
+				+ "	R.EDIT_DATE,"
+				+ "	R.VISABLE"
+				+ "FROM REPLY R  "
+				+ "JOIN MEMBER M ON(R.ID_NO = M.NO)  "
+				+ "WHERE R.VISABLE = 'Y')) WHERE RNUM BETWEEN ? and ? and ID_NO=?";
+		
+		try {
+			pstmt = connection.prepareStatement(query);
+			
+			pstmt.setInt(1, pageInfo.getStartList());
+			pstmt.setInt(2, pageInfo.getEndList());
+			pstmt.setInt(3, no);
+			
+			rs = pstmt.executeQuery();
+			
+			while(rs.next()) {
+				Reply reply = new Reply();
+				
+				reply.setNo(rs.getInt("USER_NO"));
+				reply.setArticleNo(rs.getInt("ARTICLE_NO"));
+				reply.setContent(rs.getString("CONTENT"));
+				reply.setUserNickname(rs.getString("NICKNAME"));
+				reply.setCommentDate(rs.getDate("COMMENT_DATE"));
+				reply.setEditDate(rs.getDate("EDIT_DATE"));
+				
+				replies.add(reply);
+			}
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(rs);
+			close(pstmt);
+		}
+		
+		return replies;
 	}
 
 

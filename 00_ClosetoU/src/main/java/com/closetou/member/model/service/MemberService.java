@@ -12,6 +12,7 @@ import java.util.List;
 
 import com.closetou.article.model.dao.ArticleDao;
 import com.closetou.article.model.vo.Article;
+import com.closetou.article.model.vo.Reply;
 import com.closetou.board.model.dao.BoardDao;
 import com.closetou.common.util.PageInfo;
 import com.closetou.member.model.dao.MemberDao;
@@ -210,10 +211,38 @@ public class MemberService {
 			
 			return member;
 		}
-
+	
 		public Member loginNo(int No) {
 			Member member = this.findMemberByNo(No);
 			
 			return member;
+		}
+		
+		// 댓글
+		public int getBoardComment(int no) {
+			int count = 0;
+			Connection connection = getConnection();
+
+			count = new MemberDao().getBoardComment(connection, no);
+
+			close(connection);
+
+			return count;
+		}
+
+		public List<Reply> getArticleComment(PageInfo pageInfo, int no) {
+			Member member = new Member();
+			Reply reply = new Reply();
+			List<Reply> list = null;
+			
+			reply.setUserNo(member.getNo());
+			
+			Connection connection = getConnection();
+
+			list = new MemberDao().findAllArticleForComment(connection, pageInfo, no);
+
+			close(connection);
+
+			return list;
 		}
 }
