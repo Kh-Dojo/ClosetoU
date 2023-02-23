@@ -122,7 +122,7 @@ public class MemberService {
 			
 			Connection connection = getConnection();
 
-			list = new MemberDao().findAllArticlesForTrade(connection, pageInfo);
+			list = new MemberDao().findAllArticlesForTrade(connection, pageInfo, no);
 
 			close(connection);
 
@@ -139,7 +139,7 @@ public class MemberService {
 			
 			Connection connection = getConnection();
 			
-			list = new MemberDao().findAllArticleForCommunity(connection, pageInfo);
+			list = new MemberDao().findAllArticleForCommunity(connection, pageInfo, no);
 			
 			close(connection);
 			

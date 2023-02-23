@@ -30,10 +30,14 @@ public class MyArticleServlet extends HttpServlet {
 		HttpSession session = request.getSession(false);
 		Member loginMember = session == null ? null : (Member)session.getAttribute("loginMember");
 		
+		int memNo = 0;
 		int page = 0;
 		int listCount = 0;
 		PageInfo pageInfo = null;
 		List<Article> list = null;
+		
+		memNo = loginMember.getNo();
+		System.out.println(memNo);
 		
 		try {
 			page = Integer.parseInt(request.getParameter("page"));			
@@ -42,13 +46,15 @@ public class MyArticleServlet extends HttpServlet {
 		}
 		
 		listCount = new MemberService().getBoardCountForCommunity(loginMember.getNo());
-		pageInfo= new PageInfo(page, 10, listCount, 10);	// 한 페이지에 몇 개의 글 나오게 할 지 지정하는 메소드
+		pageInfo = new PageInfo(page, 10, listCount, 10);	// 한 페이지에 몇 개의 글 나오게 할 지 지정하는 메소드
 		
 		list = new MemberService().getArticleForCommunity(pageInfo, loginMember.getNo());
 		
+		System.out.println("sevlet list" + list);
+		
 		request.setAttribute("pageInfo", pageInfo);
 		request.setAttribute("list", list);
-		request.getRequestDispatcher("/views/member/myArticle").forward(request, response);
+		request.getRequestDispatcher("/views/member/myArticle.jsp").forward(request, response);
 	}
 
 }
