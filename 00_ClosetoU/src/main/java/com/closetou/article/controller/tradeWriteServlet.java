@@ -9,6 +9,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
+import org.apache.taglibs.standard.tag.common.fmt.RequestEncodingSupport;
 
 import com.closetou.article.model.service.ArticleService;
 import com.closetou.article.model.vo.Article;
@@ -17,6 +18,8 @@ import com.closetou.board.model.service.BoardService;
 import com.closetou.cloth.model.service.ClothService;
 import com.closetou.cloth.model.vo.Cloth;
 import com.closetou.cloth.model.vo.ClothCategory;
+import com.closetou.cloth.model.vo.ClothPhoto;
+import com.closetou.common.jdbc.JDBCTemplate;
 import com.closetou.common.util.FileRename;
 import com.closetou.member.model.vo.Member;
 import com.oreilly.servlet.MultipartRequest;
@@ -50,46 +53,63 @@ public class tradeWriteServlet extends HttpServlet {
 		HttpSession session = request.getSession(false);
 		Member loginMember = (session == null) ? null : (Member) session.getAttribute("loginMember");
 
-		String path = getServletContext().getRealPath("/resources/boardUpfile"); 
+		String path = getServletContext().getRealPath("/resources/clothImages");
 
-		int maxSize = 10485760;
-		int recentNo;
+		// 최대 100MB;
+		int maxSize = 104857600;
 		Article article = new Article();
 		Cloth cloth = new Cloth();
+		ClothPhoto cloph = new ClothPhoto();
 		TradeArticle trart = new TradeArticle();
-		
-		
+
 		// 파일 인코딩 설정
 		String encoding = "UTF-8";
 
 		MultipartRequest mr = new MultipartRequest(request, path, maxSize, encoding, new FileRename());
 
+		
+		System.out.println(mr.getFilesystemName("cloth_upfile"));
+		
+		// article 객체 세팅
 		article.setUserNo(loginMember.getNo());
 		article.setUserNickname(loginMember.getNickname());
 		article.setTitle(mr.getParameter("title"));
 		article.setContent(mr.getParameter("content"));
-		article.setRenamedFileName(mr.getFilesystemName("upfile")); 
-		article.setOriginalFileName(mr.getOriginalFileName("upfile")); 
-		article.setType(mr.getParameter("type"));
+		article.setRenamedFileName(mr.getFilesystemName("cloth_upfile"));
+		System.out.println(article.getRenamedFileName());
+		article.setOriginalFileName(mr.getOriginalFileName("cloth_upfile"));
+		article.setType("거래");
+
+		// cloth 내용 세팅
+		cloth.setPhotoNo(mr.getFilesystemName("cloth_upfile"));
+		cloth.setName(mr.getParameter("cloth_name"));
+		cloth.setCatagory(mr.getParameterValues("clothcategory"));
+
+		// cloth photo 내용 세팅
+		
+		// trart 내용 세팅
+		trart.setPrice(Integer.parseInt(mr.getParameter("price")));
+		if (Integer.parseInt(mr.getParameter("price")) == 0) {
+			trart.setFree("Y");
+		} else {
+			trart.setFree("N");
+		}
+		trart.setTradeMethod(mr.getParameter("trademethod"));
+		trart.setLocation(mr.getParameter("location"));
 
 		// 게시글 내용 저장
-		int articleSaveResult = new ArticleService().saveForTrade(article);
+		int tradeArticleSaveResult = new ArticleService().saveForTrade(article, cloth, trart);
 
-		if(articleSaveResult == 0) {
-			request.setAttribute("msg", "거래글 등록 실패.");
-			request.setAttribute("location", "/views/board/trade");
+		
+		
+		
+		if (tradeArticleSaveResult == 0) {
+			request.setAttribute("msg", "거래글 등록 실패");
+			request.setAttribute("location", "/article/tradeWrite");
 			request.getRequestDispatcher("/views/common/msg.jsp").forward(request, response);
 		}
-		
-		recentNo = new ArticleService().getMostRecentlyArticleNoByMemberNo(loginMember.getNo());
-		
-		// 의류 내용 저장
-		cloth.setPhotoNo(mr.getFilesystemName("upfile"));
-		cloth.setName((String)request.getAttribute("clothName"));
-		cloth.setCatagory(request.getParameterValues("clothCategories"));		
-		
-		int clothSaveResult = new ClothService().saveCloth(cloth);
-		
-		
+		request.setAttribute("msg", "거래글 등록에 성공했습니다.");
+		request.setAttribute("location", "/views/board/trade");
+		request.getRequestDispatcher("/views/common/msg.jsp").forward(request, response);
 	}
 }

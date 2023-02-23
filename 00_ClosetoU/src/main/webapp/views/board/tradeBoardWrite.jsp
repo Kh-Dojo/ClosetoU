@@ -4,7 +4,7 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <c:set var="path" value="${ pageContext.request.contextPath }" />
 
-<jsp:include page="/views/common/header.jsp" />
+<jsp:include page="/views/common/sub-header.jsp" />
 <script src="${ path }/resources/js/jquery-3.6.3.js"></script>
 
 <link rel="stylesheet" href="${ path }/resources/css/tradeWrite.css" />
@@ -16,27 +16,31 @@
 			<div id="submenuarea">
 				<h2>거래 글 등록</h2>
 			</div>
-			<form action="${ path }/ariticle/communityWrite" method="POST"
+			<form action="${ path }/article/tradeWrite" method="POST"
 				enctype="multipart/form-data">
 				<div id="cloth_enroll">
 					<div id="photoarea">
-						<input type="file" name="upfile">
+						<input type="file" name="cloth_upfile">
 					</div>
 				</div>
 				<div>
 					<input type="text" name="cloth_name" placeholder="상품명을 입력해주세요.">
 					<button id="togglecategory_btn" type="button">카테고리 등록</button>
+					<input type="number" name="price" placeholder="가격">
+					<input type="checkbox" id="free">나눔
+					<input type="text" name="trademethod">희망거래방법
+					<input type="text" name="location">거래지역
 				</div>
 				<div id="categoryoptions">
 					<c:forEach var="category" items="${ categorylist }">
 						<c:choose>
 							<c:when test="${ category.clothCode == '00' }">
 								<input type="checkbox" name="clothcategory"
-									value="${ category.clothCategory }" checked>${ category.clothCategory }						
+									value="${ category.clothCode }" checked>${ category.clothCategory }						
 								</c:when>
 							<c:otherwise>
 								<input type="checkbox" name="clothcategory"
-									value="${ category.clothCategory }">${ category.clothCategory }
+									value="${ category.clothCode }">${ category.clothCategory }
 								
 								</c:otherwise>
 						</c:choose>

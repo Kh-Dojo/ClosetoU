@@ -8,7 +8,7 @@
 <script src="${ path }/resources/js/jquery-3.6.3.js"></script>
 <script src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
 <script src="//dapi.kakao.com/v2/maps/sdk.js?appkey=1a6d39646ccad54a791b4ce15012c492&libraries=services"></script>
-<jsp:include page="/views/common/header.jsp" />
+<jsp:include page="/views/common/sub-header.jsp" />
 	<section>	
 	<form id="donation_for" action="${ path }/donationform" method="POST">
 		<table>

@@ -6,7 +6,7 @@
 
 <script src="${ path }/resources/js/jquery-3.6.3.js"></script>
 
-<jsp:include page="/views/common/header.jsp" />
+<jsp:include page="/views/common/sub-header.jsp" />
 
 <style>
 	section#board-list-container{width:600px; margin:0 auto; text-align:center;}
@@ -17,7 +17,7 @@
 	div#pageBar{margin-top:10px; text-align:center; background-color:rgba(255, 204, 153, 0.3);}
 	#sidemenu {width: 20%; height: auto;}
 	article {width: 80%; height: auto; box-sizing: border-box; float: left; padding-right:10px;}
-	section {width: 1200px; height: 400px; margin: auto;}
+	section {width: 1200px; height: 500px; margin: auto;}
 	section > * {box-sizing: border-box; float: left;}
 	#sub_menu_name_area:active {color:rgb(220, 179, 14);}
 	#sub_menu_name_area > ul {list-style:none;}
@@ -52,11 +52,6 @@
 					<tr>
 						<td>${ article.rowNum }</td>
 						<td>
-							<c:if test="${ article.type eq '공지' }">
-								<a href="${ path }/communityBoardView?no=${ article.no }">
-									<span>[${ article.type }]</span> ${ article.title }
-								</a>
-							</c:if>
 							<c:if test="${ article.type eq '자유' }">
 								<a href="${ path }/communityBoardView?no=${ article.no }">
 									${ article.title }
@@ -72,10 +67,10 @@
 		</table>
 		<div id="pageBar">
 			<!-- 맨 처음으로 -->
-			<button onclick="location.href= '${ path }/board/communityBoardList?page=1'">&lt;&lt;</button>
+			<button onclick="location.href= '${ path }/myArticle?page=1'">&lt;&lt;</button>
 
 			<!-- 이전 페이지로 -->
-			<button onclick="location.href= '${ path }/board/communityBoardList?page=${ pageInfo.prevPage }'">&lt;</button>
+			<button onclick="location.href= '${ path }/myArticle?page=${ pageInfo.prevPage }'">&lt;</button>
 
 			<!--  10개 페이지 목록 8교시 페이지 버튼 누르면 버튼 disabled상태 되고 해당 페이지로 이동-->
 			<c:forEach begin="${ pageInfo.startPage }" end="${ pageInfo.endPage }" varStatus="status">	
@@ -87,16 +82,16 @@
 						<button disabled>${ status.current }</button>
 					</c:when>
 					<c:otherwise>
-						<button onclick="location.href= '${ path }/board/communityBoardList?page=${ status.current }'">${ status.current }</button>
+						<button onclick="location.href= '${ path }/myArticle?page=${ status.current }'">${ status.current }</button>
 					</c:otherwise>
 				</c:choose>
 			</c:forEach>
 
 			<!-- 다음 페이지로 -->
-			<button onclick="location.href= '${ path }/board/communityBoardList?page=${ pageInfo.nextPage }'">&gt;</button>
+			<button onclick="location.href= '${ path }/myArticle?page=${ pageInfo.nextPage }'">&gt;</button>
 
 			<!-- 맨 끝으로 -->
-			<button onclick="location.href= '${ path }/board/communityBoardList?page=${ pageInfo.maxPage }'">&gt;&gt;</button>
+			<button onclick="location.href= '${ path }/myArticle?page=${ pageInfo.maxPage }'">&gt;&gt;</button>
 		</div>
 		</div>
 	</article>

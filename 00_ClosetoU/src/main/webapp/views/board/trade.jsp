@@ -2,15 +2,17 @@
 	pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions"%>
 <c:set var="path" value="${ pageContext.request.contextPath }" />
 
 
-<jsp:include page="/views/common/header.jsp" />
+<jsp:include page="/views/common/sub-header.jsp" />
 <script src="${ path }/resources/js/jquery-3.6.3.js"></script>
 
 <link rel="stylesheet" href="${ path }/resources/css/trade.css" />
 <section>
-	<div id="sidemenu"><jsp:include page="/views/common/sidemenu/tradeSideMenu.jsp" /></div>
+	<div id="sidemenu"><jsp:include
+			page="/views/common/sidemenu/tradeSideMenu.jsp" /></div>
 	<article>
 		<div id="search_section">
 			<form action="${ path }/itemsearch" method="POST">
@@ -24,35 +26,36 @@
 					</div>
 					<hr />
 					<div>
-						<input type="checkbox" class="catagory_checkbox"
-							name="item_attribute" id="attr1" value="속성1" />속성1<br /> <input
-							type="checkbox" class="catagory_checkbox" name="item_attribute"
-							id="attr2" value="속성2" />속성2<br /> <input type="checkbox"
-							class="catagory_checkbox" name="item_attribute" id="attr3"
-							value="속성3" />속성3<br /> <input type="checkbox"
-							class="catagory_checkbox" name="item_attribute" id="attr4"
-							value="속성4" />속성4<br />
+						<div id="categoryoptions">
+							<c:forEach var="category" items="${ categorylist }">
+								<c:choose>
+									<c:when test="${ category.clothCode == '00' }">
+										<input type="checkbox" name="clothcategory"
+											value="${ category.clothCode }" checked>${ category.clothCategory }						
+								</c:when>
+									<c:otherwise>
+										<input type="checkbox" name="clothcategory"
+											value="${ category.clothCode }">${ category.clothCategory }
+								</c:otherwise>
+								</c:choose>
+							</c:forEach>
+						</div>
+						<hr />
 					</div>
-					<hr />
 				</div>
 			</form>
 		</div>
 		<div id="item_area">
 			<table id="tbl-board">
-				<c:if test="${ empty list }">
+				<c:if test="${ empty trlist }">
 					<tr>
 						<th colspan="6">조회된 게시글이 없습니다.</th>
 					</tr>
 				</c:if>
-				<c:if test="${ not empty list }">
-					<c:forEach var="board" items="${ list }">
+				<c:if test="${ not empty trlist }">
+					<c:forEach var="trboard" items="${ trlist }" varStatus="loop">
 						<div class="item_box">
-							<div>${ board.title }</div>
-							<c:forEach var="tradeboard" items="${ trlist }">
-								<c:if test="${ board.no == tradeboard.no }">
-									<div>${ tradeboard.price }</div>
-								</c:if>
-							</c:forEach>
+							<div>${ trboard.no }</div>
 						</div>
 					</c:forEach>
 				</c:if>

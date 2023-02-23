@@ -3,7 +3,7 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <c:set var="path" value="${ pageContext.request.contextPath }"/>
 
-<jsp:include page="/views/common/header.jsp" />
+<jsp:include page="/views/common/sub-header.jsp" />
 
 <link rel="stylesheet" href="${ path }/resources/css/qnaWrite.css" />
 <section>
@@ -16,12 +16,12 @@
             <table>
             <tr>
                 <th>
-                    <label for="name" >성함</label>
+                    <label for="name">성함</label>
                 </th>
             </tr>
             <tr>
                 <td>
-                    <input type="text" name="name" id="name" value="${ loginMember.name }" required>
+                    <input type="text" name="name" id="name" value="${ loginMember.name }" placeholder="성함을 입력해 주세요." required>
                 </td>
             </tr>
             <tr>
@@ -31,7 +31,7 @@
             </tr>
             <tr>
                 <td>
-                    <input type="tel" name="phone" id="phone" value="${ loginMember.phone }" required>
+                    <input type="tel" name="phone" id="phone" value="${ loginMember.phone }" placeholder="연락처를 입력해 주세요." required>
                 </td>
             </tr>
             <tr>
@@ -54,24 +54,6 @@
                     <input type="text" name="content" id="content" placeholder="문의내용을 입력해주세요." required>
                 </td>
             </tr>
-            <!-- <tr>
-                <td>
-                    답변을 회신 받을 방법을 선택해 주세요.
-                </td>
-            </tr>
-            <tr>
-                <td>
-                        <label>                                                     label 태그로 묶어서 요소와 텍스트를 감싸기
-                            <input type="radio" name="answer-type" value="phone"> 전화       radio 타입에서 value : 서버로 전송될 값
-                        </label>
-                        <label>                                                     label 태그로 묶어서 요소와 텍스트를 감싸기
-                            <input type="radio" name="answer-type" value="SMS"> 문자       radio 타입에서 value : 서버로 전송될 값
-                        </label>
-                        <label>                                                     label 태그로 묶어서 요소와 텍스트를 감싸기
-                            <input type="radio" name="answer-type" value="E-Mail"> 이메일       radio 타입에서 value : 서버로 전송될 값
-                        </label>
-                </td>
-            </tr> -->
 			<tr>
 				<td>
             		<input type="submit" id="submit" value="문의하기">

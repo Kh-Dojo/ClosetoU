@@ -10,31 +10,30 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
-import com.closetou.article.model.vo.Article;
-import com.closetou.board.model.service.BoardService;
+import com.closetou.article.model.vo.Reply;
 import com.closetou.common.util.PageInfo;
 import com.closetou.member.model.service.MemberService;
 import com.closetou.member.model.vo.Member;
 
-@WebServlet(urlPatterns = { "/myArticle" })
-public class MyArticleServlet extends HttpServlet {
+@WebServlet(name = "myComment", urlPatterns = { "/myComment" })
+public class MyCommentServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
-       
-    public MyArticleServlet() {
+
+    public MyCommentServlet() {
     }
     
     @Override
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		request.setCharacterEncoding("UTF-8");
-		
-		HttpSession session = request.getSession(false);
+    	request.setCharacterEncoding("UTF-8");
+    	
+    	HttpSession session = request.getSession(false);
 		Member loginMember = session == null ? null : (Member)session.getAttribute("loginMember");
 		
 		int memNo = 0;
 		int page = 0;
 		int listCount = 0;
 		PageInfo pageInfo = null;
-		List<Article> list = null;
+		List<Reply> list = null;
 		
 		memNo = loginMember.getNo();
 		System.out.println(memNo);
@@ -45,14 +44,16 @@ public class MyArticleServlet extends HttpServlet {
 			page = 1;
 		}
 		
-		listCount = new MemberService().getBoardCountForCommunity(loginMember.getNo());
-		pageInfo = new PageInfo(page, 10, listCount, 10);	// 한 페이지에 몇 개의 글 나오게 할 지 지정하는 메소드
+		listCount = new MemberService().getBoardComment(loginMember.getNo());
+		pageInfo= new PageInfo(page, 10, listCount, 10);	// 한 페이지에 몇 개의 글 나오게 할 지 지정하는 메소드
 		
-		list = new MemberService().getArticleForCommunity(pageInfo, loginMember.getNo());
+		list = new MemberService().getArticleComment(pageInfo, loginMember.getNo());
 		
 		request.setAttribute("pageInfo", pageInfo);
 		request.setAttribute("list", list);
-		request.getRequestDispatcher("/views/member/myArticle.jsp").forward(request, response);
-	}
+		request.getRequestDispatcher("/views/member/myComment.jsp").forward(request, response);
+    
+    }
+    
 
 }
