@@ -10,18 +10,18 @@
 </div>
 <div id="sub_menu_name_area">
 	<h3 class="submenu">
-		<a href="${ path }/views/member/myPage.jsp">내 정보 수정</a>
+		<a href="${ path }/member/myPage">내 정보 수정</a>
 	</h3>
 	<h3 class="submenu">
-		<a href="${ path }/views/member/myTrade.jsp">나의 거래 내역</a>
+		<a href="${ path }/myTrade">나의 거래 내역</a>
 	</h3>
 	<h3 class="submenu">
-		<a href="${ path }/views/member/myArticle.jsp">나의 게시글</a>
+		<a href="${ path }/myArticle">나의 게시글</a>
 	</h3>
 	<h3 class="submenu">
 		<a href="${ path }/views/member/myComment.jsp">나의 댓글</a>
 	</h3>
 	<h3 class="submenu">
-		<a href="${ path }/views/member/myAsk.jsp">1:1 문의 내역</a>
+		<a href="${ path }/myAsk">1:1 문의 내역</a>
 	</h3>
 </div>
