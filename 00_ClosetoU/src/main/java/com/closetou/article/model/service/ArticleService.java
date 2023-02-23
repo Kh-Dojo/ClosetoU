@@ -233,5 +233,14 @@ public class ArticleService {
 		
 		return result;
 	}
+
+
+	public List<TradeArticle> getTradeArticleByNosWithAttributes(ArrayList<Integer> numbers, String[] attribute) {
+		
+		
+		
+		
+		return null;
+	}
 	
 }
