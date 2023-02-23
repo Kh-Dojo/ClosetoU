@@ -426,4 +426,45 @@ public class ArticleDao {
 		return recentNo;
 	}
 
+	public int saveTradeArticle(Connection connection, TradeArticle trart) {
+		int result = 0;
+		PreparedStatement pstmt = null;
+		String query = "INSERT INTO TRADE_ARTICLE ( "
+				+ "    ARTICLE_NO, "
+				+ "    CLOTH_NO, "
+				+ "    PRICE, "
+				+ "    TRADE_ENDED, "
+				+ "    FREE, "
+				+ "    TRADE_METHOD, "
+				+ "    LOCATION "
+				+ ") VALUES ( "
+				+ "    ?, "
+				+ "    ?, "
+				+ "    ?,  "
+				+ "    DEFAULT, "
+				+ "    ?, "
+				+ "    ?, "
+				+ "    ? "
+				+ ")";
+		
+		try {
+			pstmt = connection.prepareStatement(query);
+			
+			pstmt.setInt(1, trart.getNo());
+			pstmt.setInt(2, trart.getClothNumber());
+			pstmt.setInt(3, trart.getPrice());
+			pstmt.setString(4, trart.getFree());
+			pstmt.setString(5, trart.getTradeMethod());
+			pstmt.setString(6, trart.getLocation());
+			
+			result = pstmt.executeUpdate(); 
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(pstmt);
+		}
+		return result;
+	}
+
 }
