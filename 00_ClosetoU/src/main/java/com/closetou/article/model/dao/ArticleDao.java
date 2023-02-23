@@ -293,7 +293,9 @@ public class ArticleDao {
 			query += (numbers.get(i) +", "); 
 		}
 		query += numbers.get(numbers.size()-1);
-		query += ")";
+		query += ") ORDER BY ARTICLE_NO DESC";
+		
+		System.out.println(query);
 		
 		try {
 			pstmt = connection.prepareStatement(query);
