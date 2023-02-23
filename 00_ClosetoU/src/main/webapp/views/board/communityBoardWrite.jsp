@@ -44,7 +44,7 @@
 				</tr>
 				<tr>
 					<th>제목</th>
-					<td><input type="text" name="title" id="title"></td>
+					<td><input type="text" name="title" id="title" placeholder="제목을 입력해 주세요." required></td>
 				</tr>
 				<tr>
 					<th>작성자</th>
@@ -57,7 +57,7 @@
 				</tr>
 				<tr>
 					<th>내용</th>
-					<td><textarea name="content" cols="50" rows="15" ></textarea></td>
+					<td><textarea name="content" cols="50" rows="15" placeholder="내용을 입력해주세요." required></textarea></td>
 				</tr>
 				<tr>
 					<th colspan="2">

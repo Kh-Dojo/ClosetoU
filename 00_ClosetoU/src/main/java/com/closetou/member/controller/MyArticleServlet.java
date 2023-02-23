@@ -50,8 +50,6 @@ public class MyArticleServlet extends HttpServlet {
 		
 		list = new MemberService().getArticleForCommunity(pageInfo, loginMember.getNo());
 		
-		System.out.println("sevlet list" + list);
-		
 		request.setAttribute("pageInfo", pageInfo);
 		request.setAttribute("list", list);
 		request.getRequestDispatcher("/views/member/myArticle.jsp").forward(request, response);

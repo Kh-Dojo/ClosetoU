@@ -78,7 +78,7 @@
 	    		<form action="${ path }/article/reply" method="POST">
 	    			<input type="hidden" name="articleNo" value="${ Article.no }">
 	    <!-- 로그인 한 회원만 댓글 작성할 수 있게하기 id속성 주고 javascript script 태그로-->	
-					<textarea name="content" id="replyContent" cols="55" rows="3"></textarea>
+					<textarea name="content" id="replyContent" cols="55" rows="3" placeholder="댓글을 입력해주세요."></textarea>
 					<button type="submit" id="btn-insert">등록</button>	    			
 	    		</form>
 	    	</div>
