@@ -14,6 +14,7 @@ import com.closetou.article.model.service.ArticleService;
 import com.closetou.article.model.vo.Article;
 import com.closetou.article.model.vo.TradeArticle;
 import com.closetou.board.model.service.BoardService;
+import com.closetou.cloth.model.vo.ClothCategory;
 import com.closetou.common.util.PageInfo;
 
 @WebServlet(name = "boardtrade", urlPatterns = { "/views/board/trade" })
@@ -41,6 +42,7 @@ public class BoardTradeServlet extends HttpServlet {
 			page = 1;
 		}
 
+		
 		// DB의 게시물을 구성해 페이지바 구성
 		listCount = new BoardService().getBoardCountForTrade();
 		pageInfo = new PageInfo(page, 10, listCount, 15);
@@ -53,9 +55,16 @@ public class BoardTradeServlet extends HttpServlet {
 		
 		trlist = new ArticleService().getTradeArticleByNos(numbers);
 		
+		//카테고리 설정
+		ArrayList<ClothCategory> categorylist = new ArrayList<>();
+
+		categorylist = new BoardService().getClothCategories();
+		
+		
 		request.setAttribute("pageInfo", pageInfo);
 		request.setAttribute("list", list);
 		request.setAttribute("trlist", trlist);
+		request.setAttribute("categorylist", categorylist);
 		request.getRequestDispatcher("/views/board/trade.jsp").forward(request, response);
 	};
 

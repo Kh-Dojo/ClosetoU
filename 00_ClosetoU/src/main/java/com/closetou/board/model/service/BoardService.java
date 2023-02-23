@@ -85,7 +85,19 @@ public class BoardService {
 		return list;
 	}
 
-	
+
+	// 키워드를 통해 거래 게시물을 찾는 메소드
+	public List<Article> searchArticleForTrade(String keyword, PageInfo pageInfo) {
+		List<Article> articles = null;
+
+		Connection connection = getConnection();
+		
+		articles = new BoardDao().searchArticleForTrade(connection, keyword, pageInfo);
+		
+		close(connection);
+		
+		return articles;
+	}
 
 	
 
