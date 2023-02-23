@@ -147,7 +147,8 @@ public class MemberService {
 
 			return list;
 		}
-
+		
+		// 1:1 문의 관련
 		public int getBoardAsk() {
 			int count = 0;
 			Connection connection = getConnection();
@@ -158,7 +159,8 @@ public class MemberService {
 
 			return count;
 		}
-
+		
+		// 1:1 문의 관련
 		public List<Article> getArticleAsk(PageInfo pageInfo) {
 			List<Article> list = null;
 			Connection connection = getConnection();

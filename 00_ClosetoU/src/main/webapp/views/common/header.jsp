@@ -18,9 +18,8 @@
 	<header>
 		<div id="header-wrap">
 			<div class="logo">
-				<img src="${ path }/resources/img/logo1.png">
+					<img src="${ path }/resources/img/logo1.png">
 			</div>
-
 			<div class="title">
 				<h1>
 					<a href="${ path }/">CloseToU</a>
@@ -82,13 +81,29 @@
 			</div>
 		</div>
 		<nav>
-			<div id="nav-wrap">
-				<ul class="gnb">
-					<li><a href="${ path }/views/intro/donation_Intro.jsp">사이트 이용 안내</a></li>
-					<li><a href="${ path }/views/donation/donation_Form">의류 기부 신청</a></li>
-					<li><a href="${ path }/views/board/trade">중고거래 및 나눔</a></li>
-					<li><a href="${ path }/board/communityBoardList">자유로운 수다방</a></li>
-				</ul>
-			</div>
+			<ul id="nav">
+				<li><a href="${ path }/views/intro/donation_Intro.jsp">사이트 이용 안내</a>
+					<ul>
+						<li><a href="${ path }/views/intro/donation_Intro.jsp">기부 방법 안내</a><li>
+						<li><a href="${ path }/views/intro/use_Intro.jsp">사이트 이용 안내</a><li>
+					</ul>
+				</li>
+					
+				<li><a href="${ path }/views/donation/donation_Form">의류 기부 신청</a></li>
+					
+				<li><a href="${ path }/views/board/trade">중고거래 및 나눔</a>
+					<ul>
+						<li><a href="${ path }/views/board/trade">거래 글 조회</a><li>
+						<li><a href="${ path }/article/tradeWrite">거래 글 등록</a><li>
+					</ul>
+				</li>
+					
+				<li><a href="${ path }/board/communityBoardList">자유로운 수다방</a>
+					<ul>
+						<li><a href="${ path }/board/communityBoardList">수다 글 조회</a><li>
+						<li><a href="${ path }/article/communityWrite">수다 글 등록</a><li>
+					</ul>
+				</li>
+			</ul>
 		</nav>
 	</header>
