@@ -13,7 +13,7 @@ import javax.servlet.http.HttpServletResponse;
 import com.closetou.member.model.service.MemberService;
 import com.google.gson.Gson;
 
-@WebServlet(name = "memberCheck", urlPatterns = { "/member/check" })
+@WebServlet(name = "memberCheck", urlPatterns = { "/member/idCheck" })
 public class MemberCheckServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 
@@ -22,7 +22,6 @@ public class MemberCheckServlet extends HttpServlet {
 
     @Override
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-    	
     	// 아이디
     	Map<String, Boolean> map = new HashMap<>();
 		String userId = request.getParameter("userId");	

@@ -11,7 +11,9 @@ import java.util.List;
 
 import com.closetou.article.model.dao.ArticleDao;
 import com.closetou.article.model.vo.Article;
+import com.closetou.article.model.vo.Reply;
 import com.closetou.article.model.vo.TradeArticle;
+import com.closetou.board.model.dao.BoardDao;
 
 public class ArticleService {
 
@@ -118,6 +120,7 @@ public class ArticleService {
 			result = new ArticleDao().insertBoard(connection, article);
 		}
 		
+
 		
 		if(result > 0) {
 			commit(connection);
@@ -130,41 +133,64 @@ public class ArticleService {
 		return result;
 	}
 
-	public int saveForTrade(Article article) {
+	// 게시글 삭제
+	public int delete(int no) {
+		int result = 0;
+		
+		Connection connection = getConnection();
+															// 변경할 VISABLE 값
+		result = new ArticleDao().updateStatus(connection, no, "N");	
+		
+		if(result > 0) {
+			commit(connection);
+		} else {
+			rollback(connection);
+		}
+		
+		close(connection);		
+		
+		return result;
+	}
+
+	// 댓글등록
+	public int saveReply(Reply reply) {
 		int result = 0;
 		Connection connection = getConnection();
 		
-		//수정한 내용으로 게시글이 바뀌게 만들기
-		if(article.getNo() > 0) {
-			// update 작업
-			result = new ArticleDao().updateBoard(connection, article);
+		// insert 작업 DAO로 넘기기
+		result = new ArticleDao().insertReply(connection, reply);
+		
+		if( result > 0 ) {
+			commit(connection);
 		} else {
-			// insert 작업
-			result = new ArticleDao().insertBoard(connection, article);
+			rollback(connection);
 		}
 		
 		close(connection);
 		
 		return result;
-	}
 	
+	}
 
-	public int getMostRecentlyArticleNoByMemberNo(int no) {
-		int recentNo = 0;
+
+	public int deleteReply(int articleNo, int replyNo) {
+		int result = 0;
 		
 		Connection connection = getConnection();
+															
+		result = new ArticleDao().updateReplyStatus(connection, articleNo, replyNo, "N");	
 		
-		recentNo = new ArticleDao().getMostRecentlyArticleNoByMemberNo(connection, no);
+		if(result > 0) {
+			commit(connection);
+		} else {
+			rollback(connection);
+		}
 		
-		close(connection);
+		close(connection);		
 		
-		return recentNo;
+		return result;
 	}
 
-	
-	
-	
-	
 }
 
 

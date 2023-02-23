@@ -4,11 +4,11 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <c:set var="path" value="${ pageContext.request.contextPath }" />
 
-<jsp:include page="/views/common/header.jsp" />
+<jsp:include page="/views/common/sub-header.jsp" />
 <script src="${ path }/resources/js/jquery-3.6.3.js"></script>
 <link rel="stylesheet" href="${ path }/resources/css/tradeArticle.css" />
 <article>
-	<div id="sidemenu"><jsp:include page="/views/common/sidemenu.jsp" /></div>
+	<div id="sidemenu"><jsp:include page="/views/common/sidemenu/tradeSideMenu.jsp" /></div>
 	<section>
 		<div id="item_area">
 			<div id="item_photos">의류의 사진이 들어가는 영역입니다.</div>

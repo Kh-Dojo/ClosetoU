@@ -11,6 +11,7 @@ import java.util.Date;
 import java.util.List;
 
 import com.closetou.article.model.vo.Article;
+import com.closetou.article.model.vo.Reply;
 import com.closetou.article.model.vo.TradeArticle;
 import com.closetou.common.util.PageInfo;
 
@@ -81,6 +82,23 @@ public class ArticleDao {
 //			close(rs);
 //			close(pstmt);
 //		}
+//
+
+		for (int i = 0; i < 3; i++) {
+
+			TradeArticle rs = new TradeArticle();
+
+			rs.setNo(i);
+			rs.setPrice(0);
+			rs.setClothInfo("의류정보");
+			rs.setTradeEnd("N");
+			rs.setFree("N");
+			rs.setTradeMethod("직거래");
+			rs.setLocation("서울");
+
+			trlist.add(rs);
+
+		}
 
 		return trlist;
 	}
@@ -105,6 +123,7 @@ public class ArticleDao {
 				trart.setNo(rs.getInt("ARTICLE_NO"));
 				trart.setClothNumber(rs.getInt("CLOTH_NO"));
 				trart.setPrice(rs.getInt("PRICE"));
+				trart.setClothInfo(rs.getString("CLOTH_INFO"));
 				trart.setTradeEnd("TRADE_ENDED");
 				trart.setFree("FREE");
 				trart.setTradeMethod(rs.getString("TRADE_METHOD"));
@@ -247,11 +266,12 @@ public class ArticleDao {
 				article.setPostDate(rs.getDate("POST_DATE"));
 				article.setEdited(rs.getString("EDITED"));
 				article.setEditDate(rs.getDate("EDIT_DATE"));
-//// 230216 5교시 댓글 조회
-//				// dao에서 게시글 상세 조회를 할 때 그 게시글에 관련된 댓글까지 조회될 수 있게 수정
-//				board.setReplies(this.getRepliesByNo(connection, no));
-//				board.setCreateDate(rs.getDate("CREATE_DATE"));
-//				board.setModifyDate(rs.getDate("MODIFY_DATE"));
+
+// 230216 5교시 댓글 조회
+				// dao에서 게시글 상세 조회를 할 때 그 게시글에 관련된 댓글까지 조회될 수 있게 수정
+				article.setReplies(this.getRepliesByNoForCommunity(connection, no));
+				article.setPostDate(rs.getDate("POST_DATE"));
+				article.setEditDate(rs.getDate("EDIT_DATE"));
 			}
 		} catch (SQLException e) {
 			e.printStackTrace();
@@ -262,7 +282,54 @@ public class ArticleDao {
 		
 		return article;
 	}
-
+	
+	// 댓글 조회 리스트만들기
+	public List<Reply> getRepliesByNoForCommunity (Connection connection, int no) {
+		List<Reply> replies = new ArrayList<>();
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+		
+		String query = "SELECT R.NO, "
+							+ "R.ARTICLE_NO, "
+							+ "R.CONTENT, "
+							+ "M.NICKNAME, "
+							+ "R.COMMENT_DATE, "
+							+ "R.EDIT_DATE "
+					 + "FROM REPLY R "
+					 + "JOIN MEMBER M ON(R.ID_NO = M.NO) "
+					 + "WHERE R.VISABLE='Y' AND ARTICLE_NO=? "
+					 + "ORDER BY R.NO DESC";
+		
+		try {
+			pstmt = connection.prepareStatement(query);
+			
+			pstmt.setInt(1, no);
+			
+			rs = pstmt.executeQuery();
+			
+			while(rs.next()) {
+				Reply reply = new Reply();
+				
+				reply.setNo(rs.getInt("NO"));
+				reply.setArticleNo(rs.getInt("ARTICLE_NO"));
+				reply.setContent(rs.getString("CONTENT"));
+				reply.setUserNickname(rs.getString("NICKNAME"));
+				reply.setCommentDate(rs.getDate("COMMENT_DATE"));
+				reply.setEditDate(rs.getDate("EDIT_DATE"));
+				
+				replies.add(reply);
+			}
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(rs);
+			close(pstmt);
+		}
+		
+		return replies;
+	}
+	
 	public List<TradeArticle> findTradeArticleByNos(Connection connection, ArrayList<Integer> numbers) {
 		List<TradeArticle> trarts = new ArrayList<>();
 		PreparedStatement pstmt = null;
@@ -274,7 +341,9 @@ public class ArticleDao {
 			query += (numbers.get(i) +", "); 
 		}
 		query += numbers.get(numbers.size()-1);
-		query += ")";
+		query += ") ORDER BY ARTICLE_NO DESC";
+		
+		System.out.println(query);
 		
 		try {
 			pstmt = connection.prepareStatement(query);
@@ -286,6 +355,7 @@ public class ArticleDao {
 				trart.setNo(rs.getInt("ARTICLE_NO"));
 				trart.setClothNumber(rs.getInt("CLOTH_NO"));
 				trart.setPrice(rs.getInt("PRICE"));
+				trart.setClothInfo(rs.getString("CLOTH_INFO"));
 				trart.setTradeEnd("TRADE_ENDED");
 				trart.setFree("FREE");
 				trart.setTradeMethod(rs.getString("TRADE_METHOD"));
@@ -322,7 +392,7 @@ public class ArticleDao {
 			pstmt.setString(3, article.getOriginalFileName());
 			pstmt.setString(4, article.getRenamedFileName());
 			pstmt.setString(5, article.getType());
-			pstmt.setInt(6, article.getUserNo());
+			pstmt.setInt(6, article.getNo());
 			
 			result = pstmt.executeUpdate();
 		} catch (SQLException e) {
@@ -334,7 +404,7 @@ public class ArticleDao {
 		return result;
 	}
 	
-	// 수정내용으로 게시글 바뀌게 insert 작업 article service의save()
+	// 게시글 바뀌게 insert 작업 article service의save()
 	public int insertBoard(Connection connection, Article article) {
 		int result = 0;
 		PreparedStatement pstmt = null;
@@ -390,40 +460,88 @@ public class ArticleDao {
 		return result;
 	}
 
-	// 가장 최근에 작성한 Article의 No를 가져오는 메소드
-	public int getMostRecentlyArticleNoByMemberNo(Connection connection, int no) {
-		int recentNo = 0;
+	
+	// 게시글 삭제
+	public int updateStatus(Connection connection, int no, String visable) {
+		
+		int result = 0;
 		PreparedStatement pstmt = null;
-		ResultSet rs = null;
-		String query = "SELECT "
-				+ "    MAX(NO) "
-				+ "FROM "
-				+ "    ( "
-				+ "        SELECT "
-				+ "            NO "
-				+ "        FROM "
-				+ "            ARTICLE "
-				+ "        WHERE"
-				+ "            USER_NO = ?"
-				+ "    )";
+		
+		String query = "UPDATE ARTICLE SET VISABLE=? WHERE NO=?";
+		try {
+			pstmt = connection.prepareStatement(query);
+			
+			pstmt.setString(1, visable);	// db의 상태값 Y N 
+			pstmt.setInt(2, no);
+		
+			// 영향받은 행의 개수를 result로 리턴
+			result = pstmt.executeUpdate();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(pstmt);	// pstmt 변수 선언 try 구문 안에서 하지 않는 이유 try 구문이 끝나면 변수 소멸됨 close(pstmt)를 못해줌
+		}
+		
+		return result;
+		
+		//웹에서는 삭제되나 DB에서는 행이 삭제되지 않고 STATUS 값을 N으로 바꿔줌
+	}
+	
+	// 댓글 등록
+	public int insertReply(Connection connection, Reply reply) {
+		
+		int result = 0;
+		PreparedStatement pstmt = null;
+		
+		String query = "INSERT INTO REPLY VALUES(SEQ_REPLY_NO.NEXTVAL, ?, ?, ?, DEFAULT, 'N', DEFAULT, NULL, NULL)";
 		
 		try {
 			pstmt = connection.prepareStatement(query);
-			pstmt.setInt(1, no);
 
-			rs = pstmt.executeQuery();
+			// 쿼리 수행 전 물음표 값 넣기
+			pstmt.setInt(1, reply.getArticleNo());
+			pstmt.setInt(2, reply.getUserNo());
+			pstmt.setString(3, reply.getContent());
 			
-			if(rs.next()) {
-				recentNo = rs.getInt("MAX(NO)");
-			}
+			
+			// 쿼리문 수행해서 그 값을 result에 담아줌
+							// executeQuery > SELECT 구문 수행할 때 사용. SELECT문 수행하면 resultSet 수행.
+							// executeUpdate > INSERT, UPDATE, DELETE 수행할 때 사용
+			result = pstmt.executeUpdate();
 			
 		} catch (SQLException e) {
 			e.printStackTrace();
 		} finally {
-			close(rs);
 			close(pstmt);
 		}
-		return recentNo;
+		
+		return result;
+	}
+
+	public int updateReplyStatus(Connection connection, int articleNo, int replyNo, String visable) {
+		
+		int result = 0;
+		PreparedStatement pstmt = null;
+		
+		String query = "UPDATE REPLY SET VISABLE=? WHERE NO=? AND ARTICLE_NO=?";
+		try {
+			pstmt = connection.prepareStatement(query);
+			
+			pstmt.setString(1, visable);	// db의 상태값 Y N 
+			pstmt.setInt(2, replyNo);
+			pstmt.setInt(3, articleNo);
+		
+			// 영향받은 행의 개수를 result로 리턴
+			result = pstmt.executeUpdate();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(pstmt);	// pstmt 변수 선언 try 구문 안에서 하지 않는 이유 try 구문이 끝나면 변수 소멸됨 close(pstmt)를 못해줌
+		}
+		
+		return result;
+		
+		//웹에서는 삭제되나 DB에서는 행이 삭제되지 않고 STATUS 값을 N으로 바꿔줌
 	}
 
 }

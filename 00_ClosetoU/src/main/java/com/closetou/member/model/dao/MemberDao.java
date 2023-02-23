@@ -152,31 +152,31 @@ public class MemberDao {
 	}
 	
 	// 자유 글 수량 조회
-	public int getBoardCountForCommunity(Connection connection) {
-		int count = 0;
-		PreparedStatement pstmt = null;
-		ResultSet rs = null;
-		String query = "SELECT COUNT(*) FROM ARTICLE WHERE VISABLE='Y' AND TYPE IN('자유')";
-
-
-		try {
-			pstmt = connection.prepareStatement(query);
-			rs = pstmt.executeQuery();
-
-			if (rs.next()) {
-				count = rs.getInt(1);
-			}
-
-		} catch (SQLException e) {
-			e.printStackTrace();
-	
-		} finally {
-			close(rs);
-			close(pstmt);
-		}
-
-		return count;
-	}
+//	public int getBoardCountForCommunity(Connection connection) {
+//		int count = 0;
+//		PreparedStatement pstmt = null;
+//		ResultSet rs = null;
+//		String query = "SELECT COUNT(*) FROM ARTICLE WHERE VISABLE='Y' AND TYPE IN('자유')";
+//
+//
+//		try {
+//			pstmt = connection.prepareStatement(query);
+//			rs = pstmt.executeQuery();
+//
+//			if (rs.next()) {
+//				count = rs.getInt(1);
+//			}
+//
+//		} catch (SQLException e) {
+//			e.printStackTrace();
+//	
+//		} finally {
+//			close(rs);
+//			close(pstmt);
+//		}
+//
+//		return count;
+//	}
 	
 	// 거래 글 전체 조회
 	public List<Article> findAllArticlesForTrade(Connection connection, PageInfo pageInfo) {
@@ -392,4 +392,5 @@ public class MemberDao {
 		
 		return asklist;
 	}
+
 }

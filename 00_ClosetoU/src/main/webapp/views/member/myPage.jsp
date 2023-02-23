@@ -11,7 +11,7 @@
 <link rel="stylesheet" href="${ path }/resources/css/myPage.css">
 <script src="${ path }/resources/js/jquery-3.6.3.js"></script>
 
-<jsp:include page="/views/common/header.jsp" />
+<jsp:include page="/views/common/sub-header.jsp" />
 
 <style>
 	section {

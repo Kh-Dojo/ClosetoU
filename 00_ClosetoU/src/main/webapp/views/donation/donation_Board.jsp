@@ -6,7 +6,7 @@
 
 <c:set var="path" value="${ pageContext.request.contextPath }"/>
 <script src="${ path }/resources/js/jquery-3.6.3.js"></script>
-<jsp:include page="/views/common/header.jsp" />
+<jsp:include page="/views/common/sub-header.jsp" />
 
 <!DOCTYPE html>
 <html>

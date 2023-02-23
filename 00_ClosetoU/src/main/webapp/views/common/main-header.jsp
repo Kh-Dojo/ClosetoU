@@ -10,7 +10,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=<device-width>, initial-scale=1.0">
 <script src="${ path }/resources/js/jquery-3.6.3.js"></script>
-<link rel="stylesheet" href="${ path }/resources/css/header.css">
+<link rel="stylesheet" href="${ path }/resources/css/main-header.css">
 
 <title>CloseToU 메인페이지</title>
 </head>
