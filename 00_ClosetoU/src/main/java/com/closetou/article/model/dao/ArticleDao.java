@@ -373,6 +373,7 @@ public class ArticleDao {
 				reply.setNo(rs.getInt("NO"));
 				reply.setArticleNo(rs.getInt("ARTICLE_NO"));
 				reply.setContent(rs.getString("CONTENT"));
+				reply.setUserNickname(rs.getString("NICKNAME"));
 				reply.setCommentDate(rs.getDate("COMMENT_DATE"));
 				reply.setEditDate(rs.getDate("EDIT_DATE"));
 				
@@ -513,6 +514,7 @@ public class ArticleDao {
 
 			// 쿼리 수행 전 물음표 값 넣기
 			pstmt.setInt(1, reply.getArticleNo());
+			pstmt.setInt(2, reply.getUserNo());
 			pstmt.setString(3, reply.getContent());
 			
 			

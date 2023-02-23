@@ -140,7 +140,6 @@ public class BoardDao {
 		
 		}
 		
-		
 		public ArrayList<ClothCategory> getClothCategories(Connection connection) {
 			ArrayList<ClothCategory> categories = new ArrayList<>();
 			PreparedStatement pstmt = null;
@@ -169,7 +168,7 @@ public class BoardDao {
 			}
 			
 			return categories;
-		}	
+		}
 
 
 }

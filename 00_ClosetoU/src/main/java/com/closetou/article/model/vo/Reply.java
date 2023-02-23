@@ -6,7 +6,6 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
@@ -16,9 +15,9 @@ public class Reply {
 	
 	private int articleNo;	// 게시물번호
 	
-	private int idNo;		// 댓글작성자회원번호
+	private int userNo;		// 댓글작성자회원번호
 	
-	private String writerNickname;	// 댓글작성자닉네임
+	private String userNickname;	// 댓글작성자닉네임
 	
 	private String content;	// 댓글내용
 	
