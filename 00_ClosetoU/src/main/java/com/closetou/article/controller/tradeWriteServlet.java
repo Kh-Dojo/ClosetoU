@@ -2,6 +2,8 @@ package com.closetou.article.controller;
 
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Enumeration;
+import java.util.List;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -9,17 +11,15 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
-import org.apache.taglibs.standard.tag.common.fmt.RequestEncodingSupport;
 
 import com.closetou.article.model.service.ArticleService;
 import com.closetou.article.model.vo.Article;
 import com.closetou.article.model.vo.TradeArticle;
 import com.closetou.board.model.service.BoardService;
-import com.closetou.cloth.model.service.ClothService;
 import com.closetou.cloth.model.vo.Cloth;
 import com.closetou.cloth.model.vo.ClothCategory;
 import com.closetou.cloth.model.vo.ClothPhoto;
-import com.closetou.common.jdbc.JDBCTemplate;
+import com.closetou.cloth.model.vo.ClothPhotofiles;
 import com.closetou.common.util.FileRename;
 import com.closetou.member.model.vo.Member;
 import com.oreilly.servlet.MultipartRequest;
@@ -61,14 +61,17 @@ public class tradeWriteServlet extends HttpServlet {
 		Cloth cloth = new Cloth();
 		ClothPhoto cloph = new ClothPhoto();
 		TradeArticle trart = new TradeArticle();
-
+		Enumeration uploadFileList = null;
+		
+		
 		// 파일 인코딩 설정
 		String encoding = "UTF-8";
 
 		MultipartRequest mr = new MultipartRequest(request, path, maxSize, encoding, new FileRename());
 
+		uploadFileList = mr.getFileNames();
 		
-		System.out.println(mr.getFilesystemName("cloth_upfile"));
+		System.out.println(uploadFileList);
 		
 		// article 객체 세팅
 		article.setUserNo(loginMember.getNo());
@@ -76,16 +79,13 @@ public class tradeWriteServlet extends HttpServlet {
 		article.setTitle(mr.getParameter("title"));
 		article.setContent(mr.getParameter("content"));
 		article.setRenamedFileName(mr.getFilesystemName("cloth_upfile"));
-		System.out.println(article.getRenamedFileName());
 		article.setOriginalFileName(mr.getOriginalFileName("cloth_upfile"));
 		article.setType("거래");
-
+		
 		// cloth 내용 세팅
 		cloth.setPhotoNo(mr.getFilesystemName("cloth_upfile"));
 		cloth.setName(mr.getParameter("cloth_name"));
 		cloth.setCatagory(mr.getParameterValues("clothcategory"));
-
-		// cloth photo 내용 세팅
 		
 		// trart 내용 세팅
 		trart.setPrice(Integer.parseInt(mr.getParameter("price")));
