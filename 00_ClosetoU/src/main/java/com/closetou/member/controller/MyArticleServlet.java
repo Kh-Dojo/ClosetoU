@@ -37,7 +37,6 @@ public class MyArticleServlet extends HttpServlet {
 			page = 1;
 		}
 		
-		listCount = new MemberService().getBoardCountForCommunity();
 		pageInfo= new PageInfo(page, 10, listCount, 10);	// 한 페이지에 몇 개의 글 나오게 할 지 지정하는 메소드
 		
 		System.out.println(listCount);
@@ -49,7 +48,7 @@ public class MyArticleServlet extends HttpServlet {
 		
 		request.setAttribute("pageInfo", pageInfo);
 		request.setAttribute("list", list);
-		request.getRequestDispatcher("/views/board/communityBoardList.jsp").forward(request, response);
+		request.getRequestDispatcher("/views/member/myArticle.jsp").forward(request, response);
 	}
 
 }

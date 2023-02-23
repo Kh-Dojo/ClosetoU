@@ -54,7 +54,7 @@ public class MyTradeServlet extends HttpServlet {
  			request.setAttribute("pageInfo", pageInfo);
  			request.setAttribute("list", list);
  			request.setAttribute("trlist", trlist);
- 			request.getRequestDispatcher("/views/board/trade.jsp").forward(request, response);
+ 			request.getRequestDispatcher("/views/member/myTrade.jsp").forward(request, response);
 	}
 
 }

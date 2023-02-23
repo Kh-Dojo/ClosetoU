@@ -6,7 +6,7 @@
 
 <script src="${ path }/resources/js/jquery-3.6.3.js"></script>
 
-<jsp:include page="/views/common/header.jsp" />
+<jsp:include page="/views/common/sub-header.jsp" />
 
 <style>
 	section#board-list-container{width:600px; margin:0 auto; text-align:center;}
@@ -52,11 +52,6 @@
 					<tr>
 						<td>${ article.rowNum }</td>
 						<td>
-							<c:if test="${ article.type eq '공지' }">
-								<a href="${ path }/communityBoardView?no=${ article.no }">
-									<span>[${ article.type }]</span> ${ article.title }
-								</a>
-							</c:if>
 							<c:if test="${ article.type eq '자유' }">
 								<a href="${ path }/communityBoardView?no=${ article.no }">
 									${ article.title }

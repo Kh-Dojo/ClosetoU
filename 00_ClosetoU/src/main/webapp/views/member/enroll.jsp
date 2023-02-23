@@ -9,7 +9,7 @@
 <script src="${ path }/resources/js/jquery-3.6.3.js"></script>
 <link rel="stylesheet" href="${ path }/resources/css/enroll.css">
 
-<jsp:include page="/views/common/header.jsp" />
+<jsp:include page="/views/common/sub-header.jsp" />
 
 <style>
 	section #enroll-container {
@@ -58,7 +58,7 @@
 							<input type="text" class="form-control" name="userId" id="newId" placeholder="아이디를 입력해주세요" required>
 						</td>
 						<td style="width:110px">
-							<input type="button" id="checkIdDuplicate" value="중복 검사" >
+							<input type="button" id="checkDuplicate" value="중복 검사" >
 						</td>
 		 			</tr>
 		 			<tr>
@@ -118,12 +118,12 @@
 <script>
 	// 아이디 중복 확인
 	$(document).ready(() => {
-		$('#checkIdDuplicate').on('click', () => {
+		$('#checkDuplicate').on('click', () => {
 			let userId = $('#newId').val().trim();
 			
 			$.ajax({
 				type: 'POST',
-				url: '${ path }/member/check',
+				url: '${ path }/member/idCheck',
 				dataType: 'json',
 				data: {
 					userId
@@ -142,7 +142,6 @@
 				}
 			});
 		});
-		
 	});
 </script>
 <script src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
