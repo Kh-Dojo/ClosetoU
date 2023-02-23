@@ -67,10 +67,10 @@
 		</table>
 		<div id="pageBar">
 			<!-- 맨 처음으로 -->
-			<button onclick="location.href= '${ path }/board/communityBoardList?page=1'">&lt;&lt;</button>
+			<button onclick="location.href= '${ path }/member/myArticle?page=1'">&lt;&lt;</button>
 
 			<!-- 이전 페이지로 -->
-			<button onclick="location.href= '${ path }/board/communityBoardList?page=${ pageInfo.prevPage }'">&lt;</button>
+			<button onclick="location.href= '${ path }/member/myArticle?page=${ pageInfo.prevPage }'">&lt;</button>
 
 			<!--  10개 페이지 목록 8교시 페이지 버튼 누르면 버튼 disabled상태 되고 해당 페이지로 이동-->
 			<c:forEach begin="${ pageInfo.startPage }" end="${ pageInfo.endPage }" varStatus="status">	
@@ -82,16 +82,16 @@
 						<button disabled>${ status.current }</button>
 					</c:when>
 					<c:otherwise>
-						<button onclick="location.href= '${ path }/board/communityBoardList?page=${ status.current }'">${ status.current }</button>
+						<button onclick="location.href= '${ path }/member/myArticle?page=${ status.current }'">${ status.current }</button>
 					</c:otherwise>
 				</c:choose>
 			</c:forEach>
 
 			<!-- 다음 페이지로 -->
-			<button onclick="location.href= '${ path }/board/communityBoardList?page=${ pageInfo.nextPage }'">&gt;</button>
+			<button onclick="location.href= '${ path }/member/myArticle?page=${ pageInfo.nextPage }'">&gt;</button>
 
 			<!-- 맨 끝으로 -->
-			<button onclick="location.href= '${ path }/board/communityBoardList?page=${ pageInfo.maxPage }'">&gt;&gt;</button>
+			<button onclick="location.href= '${ path }/member/myArticle?page=${ pageInfo.maxPage }'">&gt;&gt;</button>
 		</div>
 		</div>
 	</article>
