@@ -593,7 +593,6 @@ VALUES
           
 COMMIT;
 
-BEGIN
     FOR N IN 1..150
     LOOP
         INSERT INTO 
