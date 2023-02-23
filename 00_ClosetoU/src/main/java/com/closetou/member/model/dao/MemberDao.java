@@ -179,7 +179,7 @@ public class MemberDao {
 //	}
 	
 	// 거래 글 전체 조회
-	public List<Article> findAllArticlesForTrade(Connection connection, PageInfo pageInfo) {
+	public List<Article> findAllArticlesForTrade(Connection connection, PageInfo pageInfo, int no) {
 		List<Article> artlist = new ArrayList<>();
 		
 		Article article = new Article();
@@ -251,7 +251,7 @@ public class MemberDao {
 	}
 	
 	// 자유게시판 자유 게시글 목록 가져와 리스트에 담기
-	public List<Article> findAllArticleForCommunity(Connection connection, PageInfo pageInfo) {
+	public List<Article> findAllArticleForCommunity(Connection connection, PageInfo pageInfo, int no) {
 		List<Article> list = new ArrayList<>();
 		PreparedStatement pstmt = null;
 		ResultSet rs = null;
@@ -259,38 +259,37 @@ public class MemberDao {
 	
 		String query = "SELECT RNUM, USER_NO, TITLE, NICKNAME, POST_DATE, READ_COUNT, VISABLE, TYPE "
 				+ "FROM (SELECT ROWNUM AS RNUM, "
-				+ "             USER_NO, "
-				+ "             TITLE, "
-				+ "             NICKNAME, "
-				+ "             POST_DATE, "
-				+ "             READ_COUNT, "
-				+ "             VISABLE, "
-				+ "             TYPE  "
-				+ "       FROM (SELECT A.USER_NO, "
-				+ "                    A.TITLE, "
-				+ "                    M.NICKNAME, "
-				+ "                    A.POST_DATE, "
-				+ "                    A.READ_COUNT, "
-				+ "                    A.VISABLE, "
-				+ "                    A.TYPE "
-				+ "             FROM ARTICLE A "
-				+ "             JOIN MEMBER M ON(A.USER_NO = M.NO) "
-				+ "             WHERE A.VISABLE = 'Y' AND TYPE IN ('자유') ORDER BY A.NO DESC) "
-				+ "        ) WHERE RNUM BETWEEN ? and ? and USER_NO=?";
+				+ "                       USER_NO, "
+				+ "                       TITLE, "
+				+ "                       NICKNAME, "
+				+ "                       POST_DATE, "
+				+ "                       READ_COUNT, "
+				+ "                       VISABLE, "
+				+ "                       TYPE  "
+				+ "FROM (SELECT A.USER_NO, "
+				+ "             A.TITLE, "
+				+ "			 M.NICKNAME, "
+				+ "			 A.POST_DATE, "
+				+ "			 A.READ_COUNT, "
+				+ "			 A.VISABLE, "
+				+ "             A.TYPE "
+				+ "FROM ARTICLE A JOIN MEMBER M ON(A.USER_NO = M.NO) "
+				+ "WHERE A.VISABLE = 'Y' AND TYPE IN ('자유') ORDER BY A.NO DESC)) "
+				+ "WHERE RNUM BETWEEN ? and ? and USER_NO=?";
 		
 		try {
 			pstmt = connection.prepareStatement(query);
 			
 			pstmt.setInt(1, pageInfo.getStartList());// .getStartList() 현재 페이지의 시작 리스트 번호 (1페이지는 1 2페이지은 11 3페이지는 21...)
 			pstmt.setInt(2, pageInfo.getEndList());  // .getEndList() 현재 페이지의 마지막 리스트 번호 (1페이지는 10 2페이지은 20 3페이지는 20...)
-			pstmt.setInt(3, article.getUserNo());  // .getEndList() 현재 페이지의 마지막 리스트 번호 (1페이지는 10 2페이지은 20 3페이지는 20...)
+			pstmt.setInt(3, no);  // .getEndList() 현재 페이지의 마지막 리스트 번호 (1페이지는 10 2페이지은 20 3페이지는 20...)
 			
 			rs = pstmt.executeQuery();
 		
 		// 반복문
 		while (rs.next()) {
 			article.setRowNum(rs.getInt("RNUM"));
-			article.setNo(rs.getInt("NO"));
+			article.setNo(rs.getInt("USER_NO"));
 			article.setTitle(rs.getString("TITLE"));
 			article.setUserNickname(rs.getString("NICKNAME"));
 			article.setPostDate(rs.getDate("POST_DATE"));
@@ -300,8 +299,6 @@ public class MemberDao {
 			
 			//열 개가 조회되면 열 개의 데이터를 리스트에 담아줌, 조회되는 게 없으면 빈 리스트 리턴
 			list.add(article);
-			
-			System.out.println(list);
 		}
 		
 		} catch (SQLException e) {
@@ -410,6 +407,9 @@ public class MemberDao {
 
 		try {
 			pstmt = connection.prepareStatement(query);
+			
+			pstmt.setInt(1, no);
+			
 			rs = pstmt.executeQuery();
 
 			if (rs.next()) {
