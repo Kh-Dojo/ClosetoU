@@ -150,12 +150,13 @@ public class MemberDao {
 		
 		return result;
 	}
-
+	
+	// 자유 글 수량 조회
 	public int getBoardCountForCommunity(Connection connection) {
 		int count = 0;
 		PreparedStatement pstmt = null;
 		ResultSet rs = null;
-		String query = "SELECT COUNT(*) FROM ARTICLE WHERE VISABLE='Y' AND TYPE IN('공지','자유')";
+		String query = "SELECT COUNT(*) FROM ARTICLE WHERE VISABLE='Y' AND TYPE IN('자유')";
 
 
 		try {
@@ -176,7 +177,8 @@ public class MemberDao {
 
 		return count;
 	}
-
+	
+	// 거래 글 전체 조회
 	public List<Article> findAllArticlesForTrade(Connection connection, PageInfo pageInfo) {
 		List<Article> artlist = new ArrayList<>();
 		PreparedStatement pstmt = null;
@@ -242,7 +244,7 @@ public class MemberDao {
 		return artlist;
 	}
 	
-	// 자유게시판용 공지, 자유 게시글 목록 가져와 리스트에 담기
+	// 자유게시판 자유 게시글 목록 가져와 리스트에 담기
 	public List<Article> findAllArticleForCommunity(Connection connection, PageInfo pageInfo) {
 		List<Article> list = new ArrayList<>();
 		PreparedStatement pstmt = null;
@@ -266,7 +268,7 @@ public class MemberDao {
 				+ "                    A.TYPE "
 				+ "             FROM ARTICLE A "
 				+ "             JOIN MEMBER M ON(A.USER_NO = M.NO) "
-				+ "             WHERE A.VISABLE = 'Y' AND TYPE IN ('공지','자유') ORDER BY A.NO DESC) "
+				+ "             WHERE A.VISABLE = 'Y' AND TYPE IN ('자유') ORDER BY A.NO DESC) "
 				+ "        ) WHERE RNUM BETWEEN ? and ?";
 		
 		try {
@@ -303,7 +305,8 @@ public class MemberDao {
 		
 		return list;
 		}
-
+	
+	// 1:1 문의 내역 조회
 	public int getBoardAsk(Connection connection) {
 		int count = 0;
 		PreparedStatement pstmt = null;
@@ -329,6 +332,7 @@ public class MemberDao {
 		return count;
 	}
 
+	// 1:1 문의 내역 수량 전체 가져오기
 	public List<Article> findAllArticleForAsk(Connection connection, PageInfo pageInfo) {
 		List<Article> asklist = new ArrayList<>();
 		PreparedStatement pstmt = null;
