@@ -1,10 +1,9 @@
 package com.closetou.cloth.model.service;
 
-import java.sql.Connection;
 import static com.closetou.common.jdbc.JDBCTemplate.close;
 import static com.closetou.common.jdbc.JDBCTemplate.getConnection;
-import static com.closetou.common.jdbc.JDBCTemplate.commit;
-import static com.closetou.common.jdbc.JDBCTemplate.rollback;
+
+import java.sql.Connection;
 
 import com.closetou.cloth.model.dao.ClothDao;
 import com.closetou.cloth.model.vo.Cloth;
@@ -23,4 +22,17 @@ public class ClothService {
 		return result;
 	}
 
+	public int getPhotoNoByPhotoId(String filesystemName) {
+		int result = 0;
+		
+		Connection connection = getConnection();
+		
+		result = new ClothDao().getPhotoNoByPhotoId(connection, filesystemName);
+		
+		close(connection);
+		
+		return result;
+	}
+
+	
 }
