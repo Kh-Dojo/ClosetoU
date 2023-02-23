@@ -35,11 +35,15 @@ public class MyTradeServlet extends HttpServlet {
     		HttpSession session = request.getSession(false);
     		Member loginMember = session == null ? null : (Member)session.getAttribute("loginMember");
     		
+    		int memNo = 0;
     		int page = 0;
  			int listCount = 0;
  			PageInfo pageInfo = null;
  			List<Article> list = null;
 // 			List<TradeArticle> trlist = null;
+ 			
+ 			memNo = loginMember.getNo();
+ 			System.out.println(memNo);
  			
  			try {
  				page = Integer.parseInt(request.getParameter("page"));
@@ -48,13 +52,14 @@ public class MyTradeServlet extends HttpServlet {
  			}
  			
  			listCount = new MemberService().getBoardCountForTrade(loginMember.getNo());
- 			pageInfo = new PageInfo(page, 10, listCount, 15);
+ 			pageInfo = new PageInfo(page, 10, listCount, 10);
+ 			
  			list = new MemberService().getArticleForTradeList(pageInfo, loginMember.getNo());
  			
-// 			ArrayList<Integer> numbers = new ArticleService().noFromArticle(list);	
+ 			ArrayList<Integer> numbers = new ArticleService().noFromArticle(list);	
  			
 // 			trlist = new ArticleService().getTradeArticleByNos(numbers);
-
+ 			
  			request.setAttribute("pageInfo", pageInfo);
  			request.setAttribute("list", list);
 // 			request.setAttribute("trlist", trlist);

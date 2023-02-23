@@ -14,7 +14,7 @@
 	div#pageBar{margin-top:10px; text-align:center; background-color:rgba(255, 204, 153, 0.3);}
 	#sidemenu {width: 20%; height: auto;}
 	article {width: 75%; height: auto; box-sizing: border-box; float: left; padding-right:10px;}
-	section {width: 1200px; height: 400px; margin: auto;}
+	section {width: 1200px; height: 500px; margin: auto;}
 	section > * {box-sizing: border-box; float: left;}
 	#sub_menu_name_area:active {color:rgb(220, 179, 14);}
 	#sub_menu_name_area > ul {list-style:none;}

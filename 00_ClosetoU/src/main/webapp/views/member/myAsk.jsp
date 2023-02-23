@@ -14,7 +14,7 @@
 	div#pageBar{margin-top:10px; text-align:center; background-color:rgba(255, 204, 153, 0.3);}
 	#sidemenu {width: 20%; height: auto;}
 	article {width: 80%; height: auto; box-sizing: border-box; float: left; padding-right:10px;}
-	section {width: 1200px; height: 400px; margin: auto;}
+	section {width: 1200px; height: 500px; margin: auto;}
 	section > * {box-sizing: border-box; float: left;}
 	#sub_menu_name_area:active {color:rgb(220, 179, 14);}
 	#sub_menu_name_area > ul {list-style:none;}
@@ -58,10 +58,10 @@
 		</table>
 		<div id="pageBar">
 			<!-- 맨 처음으로 -->
-			<button onclick="location.href= '${ path }/board/list?page=1'">&lt;&lt;</button>
+			<button onclick="location.href= '${ path }/myAsk?page=1'">&lt;&lt;</button>
 
 			<!-- 이전 페이지로 -->
-			<button onclick="location.href= '${ path }/board/list?page=${ pageInfo.prevPage }'">&lt;</button>
+			<button onclick="location.href= '${ path }/myAsk?page=${ pageInfo.prevPage }'">&lt;</button>
 
 			<c:forEach begin="${ pageInfo.startPage }" end="${ pageInfo.endPage }" varStatus="status">	
 				<c:choose>
@@ -69,16 +69,16 @@
 						<button disabled>${ status.current }</button>
 					</c:when>
 					<c:otherwise>
-						<button onclick="location.href= '${ path }/board/list?page=${ status.current }'">${ status.current }</button>
+						<button onclick="location.href= '${ path }/myAsk?page=${ status.current }'">${ status.current }</button>
 					</c:otherwise>
 				</c:choose>
 			</c:forEach>
 
 			<!-- 다음 페이지로 -->
-			<button onclick="location.href= '${ path }/board/list?page=${ pageInfo.nextPage }'">&gt;</button>
+			<button onclick="location.href= '${ path }/myAsk?page=${ pageInfo.nextPage }'">&gt;</button>
 
 			<!-- 맨 끝으로 -->
-			<button onclick="location.href= '${ path }/board/list?page=${ pageInfo.maxPage }'">&gt;&gt;</button>
+			<button onclick="location.href= '${ path }/myAsk?page=${ pageInfo.maxPage }'">&gt;&gt;</button>
 		</div>
 	</div>
 	</article>

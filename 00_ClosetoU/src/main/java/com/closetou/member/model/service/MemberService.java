@@ -145,6 +145,17 @@ public class MemberService {
 			
 			return list;
 		}
+		
+		public int getBoardCountForTrade(int no) {
+			int count = 0;
+			Connection connection = getConnection();
+
+			count = new MemberDao().getBoardCountForTrade(connection, no);
+
+			close(connection);
+
+			return count;
+		}
 
 	// 자유게시판 관련
 		// (자유게시판용)조회되는 결과의 갯수를 확인하기 위한 메소드
@@ -161,11 +172,11 @@ public class MemberService {
 
 		
 		// 1:1 문의 관련
-		public int getBoardAsk() {
+		public int getBoardAsk(int no) {
 			int count = 0;
 			Connection connection = getConnection();
 
-			count = new MemberDao().getBoardAsk(connection);
+			count = new MemberDao().getBoardAsk(connection, no);
 
 			close(connection);
 
@@ -173,11 +184,16 @@ public class MemberService {
 		}
 		
 		// 1:1 문의 관련
-		public List<Article> getArticleAsk(PageInfo pageInfo) {
+		public List<Article> getArticleAsk(PageInfo pageInfo, int no) {
+			Member member = new Member();
+			Article article = new Article();
 			List<Article> list = null;
+			
+			article.setUserNo(member.getNo());
+			
 			Connection connection = getConnection();
 
-			list = new MemberDao().findAllArticleForAsk(connection, pageInfo);
+			list = new MemberDao().findAllArticleForAsk(connection, pageInfo, no);
 
 			close(connection);
 
@@ -200,22 +216,4 @@ public class MemberService {
 			
 			return member;
 		}
-
-		public int getBoardCountForTrade(int no) {
-			int count = 0;
-			Connection connection = getConnection();
-
-			count = new MemberDao().getBoardCountForCommunity(connection, no);
-
-			close(connection);
-
-			return count;
-		}
-
-
-
-	
-		
-
-
 }
