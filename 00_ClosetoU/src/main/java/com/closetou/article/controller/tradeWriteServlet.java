@@ -3,7 +3,7 @@ package com.closetou.article.controller;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Enumeration;
-import java.util.List;
+import java.util.Map;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -19,7 +19,6 @@ import com.closetou.board.model.service.BoardService;
 import com.closetou.cloth.model.vo.Cloth;
 import com.closetou.cloth.model.vo.ClothCategory;
 import com.closetou.cloth.model.vo.ClothPhoto;
-import com.closetou.cloth.model.vo.ClothPhotofiles;
 import com.closetou.common.util.FileRename;
 import com.closetou.member.model.vo.Member;
 import com.oreilly.servlet.MultipartRequest;
@@ -61,17 +60,17 @@ public class tradeWriteServlet extends HttpServlet {
 		Cloth cloth = new Cloth();
 		ClothPhoto cloph = new ClothPhoto();
 		TradeArticle trart = new TradeArticle();
-		Enumeration uploadFileList = null;
-		
+		Enumeration<String> uploadFileList = null;
+		ArrayList<String> filenames = null;
 		
 		// 파일 인코딩 설정
 		String encoding = "UTF-8";
-
 		MultipartRequest mr = new MultipartRequest(request, path, maxSize, encoding, new FileRename());
-
-		uploadFileList = mr.getFileNames();
+	
 		
-		System.out.println(uploadFileList);
+		//clothphoto 객체 세팅 및 등록
+		cloph.setPhotoId(mr.getFilesystemName("cloth_upfile"));
+		cloph.setOriginalName(mr.getOriginalFileName("cloth_upfile"));
 		
 		// article 객체 세팅
 		article.setUserNo(loginMember.getNo());
@@ -81,12 +80,12 @@ public class tradeWriteServlet extends HttpServlet {
 		article.setRenamedFileName(mr.getFilesystemName("cloth_upfile"));
 		article.setOriginalFileName(mr.getOriginalFileName("cloth_upfile"));
 		article.setType("거래");
-		
+
 		// cloth 내용 세팅
 		cloth.setPhotoNo(mr.getFilesystemName("cloth_upfile"));
 		cloth.setName(mr.getParameter("cloth_name"));
 		cloth.setCatagory(mr.getParameterValues("clothcategory"));
-		
+
 		// trart 내용 세팅
 		trart.setPrice(Integer.parseInt(mr.getParameter("price")));
 		if (Integer.parseInt(mr.getParameter("price")) == 0) {
@@ -98,11 +97,8 @@ public class tradeWriteServlet extends HttpServlet {
 		trart.setLocation(mr.getParameter("location"));
 
 		// 게시글 내용 저장
-		int tradeArticleSaveResult = new ArticleService().saveForTrade(article, cloth, trart);
+		int tradeArticleSaveResult = new ArticleService().saveForTrade(article, cloth, trart, cloph);
 
-		
-		
-		
 		if (tradeArticleSaveResult == 0) {
 			request.setAttribute("msg", "거래글 등록 실패");
 			request.setAttribute("location", "/article/tradeWrite");
