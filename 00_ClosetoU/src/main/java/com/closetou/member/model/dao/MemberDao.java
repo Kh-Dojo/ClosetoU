@@ -81,7 +81,7 @@ public class MemberDao {
 	public int updateMember(Connection connection, Member member) {
 		int result = 0;
 		PreparedStatement pstmt = null;
-		String query = "UPDATE MEMBER SET NAME=?, NICKNAME=?, PHONE=?, EMAIL=?, ADDRESS=?, ADDRESS_DETAIL=? WHERE NO=?";
+		String query = "UPDATE MEMBER SET USER_NAME=?, NICKNAME=?, PHONE=?, EMAIL=?, ADDRESS=?, ADDRESS_DETAIL=? WHERE NO=?";
 		
 		try {
 			pstmt = connection.prepareStatement(query);
@@ -314,31 +314,31 @@ public class MemberDao {
 			rs = pstmt.executeQuery();
 		
 		// 반복문
-		while (rs.next()) {
-			Article article = new Article();
+			while (rs.next()) {
+				Article article = new Article();
+				
+				article.setRowNum(rs.getInt("ROWNUM"));
+				article.setNo(rs.getInt("NO"));
+				article.setUserNo(rs.getInt("USER_NO"));
+				article.setTitle(rs.getString("TITLE"));
+				article.setUserNickname(rs.getString("NICKNAME"));
+				article.setPostDate(rs.getDate("POST_DATE"));
+				article.setReadCount(rs.getInt("READ_COUNT"));
+				article.setVisable(rs.getString("VISABLE"));
+				article.setType(rs.getString("TYPE"));
+				
+				list.add(article);
+			}
 			
-			article.setRowNum(rs.getInt("ROWNUM"));
-			article.setNo(rs.getInt("NO"));
-			article.setUserNo(rs.getInt("USER_NO"));
-			article.setTitle(rs.getString("TITLE"));
-			article.setUserNickname(rs.getString("NICKNAME"));
-			article.setPostDate(rs.getDate("POST_DATE"));
-			article.setReadCount(rs.getInt("READ_COUNT"));
-			article.setVisable(rs.getString("VISABLE"));
-			article.setType(rs.getString("TYPE"));
+			} catch (SQLException e) {
+				e.printStackTrace();
+			} finally {
+				close(rs);
+				close(pstmt);
+			}
 			
-			list.add(article);
+			return list;
 		}
-		
-		} catch (SQLException e) {
-			e.printStackTrace();
-		} finally {
-			close(rs);
-			close(pstmt);
-		}
-		
-		return list;
-	}
 
 	public int getBoardCountForTrade(Connection connection, int no) {
 		int count = 0;
@@ -403,26 +403,27 @@ public class MemberDao {
 		PreparedStatement pstmt = null;
 		ResultSet rs = null;
 		String query = "SELECT COUNT(*) FROM ARTICLE WHERE VISABLE='Y' AND TYPE IN('문의') AND USER_NO=?";
-		
+
 		try {
 			pstmt = connection.prepareStatement(query);
 			
 			pstmt.setInt(1, no);
-			
+
 			rs = pstmt.executeQuery();
-			
+		
+
 			if (rs.next()) {
 				count = rs.getInt(1);
 			}
-			
+
 		} catch (SQLException e) {
 			e.printStackTrace();
-			
+	
 		} finally {
 			close(rs);
 			close(pstmt);
 		}
-		
+
 		return count;
 	}
 	
