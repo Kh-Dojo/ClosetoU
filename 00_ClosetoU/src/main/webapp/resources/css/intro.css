@@ -1,7 +1,9 @@
 @charset "UTF-8";
 /* 안내 사이트 */
 #content {
-	
+	width: 1200px;
+	height: 2000px;
+	margin: 0 auto;
 }
 
 #sidemenu {
@@ -12,7 +14,7 @@
 
 #view-container {
 	width: 80%;
-	height: auto;
+	height:2000px;
 	box-sizing: border-box;
 	float: right;
 }

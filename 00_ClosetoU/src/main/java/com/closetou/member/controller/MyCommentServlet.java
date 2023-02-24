@@ -15,7 +15,7 @@ import com.closetou.common.util.PageInfo;
 import com.closetou.member.model.service.MemberService;
 import com.closetou.member.model.vo.Member;
 
-@WebServlet(name = "myComment", urlPatterns = { "/myComment" })
+@WebServlet(urlPatterns = { "/myComment" })
 public class MyCommentServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 

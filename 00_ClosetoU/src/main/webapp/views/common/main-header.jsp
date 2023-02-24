@@ -83,23 +83,23 @@
 		<nav>
 			<ul id="nav">
 				<li><a href="${ path }/views/intro/donation_Intro.jsp">사이트 이용 안내</a>
-					<ul>
+					<ul class="lnb">
 						<li><a href="${ path }/views/intro/donation_Intro.jsp">기부 방법 안내</a><li>
 						<li><a href="${ path }/views/intro/use_Intro.jsp">사이트 이용 안내</a><li>
 					</ul>
 				</li>
 					
-				<li><a href="${ path }/donation/donationform">의류 기부 신청</a></li>
+				<li><a href="${ path }/donation/donation_Form">의류 기부 신청</a></li>
 					
 				<li><a href="${ path }/views/board/trade">중고거래 및 나눔</a>
-					<ul>
+					<ul class="lnb">
 						<li><a href="${ path }/views/board/trade">거래 글 조회</a><li>
 						<li><a href="${ path }/article/tradeWrite">거래 글 등록</a><li>
 					</ul>
 				</li>
 					
 				<li><a href="${ path }/board/communityBoardList">자유로운 수다방</a>
-					<ul>
+					<ul class="lnb">
 						<li><a href="${ path }/board/communityBoardList">수다 글 조회</a><li>
 						<li><a href="${ path }/article/communityWrite">수다 글 등록</a><li>
 					</ul>
