@@ -89,7 +89,7 @@
 					</ul>
 				</li>
 					
-				<li><a href="${ path }/views/donation/donation_Form.jsp">의류 기부 신청</a></li>
+				<li><a href="${ path }/donation/donationform">의류 기부 신청</a></li>
 					
 				<li><a href="${ path }/views/board/trade">중고거래 및 나눔</a>
 					<ul>
