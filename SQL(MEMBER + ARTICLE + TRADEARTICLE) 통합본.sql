@@ -434,3 +434,242 @@ DROP SEQUENCE SEQ_TRADE_ARTICLE_NO;
 CREATE SEQUENCE SEQ_TRADE_ARTICLE_NO
     START WITH 31;
 
+BEGIN
+    FOR N IN 1..15
+    LOOP
+        INSERT INTO 
+            ARTICLE 
+        VALUES
+            (SEQ_ARTICLE_NO.NEXTVAL,
+            1, -- PHOTO
+            1, -- USER
+            NULL,
+            NULL,
+            '공지',
+            '공지글 ' || SEQ_ARTICLE_NO.CURRVAL , 
+            '이 공지글은 영국에서 시작해서..' ||  SEQ_ARTICLE_NO.CURRVAL, 
+            DEFAULT, 
+            'Y', 
+            DEFAULT, 
+            NULL, 
+            NULL);
+    END LOOP;
+
+COMMIT;
+
+    FOR N IN 1..15
+    LOOP
+        INSERT INTO 
+            ARTICLE 
+        VALUES
+            (SEQ_ARTICLE_NO.NEXTVAL,
+            1, -- PHOTO
+            2, -- USER
+            NULL,
+            NULL,
+            '문의',
+            '문의글 ' || SEQ_ARTICLE_NO.CURRVAL , 
+            '이 게시글은 영국에서 시작해서..' ||  SEQ_ARTICLE_NO.CURRVAL, 
+            DEFAULT, 
+            'Y', 
+            SYSDATE, 
+            NULL, 
+            NULL);
+    END LOOP;
+
+COMMIT;
+
+    FOR N IN 1..30
+    LOOP
+        INSERT INTO 
+            ARTICLE 
+        VALUES
+            (SEQ_ARTICLE_NO.NEXTVAL,
+            1, -- PHOTO
+            3, -- USER
+            NULL,
+            NULL,
+            '거래',
+            '거래글 ' || SEQ_ARTICLE_NO.CURRVAL , 
+            '이 거래글은 영국에서 시작해서..' ||  SEQ_ARTICLE_NO.CURRVAL, 
+            DEFAULT, 
+            'Y', 
+            SYSDATE, 
+            NULL, 
+            NULL);
+    END LOOP;
+
+COMMIT;
+
+    FOR N IN 1..30
+    LOOP
+        INSERT INTO 
+            ARTICLE 
+        VALUES
+            (SEQ_ARTICLE_NO.NEXTVAL,
+            1, -- PHOTO
+            4, -- USER
+            NULL,
+            NULL,
+            '거래',
+            '거래글 ' || SEQ_ARTICLE_NO.CURRVAL , 
+            '이 게시글은 영국에서 시작해서..' ||  SEQ_ARTICLE_NO.CURRVAL, 
+            DEFAULT, 
+            'Y', 
+            SYSDATE, 
+            NULL, 
+            NULL);
+    END LOOP;
+
+COMMIT;
+    
+     FOR N IN 1..30
+    LOOP
+        INSERT INTO 
+            ARTICLE 
+        VALUES
+            (SEQ_ARTICLE_NO.NEXTVAL,
+            1, -- PHOTO
+            4, -- USER
+            NULL,
+            NULL,
+            '자유',
+            '자유게시글 ' || SEQ_ARTICLE_NO.CURRVAL , 
+            '이 자유게시글은 영국에서 시작해서..' ||  SEQ_ARTICLE_NO.CURRVAL, 
+            DEFAULT, 
+            'Y', 
+            SYSDATE, 
+            NULL, 
+            NULL);
+    END LOOP;
+    
+COMMIT;    
+         FOR N IN 1..5
+    LOOP
+        INSERT INTO 
+            ARTICLE 
+        VALUES
+            (SEQ_ARTICLE_NO.NEXTVAL,
+            1, -- PHOTO
+            4, -- USER
+            NULL,
+            NULL,
+            '자유',
+            '자유게시글 ' || SEQ_ARTICLE_NO.CURRVAL , 
+            '이 자유글은 영국에서 시작해서..' ||  SEQ_ARTICLE_NO.CURRVAL, 
+            DEFAULT, 
+            'N', 
+            SYSDATE, 
+            NULL, 
+            NULL);
+    END LOOP;
+ 
+COMMIT;
+    
+    -- 거래게시글 추가 입력
+    
+INSERT INTO 
+        CLOTH
+VALUES
+    (1,
+    1,
+    '의류명',
+    DEFAULT,
+    '00');
+    
+         FOR N IN 1..60
+    LOOP
+        INSERT INTO 
+            TRADE_ARTICLE 
+        VALUES
+            (SEQ_TRADE_ARTICLE_NO.NEXTVAL,
+            1, -- CLOTH_NO
+            150000, -- PRICE
+            DEFAULT , 
+            DEFAULT ,
+            '직거래',
+            '서울');
+    END LOOP;
+          
+COMMIT;
+
+    FOR N IN 1..150
+    LOOP
+        INSERT INTO 
+            REPLY 
+        VALUES
+            (SEQ_REPLY_NO.NEXTVAL,
+            125,
+            2, -- USER
+            '댓글' || SEQ_REPLY_NO.CURRVAL || '입니다.',
+            DEFAULT,
+            'N',
+            DEFAULT,
+            NULL,
+            NULL
+            );
+    END LOOP;
+
+COMMIT;
+
+    FOR N IN 1..2
+    LOOP
+        INSERT INTO 
+            REPLY 
+        VALUES
+            (SEQ_REPLY_NO.NEXTVAL,
+            125,
+            4, -- USER
+            '댓글' || SEQ_REPLY_NO.CURRVAL || '입니다.',
+            DEFAULT,
+            'N',
+            DEFAULT,
+            NULL,
+            NULL
+            );
+    END LOOP;
+
+COMMIT;
+
+    FOR N IN 1..4
+    LOOP
+        INSERT INTO 
+            REPLY 
+        VALUES
+            (SEQ_REPLY_NO.NEXTVAL,
+            125,
+            5, -- USER
+            '댓글' || SEQ_REPLY_NO.CURRVAL || '입니다.',
+            DEFAULT,
+            'N',
+            DEFAULT,
+            NULL,
+            NULL
+            );
+    END LOOP;
+
+COMMIT;
+
+ FOR N IN 1..3
+    LOOP
+        INSERT INTO 
+            REPLY 
+        VALUES
+            (SEQ_REPLY_NO.NEXTVAL,
+            125,
+            4, -- USER
+            '댓글' || SEQ_REPLY_NO.CURRVAL || '입니다.',
+            DEFAULT,
+            'N',
+            DEFAULT,
+            NULL,
+            NULL
+            );
+    END LOOP;
+
+COMMIT;
+   
+EXCEPTION
+    WHEN OTHERS THEN ROLLBACK;
+END;
+
