@@ -166,4 +166,50 @@ public class ClothDao {
 		return cllist;
 	}
 
+	public List<ClothPhoto> getClothPhotosbyClothNo(Connection connection, int clothNo) {
+		List<ClothPhoto> clphotos = new ArrayList<ClothPhoto>();
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+		
+		String query = "SELECT "
+				+ "    PHOTO_ID, "
+				+ "    NO, "
+				+ "    CLOTH_NO, "
+				+ "    ORIGINAL_NAME, "
+				+ "    CREATED_DATE "
+				+ "FROM "
+				+ "    CLOTH_PHOTO "
+				+ "WHERE "
+				+ "    CLOTH_NO = ?";
+		
+		
+		try {
+			pstmt = connection.prepareStatement(query);
+			pstmt.setInt(1, clothNo);
+	
+			rs = pstmt.executeQuery();
+	
+			while(rs.next()) {
+				ClothPhoto clpho = new ClothPhoto();
+				
+				clpho.setPhotoId(rs.getString("PHOTO_ID"));
+				clpho.setNo(rs.getInt("NO"));
+				clpho.setClothNo(rs.getInt("CLOTH_NO"));
+				clpho.setOriginalName(rs.getString("ORIGINAL_NAME"));
+				clpho.setCreatedDate(rs.getDate("CREATED_DATE"));
+				
+				clphotos.add(clpho);
+				
+			}
+		
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(rs);
+			close(pstmt);
+		}
+		
+		return clphotos;
+	}
+
 }

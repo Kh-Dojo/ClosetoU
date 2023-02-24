@@ -1,6 +1,7 @@
 package com.closetou.article.controller;
 
 import java.io.IOException;
+import java.util.List;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -13,7 +14,7 @@ import com.closetou.article.model.service.ArticleService;
 import com.closetou.article.model.vo.Article;
 import com.closetou.article.model.vo.TradeArticle;
 import com.closetou.cloth.model.service.ClothService;
-import com.closetou.cloth.model.vo.Cloth;
+import com.closetou.cloth.model.vo.ClothPhoto;
 import com.closetou.member.model.service.MemberService;
 import com.closetou.member.model.vo.Member;
 
@@ -32,7 +33,8 @@ public class tradeArticleViewServlet extends HttpServlet {
 		Article article = null;
 		TradeArticle trart = null;
 		Member member = null;
-
+		List<ClothPhoto> clphs = null;
+		
 		int no = Integer.parseInt(request.getParameter("no"));
 
 		Cookie[] cookies = request.getCookies();
@@ -65,14 +67,23 @@ public class tradeArticleViewServlet extends HttpServlet {
 		trart = new ArticleService().getTradeArticleByNo(no);
 
 		member = new MemberService().findMemberByNo(article.getUserNo());
-
+		
+		clphs = new ClothService().getClothPhotosbyClothNo(trart.getClothNumber());
+		ClothPhoto clph = new ClothPhoto();
+		
+		if ((clphs.size() == 1)) {
+			clph = clphs.get(0) ;
+		} 
+		
 		request.setAttribute("article", article);
-
-		System.out.println(article);
-
 		request.setAttribute("trart", trart);
 		request.setAttribute("member", member);
-
+		request.setAttribute("clothphoto", clph);
+		request.setAttribute("clothphotos", clphs);
+		
+		System.out.println(clph);
+		System.out.println(clphs);
+		
 		request.getRequestDispatcher("/views/board/tradeBoardView.jsp").forward(request, response);
 
 	}

@@ -64,9 +64,26 @@ section>* {
 }
 
 #seller_info_area {
+	display : inline-block;
 	width: 25%;
 	border: 1px solid black;
 	height: 500px;
+	align-content: center;
+}
+
+#profile_photo {
+	display: inline;
+	box-sizing:border-box;
+	width : 100%;
+	padding : 10%;
+	object-fit: cover;
+	align-content: center;
+}
+
+#profile_photo > img {
+	box-sizing:border-box;
+	width : 80%;
+	object-fit: cover;
 }
 
 #buttons_area {
@@ -90,5 +107,3 @@ section>* {
 	width: 100%;
 	border: 1px solid black;
 }
-
-

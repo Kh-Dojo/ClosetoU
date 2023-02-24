@@ -18,7 +18,9 @@
 				<input type="search" name="search" id="search_bar"
 					placeholder="제목이나 키워드를 입력하세요." /> <input type="submit" value="검색">
 				<button type="button" id="search_option_toggle_btn">검색옵션</button>
-				<div><a href="${ path }/trade/article/view?no=90">거래글보기 임시 링크</a></div>
+				<div>
+					<a href="${ path }/trade/article/view?no=90">거래글보기 임시 링크</a>
+				</div>
 				<div id="search_option_box">
 					<div id="option_view_area">
 						<input type="text" id="show_options_textbox"
@@ -58,7 +60,8 @@
 							<c:forEach var="cloth" items="${ cllist }">
 								<c:if test="${ trboard.clothNumber == cloth.no }">
 									<div>
-									<img class="item_thumbnail" src="${ path }/resources/clothImages/${ cloth.photoId }" >
+										<img class="item_thumbnail"
+											src="${ path }/resources/clothImages/${ cloth.photoId }">
 									</div>
 								</c:if>
 							</c:forEach>
