@@ -127,7 +127,7 @@ public class CommunityBoardUpdateServlet extends HttpServlet {
 
 	    		if(result > 0 ) {
 	    			request.setAttribute("msg", "게시글 수정 성공");
-	    			request.setAttribute("location", "/communityBoardView?no=" + article.getNo());
+	    			request.setAttribute("location", "/communityArticleView?no=" + article.getNo());
 	    		} else {
 	    			request.setAttribute("msg", "게시글 수정 실패");
 	    			request.setAttribute("location", "/board/communityBoardUpdate?no=" + article.getNo());

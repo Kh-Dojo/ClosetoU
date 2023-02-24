@@ -57,7 +57,7 @@
 					<table>
 						<tr>
 							<th rowspan="2"><c:if
-									test="${ not empty loginMember && loginMember.role == 'ROLE_USER'}"><img style="border-radius:70%;" width="70ox" height="70px" class="main-profile-img" src="${ path }/resources/img/logo1.png"></c:if></th>
+									test="${ not empty loginMember && loginMember.role == 'ROLE_USER'}"><img style="border-radius:70%;" width="70ox" height="70px" class="main-profile-img" src="${ path }/resources/img/basic.jpg"></c:if></th>
 							<th class="main_login_msg" colspan="3">${ loginMember.nickname }님 안녕하세요.<br></th>
 						</tr>
 						<tr>

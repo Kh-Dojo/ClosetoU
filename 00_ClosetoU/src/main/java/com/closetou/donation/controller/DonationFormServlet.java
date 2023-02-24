@@ -13,7 +13,7 @@ import com.closetou.donation.model.vo.DonationForm;
 import com.closetou.member.model.vo.Member;
 
 
-@WebServlet(name = "DonationForm", urlPatterns = { "/donationform" })
+@WebServlet(name = "DonationForm", urlPatterns = { "/donation/donationform" })
 public class DonationFormServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 
@@ -21,7 +21,11 @@ public class DonationFormServlet extends HttpServlet {
 
     }
 
-   
+    @Override
+	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+    	// 기부 신청서 작성 페이지로 포워드
+    	request.getRequestDispatcher("/views/donation/donation_Form.jsp").forward(request, response);
+	}
     
     
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
@@ -56,9 +60,6 @@ public class DonationFormServlet extends HttpServlet {
 		}
 		request.getRequestDispatcher("/views/common/msg.jsp").forward(request, response);
 	
-		if(result > 0) {
-			request.setAttribute("msg", "기부 신청서 작성 성공");
-		}
 		
 		}
 	}

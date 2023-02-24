@@ -38,7 +38,7 @@
 
 			<c:if test="${ empty list }">
 				<tr>
-					<td colspan="6">
+					<td colspan="5">
 						조회된 1:1 문의 내역이 없습니다.
 					</td>
 				</tr>	
@@ -49,9 +49,9 @@
 					<tr>
 						<td>${ article.rowNum }</td>		<!--순번 -->
 						<td>${ article.title }</td>		<!-- 제목 -->
-						<td>${ article.postDate }</td>	<!-- 작성일 -->
-						<td>${ article.content }</td>	<!-- 작성자 -->
-						<td>${ admin.process }</td>	<!-- 작성자 -->
+						<td>${ article.postDate }</td>	<!-- 문의일자 -->
+						<td>${ article.content }</td>	<!-- 문의 내용 -->
+						<td>${ article.visable }</td>	<!-- 처리 여부 -->
 					</tr>
 				</c:forEach>
 			</c:if>

@@ -57,7 +57,7 @@
 					<table>
 						<tr>
 							<th rowspan="2"><c:if
-									test="${ not empty loginMember && loginMember.role == 'ROLE_USER'}"><img style="border-radius:70%;" width="70ox" height="70px" class="main-profile-img" src="${ path }/resources/img/logo1.png"></c:if></th>
+									test="${ not empty loginMember && loginMember.role == 'ROLE_USER'}"><img style="border-radius:70%;" width="70ox" height="70px" class="main-profile-img" src="${ path }/resources/img/basic.jpg"></c:if></th>
 							<th class="main_login_msg" colspan="3">${ loginMember.nickname }님 안녕하세요.<br></th>
 						</tr>
 						<tr>
@@ -89,7 +89,7 @@
 					</ul>
 				</li>
 					
-				<li><a href="${ path }/views/donation/donation_Form.jsp">의류 기부 신청</a></li>
+				<li><a href="${ path }/donation/donationform">의류 기부 신청</a></li>
 					
 				<li><a href="${ path }/views/board/trade">중고거래 및 나눔</a>
 					<ul>

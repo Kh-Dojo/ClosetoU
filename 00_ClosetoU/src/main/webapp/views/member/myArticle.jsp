@@ -53,7 +53,7 @@
 						<td>${ article.rowNum }</td>
 						<td>
 							<c:if test="${ article.type eq '자유' }">
-								<a href="${ path }/communityBoardView?no=${ article.no }">
+								<a href="${ path }/communityArticleView?no=${ article.no }">
 									${ article.title }
 								</a>
 							</c:if>

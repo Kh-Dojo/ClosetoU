@@ -63,8 +63,6 @@ public class BoardTradeServlet extends HttpServlet {
 		//의류 대표 사진설정
 		cllist = new ClothService().getClothes(trlist);
 		
-		System.out.println(cllist);
-		
 		request.setAttribute("pageInfo", pageInfo);
 		request.setAttribute("list", list);
 		request.setAttribute("trlist", trlist);

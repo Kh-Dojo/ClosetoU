@@ -270,6 +270,53 @@ public class ArticleDao {
 		return count;
 	}
 
+	public Article findArticleByNoForTrade(Connection connection, int no) {
+
+		Article article = null;
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+		
+		String query = "SELECT A.NO, A.TYPE, A.TITLE, A.USER_NO, M.NICKNAME, A.CONTENT, A.READ_COUNT, A.ORIGINAL_FILENAME, A.RENAMED_FILENAME, A.POST_DATE, A.EDITED, A.EDIT_DATE "
+				+ "FROM ARTICLE A "
+				+ "JOIN MEMBER M ON(A.USER_NO = M.NO) "
+				+ "WHERE A.VISABLE = 'Y' AND TYPE IN('거래') AND A.NO=?";
+		
+		try {
+			pstmt = connection.prepareStatement(query);
+			
+			pstmt.setInt(1, no);
+			
+			rs = pstmt.executeQuery();
+			
+			if(rs.next()) {
+				article = new Article();
+				
+				article.setNo(rs.getInt("NO"));
+				article.setType(rs.getString("TYPE"));
+				article.setTitle(rs.getString("TITLE"));
+				article.setUserNo(rs.getInt("USER_NO"));
+				article.setUserNickname(rs.getString("NICKNAME"));
+				article.setContent(rs.getString("CONTENT"));
+				article.setReadCount(rs.getInt("READ_COUNT"));
+				article.setOriginalFileName(rs.getString("ORIGINAL_FILENAME"));
+				article.setRenamedFileName(rs.getString("RENAMED_FILENAME"));
+				article.setPostDate(rs.getDate("POST_DATE"));
+				article.setEdited(rs.getString("EDITED"));
+				article.setEditDate(rs.getDate("EDIT_DATE"));
+
+				article.setReplies(this.getRepliesByNoForCommunity(connection, no));
+				article.setPostDate(rs.getDate("POST_DATE"));
+				article.setEditDate(rs.getDate("EDIT_DATE"));
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(rs);
+			close(pstmt);
+		}
+		return article;
+	}
+
 	
 	
 	
@@ -571,6 +618,7 @@ public class ArticleDao {
 		//웹에서는 삭제되나 DB에서는 행이 삭제되지 않고 STATUS 값을 N으로 바꿔줌
 	}
 
+	
 
 	
 }
