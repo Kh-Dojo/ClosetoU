@@ -35,7 +35,7 @@
         </tr>
 
         <c:forEach var="member" items="${members}">
-            <tr>
+         <tr>
                 <td>${member.no}</td>
                 <td>${member.user_id}</td>
                 <td>${member.user_name}</td>
@@ -46,8 +46,14 @@
                 <td>${member.address_detail}</td>
                 <td>${member.status}</td>
                 <td>${member.enroll_date}</td>
-            </tr>
-        </c:forEach>
+            <td>
+            	<form method="post" action="banUser">
+                	<input type="hidden" name="userId" value="${member.user_id}">
+                	<button type="submit">강퇴</button>
+            	</form>
+        	</td>
+        </tr>
+    </c:forEach>
     </table>
     
     <%

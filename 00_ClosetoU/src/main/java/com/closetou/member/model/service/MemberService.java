@@ -12,6 +12,7 @@ import java.util.List;
 
 import com.closetou.article.model.dao.ArticleDao;
 import com.closetou.article.model.vo.Article;
+import com.closetou.article.model.vo.Reply;
 import com.closetou.board.model.dao.BoardDao;
 import com.closetou.common.util.PageInfo;
 import com.closetou.member.model.dao.MemberDao;
@@ -111,49 +112,72 @@ public class MemberService {
 			}
 			return numbers;
 		}
-
-		public List<Article> getArticleForTradeList(PageInfo pageInfo) {
+		
+		// 거래 글 불러오기
+		public List<Article> getArticleForTradeList(PageInfo pageInfo, int no) {
+			Article article = new Article();
+			Member member = new Member();
 			List<Article> list = null;
+			
+			article.setUserNo(member.getNo());
+			
 			Connection connection = getConnection();
 
-			list = new MemberDao().findAllArticlesForTrade(connection, pageInfo);
-
-			close(connection);
-
-			return list;
-		}
-
-//	// 자유게시판 관련
-//		// (자유게시판용)조회되는 결과의 갯수를 확인하기 위한 메소드
-//		public int getBoardCountForCommunity() {
-//			int count = 0;
-//			Connection connection = getConnection();
-//
-//			count = new MemberDao().getBoardCountForCommunity(connection);
-//
-//			close(connection);
-//
-//			return count;
-//		}
-
-		// 자유게시판 게시물의 리스트를 가져오기 위한 메소드
-		public List<Article> getArticleForCommunity(PageInfo pageInfo) {
-			List<Article> list = null;
-			Connection connection = getConnection();
-
-			list = new MemberDao().findAllArticleForCommunity(connection, pageInfo);
+			list = new MemberDao().findAllArticlesForTrade(connection, pageInfo, no);
 
 			close(connection);
 
 			return list;
 		}
 		
-		// 1:1 문의 관련
-		public int getBoardAsk() {
+		// 자유게시판 게시물의 리스트를 가져오기 위한 메소드
+		public List<Article> getArticleForCommunity(PageInfo pageInfo, int no) {
+			Article article = new Article();
+			Member member = new Member();
+			List<Article> list = null;
+			
+			article.setUserNo(member.getNo());
+			
+			Connection connection = getConnection();
+			
+			list = new MemberDao().findAllArticleForCommunity(connection, pageInfo, no);
+			
+			close(connection);
+			
+			return list;
+		}
+		
+		public int getBoardCountForTrade(int no) {
 			int count = 0;
 			Connection connection = getConnection();
 
-			count = new MemberDao().getBoardAsk(connection);
+			count = new MemberDao().getBoardCountForTrade(connection, no);
+
+			close(connection);
+
+			return count;
+		}
+
+	// 자유게시판 관련
+		// (자유게시판용)조회되는 결과의 갯수를 확인하기 위한 메소드
+		public int getBoardCountForCommunity(int no) {
+			int count = 0;
+			Connection connection = getConnection();
+
+			count = new MemberDao().getBoardCountForCommunity(connection, no);
+
+			close(connection);
+
+			return count;
+		}
+
+		
+		// 1:1 문의 관련
+		public int getBoardAsk(int no) {
+			int count = 0;
+			Connection connection = getConnection();
+
+			count = new MemberDao().getBoardAsk(connection, no);
 
 			close(connection);
 
@@ -161,14 +185,67 @@ public class MemberService {
 		}
 		
 		// 1:1 문의 관련
-		public List<Article> getArticleAsk(PageInfo pageInfo) {
+		public List<Article> getArticleAsk(PageInfo pageInfo, int no) {
+			Member member = new Member();
+			Article article = new Article();
 			List<Article> list = null;
+			
+			article.setUserNo(member.getNo());
+			
 			Connection connection = getConnection();
 
-			list = new MemberDao().findAllArticleForAsk(connection, pageInfo);
+			list = new MemberDao().findAllArticleForAsk(connection, pageInfo, no);
 
 			close(connection);
 
 			return list;
 		}
+<<<<<<< HEAD
+=======
+		
+		// No 관련
+		public Member findMemberByNo(int No) {
+			Connection connection = getConnection();
+			
+			Member member = new MemberDao().findMemberByNo(connection, No);
+			
+			close(connection);
+			
+			return member;
+		}
+	
+		public Member loginNo(int No) {
+			Member member = this.findMemberByNo(No);
+			
+			return member;
+		}
+		
+		// 댓글
+		public int getBoardComment(int no) {
+			int count = 0;
+			Connection connection = getConnection();
+
+			count = new MemberDao().getBoardComment(connection, no);
+
+			close(connection);
+
+			return count;
+		}
+
+		public List<Reply> getArticleComment(PageInfo pageInfo, int no) {
+			Member member = new Member();
+			Reply reply = new Reply();
+			List<Reply> list = null;
+			
+			reply.setUserNo(member.getNo());
+			
+			Connection connection = getConnection();
+
+			list = new MemberDao().findAllArticleForComment(connection, pageInfo, no);
+
+			close(connection);
+
+			return list;
+		}
+>>>>>>> 445777dc2e88a3bbb53efb5cc60e142d7fbd3517
 }

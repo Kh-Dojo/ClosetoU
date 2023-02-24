@@ -15,7 +15,7 @@
 	div#pageBar{margin-top:10px; text-align:center; background-color:rgba(255, 204, 153, 0.3);}
 	#sidemenu {width: 20%; height: auto;}
 	article {width: 75%; height: auto; box-sizing: border-box; float: left; padding-right:10px;}
-	section {width: 1200px; height: 400px; margin: auto;}
+	section {width: 1200px; height: 500px; margin: auto;}
 	section > * {box-sizing: border-box; float: left;}
 	#sub_menu_name_area:active {color:rgb(220, 179, 14);}
 	#sub_menu_name_area > ul {list-style:none;}
@@ -31,10 +31,10 @@
 		<table id="tbl-board">
 			<tr>
 				<th>번호</th>
-				<th>상품 명</th>
-				<th>상품 가격</th>
-				<th>작성일자</th>
-				<th>거래일자</th>
+				<th>제목</th>
+				<th>작성자</th>
+				<th>작성일</th>
+				<th>조회수</th>
 			</tr>
 <!-- 게시글 목록 가져오기 각 게시글을 리스트에 담기 -->
 			<!-- list 가 비어있으면 아래와 같이 화면을 그리겠다 url의 list?page=숫자에 14 이상의 값 넣어보기-->
@@ -46,21 +46,29 @@
 				</tr>	
 			</c:if>
 			<c:if test="${ not empty list }">
-					<c:forEach var="board" items="${ list }">
-						<div class="item_box">
-							<div>${ board.no }</div>
-							<div>${ board.title }</div>
-							<div>${ board.title }</div>
-						</div>
-					</c:forEach>
-				</c:if>
+				<c:forEach var="article" items="${ list }">
+					<tr>
+						<td>${ article.rowNum }</td>
+						<td>
+							<c:if test="${ article.type eq '거래' }">
+								<a href="${ path }/tradeBoardView?no=${ article.no }">
+									${ article.title }
+								</a>
+							</c:if>
+						</td>		<!-- 제목 -->
+						<td>${ article.userNickname }</td>	<!-- 작성자 -->
+						<td>${ article.postDate }</td>	<!-- 작성일 -->
+						<td>${ article.readCount }</td>	<!-- 조회수 --> 
+					</tr>
+				</c:forEach>
+			</c:if>
 			</table>
 		<div id="pageBar">
 			<!-- 맨 처음으로 -->
-			<button onclick="location.href='${ path }/views/board/trade?page=1'">&lt;&lt;</button>
+			<button onclick="location.href='${ path }/myTrade?page=1'">&lt;&lt;</button>
 
 			<!-- 이전 페이지로 -->
-			<button onclick="location.href='${ path }/views/board/trade?page=${ pageInfo.prevPage }'">&lt;</button>
+			<button onclick="location.href='${ path }/myTrade?page=${ pageInfo.prevPage }'">&lt;</button>
 
 			<!-- 10개 페이지 목록 -->
 			<c:forEach begin="${ pageInfo.startPage }" end="${ pageInfo.endPage }" varStatus="status">	
@@ -69,16 +77,16 @@
 						<button disabled>${ status.current }</button>
 					</c:when>
 					<c:otherwise>
-						<button onclick="location.href='${ path }/views/board/trade?page=${ status.current }'">${ status.current }</button>
+						<button onclick="location.href='${ path }/myTrade?page=${ status.current }'">${ status.current }</button>
 					</c:otherwise>
 				</c:choose>
 			</c:forEach>
 
 			<!-- 다음 페이지로 -->
-			<button onclick="location.href='${ path }/views/board/trade?page=${ pageInfo.nextPage }'">&gt;</button>
+			<button onclick="location.href='${ path }/myTrade?page=${ pageInfo.nextPage }'">&gt;</button>
 
 			<!-- 맨 끝으로 -->
-			<button onclick="location.href='${ path }/views/board/trade?page=${ pageInfo.maxPage }'">&gt;&gt;</button>
+			<button onclick="location.href='${ path }/myTrade?page=${ pageInfo.maxPage }'">&gt;&gt;</button>
 		</div>
 	</div>
 	</article>

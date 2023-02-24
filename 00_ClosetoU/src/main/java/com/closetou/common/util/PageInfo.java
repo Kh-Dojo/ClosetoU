@@ -1,5 +1,8 @@
 package com.closetou.common.util;
 
+import lombok.Data;
+
+@Data
 public class PageInfo {
 	private int currentPage;
 

@@ -7,7 +7,6 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
 
 import com.closetou.article.model.vo.Article;
@@ -17,91 +16,6 @@ import com.closetou.common.util.PageInfo;
 
 public class ArticleDao {
 
-	// 키워드로 Article을 검색하는 메소드(미완성)
-	public List<Article> searchArticle(Connection connection, String keyword) {
-		ArrayList<Article> result = new ArrayList<>();
-
-		System.out.println("searchArticle dao 실행");
-
-		// DB와 연결해서 쿼리문, 결과값(rs)을 가져오는 메소드 필요
-
-		// 임의의 rs 생성
-
-		for (int i = 0; i < 3; i++) {
-
-			Article rs = new Article();
-
-			rs.setNo(i);
-			rs.setUserNo(1);
-			rs.setType("거래");
-			rs.setTitle("거래ex" + i);
-			rs.setContent("거래내용" + i);
-			rs.setReadCount(0);
-			rs.setVisable("Y");
-			rs.setPostDate(new Date());
-			rs.setEdited(null);
-			rs.setEditDate(null);
-
-			result.add(rs);
-
-		}
-
-		return result;
-	}
-
-	// 키워드로 TradeArticle을 검색하는 메소드(미완성)
-	public List<TradeArticle> searchTradeArticle(Connection connection, String keyword, String[] attribute) {
-
-		// 변수 선언
-		ArrayList<TradeArticle> trlist = new ArrayList<>();
-		PreparedStatement pstmt = null;
-//		ResultSet rs = null;
-//		String query = "";
-//		String category = "";
-
-		// 체크한 속성값에 따라 쿼리문을 변경
-//		if ( attribute.length == 0 ) {
-		// 키워드만 입력했을 때 제목에 키워드가 포함되는 게시글을 찾아줌
-//		query = "SELECT * FROM	ARTICLE WHERE TYPE=\"거래\" AND TITLE LIKE '%?%'";
-//
-//
-//		try {
-//			pstmt.setString(1, keyword);
-//
-//			rs = pstmt.executeQuery(query);
-//
-//			while (rs.next()) {
-//
-//				TradeArticle ta = new TradeArticle();
-//
-//			}
-//
-//		} catch (SQLException e) {
-//			e.printStackTrace();
-//		} finally {
-//			close(rs);
-//			close(pstmt);
-//		}
-//
-
-		for (int i = 0; i < 3; i++) {
-
-			TradeArticle rs = new TradeArticle();
-
-			rs.setNo(i);
-			rs.setPrice(0);
-			rs.setClothInfo("의류정보");
-			rs.setTradeEnd("N");
-			rs.setFree("N");
-			rs.setTradeMethod("직거래");
-			rs.setLocation("서울");
-
-			trlist.add(rs);
-
-		}
-
-		return trlist;
-	}
 
 	// article의 no값으로 tradeArticle을 찾아 객체로 반환하는 메소드
 	public TradeArticle findTradeArticleByNo(Connection connection, int no) {
@@ -123,7 +37,6 @@ public class ArticleDao {
 				trart.setNo(rs.getInt("ARTICLE_NO"));
 				trart.setClothNumber(rs.getInt("CLOTH_NO"));
 				trart.setPrice(rs.getInt("PRICE"));
-				trart.setClothInfo(rs.getString("CLOTH_INFO"));
 				trart.setTradeEnd("TRADE_ENDED");
 				trart.setFree("FREE");
 				trart.setTradeMethod(rs.getString("TRADE_METHOD"));
@@ -147,32 +60,51 @@ public class ArticleDao {
 		PreparedStatement pstmt = null;
 		ResultSet rs = null;
 		String query = "SELECT "
-				+ "    RNUM, NO, USER_NO, TYPE, TITLE, CONTENT, READ_COUNT, VISABLE, POST_DATE, EDITED, EDIT_DATE "
-				+ "FROM" 
-				+ "    (SELECT " 
-				+ "        ROWNUM AS RNUM," 
-				+ "        NO," 
-				+ "        USER_NO,"
-				+ "        TYPE," 
-				+ "        TITLE," 
-				+ "        CONTENT," 
-				+ "        READ_COUNT," 
-				+ "        VISABLE,"
-				+ "        POST_DATE," 
-				+ "        EDITED," 
-				+ "        EDIT_DATE " 
-				+ "    FROM " 
-				+ "        ARTICLE "
-				+ "    WHERE" 
-				+ "        TYPE IN ('거래') " 
-				+ "    ORDER BY " 
-				+ "        NO DESC) " 
-				+ "WHERE "
-				+ "    RNUM BETWEEN ? AND ?";
+				+ "    * "
+				+ "FROM "
+				+ "    ( "
+				+ "        SELECT "
+				+ "            ROWNUM AS RNUM, "
+				+ "            NO, "
+				+ "            USER_NO, "
+				+ "            TYPE, "
+				+ "            TITLE, "
+				+ "            CONTENT, "
+				+ "            READ_COUNT, "
+				+ "            VISABLE, "
+				+ "            POST_DATE, "
+				+ "            EDITED, "
+				+ "            EDIT_DATE "
+				+ "        FROM "
+				+ "            ( "
+				+ "                SELECT "
+				+ "                    ROWNUM AS RNUM, "
+				+ "                    NO, "
+				+ "                    USER_NO, "
+				+ "                    TYPE, "
+				+ "                    TITLE, "
+				+ "                    CONTENT, "
+				+ "                    READ_COUNT, "
+				+ "                    VISABLE, "
+				+ "                    POST_DATE, "
+				+ "                    EDITED, "
+				+ "                    EDIT_DATE "
+				+ "                FROM "
+				+ "                    ARTICLE "
+				+ "                WHERE "
+				+ "                    TYPE IN ( '거래' ) "
+				+ "                ORDER BY "
+				+ "                    NO DESC "
+				+ "            ) "
+				+ "    ) "
+				+ "WHERE RNUM BETWEEN ? AND ?";
 
 		try {
 			pstmt = connection.prepareStatement(query);
 
+			System.out.println(pageInfo.getStartList());
+			System.out.println(pageInfo.getEndList());
+			
 			pstmt.setInt(1, pageInfo.getStartList());
 			pstmt.setInt(2, pageInfo.getEndList());
 
@@ -206,6 +138,147 @@ public class ArticleDao {
 
 		return artlist;
 	}
+
+
+
+	public List<TradeArticle> findTradeArticleByNos(Connection connection, ArrayList<Integer> numbers) {
+		List<TradeArticle> trarts = new ArrayList<>();
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+		
+		String query = "SELECT * FROM TRADE_ARTICLE WHERE ARTICLE_NO IN (";
+		
+		for(int i = 0 ; i < numbers.size()-1 ; i++ ) {
+			query += (numbers.get(i) +", "); 
+		}
+		query += numbers.get(numbers.size()-1);
+		query += ") ORDER BY ARTICLE_NO DESC";
+				
+		try {
+			pstmt = connection.prepareStatement(query);
+			rs = pstmt.executeQuery();
+
+			while (rs.next()) {
+				TradeArticle trart = new TradeArticle();
+
+				trart.setNo(rs.getInt("ARTICLE_NO"));
+				trart.setClothNumber(rs.getInt("CLOTH_NO"));
+				trart.setPrice(rs.getInt("PRICE"));
+				trart.setTradeEnd("TRADE_ENDED");
+				trart.setFree("FREE");
+				trart.setTradeMethod(rs.getString("TRADE_METHOD"));
+				trart.setLocation(rs.getString("LOCATION"));
+			
+				trarts.add(trart);
+			
+			}
+
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(rs);
+			close(pstmt);
+		}
+
+		return trarts;
+
+	}
+	
+	// 가장 최근에 작성한 Article의 No를 가져오는 메소드
+	public int getMostRecentlyArticleNoByMemberNo(Connection connection, int no) {
+		int recentNo = 0;
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+		String query = "SELECT "
+				+ "    MAX(NO) "
+				+ "FROM "
+				+ "    ( "
+				+ "        SELECT "
+				+ "            NO "
+				+ "        FROM "
+				+ "            ARTICLE "
+				+ "        WHERE"
+				+ "            USER_NO = ?"
+				+ "    )";
+		
+		try {
+			pstmt = connection.prepareStatement(query);
+			pstmt.setInt(1, no);
+
+			rs = pstmt.executeQuery();
+			
+			if(rs.next()) {
+				recentNo = rs.getInt("MAX(NO)");
+			}
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(rs);
+			close(pstmt);
+		}
+		return recentNo;
+	}
+
+	public int saveTradeArticle(Connection connection, TradeArticle trart) {
+		int result = 0;
+		PreparedStatement pstmt = null;
+		String query = "INSERT INTO TRADE_ARTICLE ( "
+				+ "    ARTICLE_NO, "
+				+ "    CLOTH_NO, "
+				+ "    PRICE, "
+				+ "    TRADE_ENDED, "
+				+ "    FREE, "
+				+ "    TRADE_METHOD, "
+				+ "    LOCATION "
+				+ ") VALUES ( "
+				+ "    ?, "
+				+ "    ?, "
+				+ "    ?,  "
+				+ "    DEFAULT, "
+				+ "    ?, "
+				+ "    ?, "
+				+ "    ? "
+				+ ")";
+		
+		try {
+			pstmt = connection.prepareStatement(query);
+			
+			pstmt.setInt(1, trart.getNo());
+			pstmt.setInt(2, trart.getClothNumber());
+			pstmt.setInt(3, trart.getPrice());
+			pstmt.setString(4, trart.getFree());
+			pstmt.setString(5, trart.getTradeMethod());
+			pstmt.setString(6, trart.getLocation());
+			
+			result = pstmt.executeUpdate(); 
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(pstmt);
+		}
+		return result;
+	}
+
+	
+	public int findAllArticlesForTradeSearch(Connection connection, PageInfo pageInfo) {
+		int count = 0;
+		
+		
+		
+		return count;
+	}
+
+	
+	
+	
+	
+	
+	// 정준영역 
+//	----------------------------------------------------------------------------------------------------------------------------------------------------------------
+	// 주희영역
+	
 
 	// 문의글 DB에 넣기
 	public int insertQna(Connection connection, Article article) {
@@ -328,52 +401,6 @@ public class ArticleDao {
 		}
 		
 		return replies;
-	}
-	
-	public List<TradeArticle> findTradeArticleByNos(Connection connection, ArrayList<Integer> numbers) {
-		List<TradeArticle> trarts = new ArrayList<>();
-		PreparedStatement pstmt = null;
-		ResultSet rs = null;
-		
-		String query = "SELECT * FROM TRADE_ARTICLE WHERE ARTICLE_NO IN (";
-		
-		for(int i = 0 ; i < numbers.size()-1 ; i++ ) {
-			query += (numbers.get(i) +", "); 
-		}
-		query += numbers.get(numbers.size()-1);
-		query += ") ORDER BY ARTICLE_NO DESC";
-		
-		System.out.println(query);
-		
-		try {
-			pstmt = connection.prepareStatement(query);
-			rs = pstmt.executeQuery();
-
-			while (rs.next()) {
-				TradeArticle trart = new TradeArticle();
-
-				trart.setNo(rs.getInt("ARTICLE_NO"));
-				trart.setClothNumber(rs.getInt("CLOTH_NO"));
-				trart.setPrice(rs.getInt("PRICE"));
-				trart.setClothInfo(rs.getString("CLOTH_INFO"));
-				trart.setTradeEnd("TRADE_ENDED");
-				trart.setFree("FREE");
-				trart.setTradeMethod(rs.getString("TRADE_METHOD"));
-				trart.setLocation(rs.getString("LOCATION"));
-			
-				trarts.add(trart);
-			
-			}
-
-		} catch (SQLException e) {
-			e.printStackTrace();
-		} finally {
-			close(rs);
-			close(pstmt);
-		}
-
-		return trarts;
-
 	}
 	
 	// 수정내용으로 게시글 바뀌게 UPDATE 작업 article service의save()
@@ -544,4 +571,6 @@ public class ArticleDao {
 		//웹에서는 삭제되나 DB에서는 행이 삭제되지 않고 STATUS 값을 N으로 바꿔줌
 	}
 
+
+	
 }

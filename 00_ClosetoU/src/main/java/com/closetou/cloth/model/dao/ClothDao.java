@@ -11,6 +11,7 @@ import java.util.ArrayList;
 import org.apache.tomcat.util.buf.StringUtils;
 
 import com.closetou.cloth.model.vo.Cloth;
+import com.closetou.cloth.model.vo.ClothPhoto;
 
 public class ClothDao {
 
@@ -83,6 +84,41 @@ public class ClothDao {
 		}
 		return recentNo;
 		
+	}
+
+
+	public int saveClothPhoto(Connection connection, ClothPhoto cloph) {
+		int result = 0;
+		PreparedStatement pstmt = null;
+		String query = "INSERT "
+				+ "    INTO CLOTH_PHOTO ( "
+				+ "        PHOTO_ID, "
+				+ "        NO, "
+				+ "        CLOTH_NO, "
+				+ "        ORIGINAL_NAME, "
+				+ "        CREATED_DATE "
+				+ "    ) "
+				+ "    VALUES "
+				+ "    (?, SEQ_CLPH.NEXTVAL, ?, ?, DEFAULT)";
+		
+			System.out.println(cloph);
+		
+		try {
+			pstmt = connection.prepareStatement(query);
+			
+			pstmt.setString(1, cloph.getPhotoId());
+			pstmt.setInt(2, cloph.getClothNo());
+			pstmt.setString(3, cloph.getOriginalName());
+			
+			result = pstmt.executeUpdate();
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(pstmt);
+		}
+		
+		return result;
 	}
 
 }

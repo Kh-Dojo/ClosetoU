@@ -33,5 +33,10 @@ public class Member {
 	private String status;
 	
 	private Date enrollDate;
+
+	// 삭제 할것
+	public Object getAllUsers() {
+		return null;
+	}
 	
 }

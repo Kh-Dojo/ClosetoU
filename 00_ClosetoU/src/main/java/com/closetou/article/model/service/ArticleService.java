@@ -1,8 +1,8 @@
 package com.closetou.article.model.service;
 
 import static com.closetou.common.jdbc.JDBCTemplate.close;
-import static com.closetou.common.jdbc.JDBCTemplate.getConnection;
 import static com.closetou.common.jdbc.JDBCTemplate.commit;
+import static com.closetou.common.jdbc.JDBCTemplate.getConnection;
 import static com.closetou.common.jdbc.JDBCTemplate.rollback;
 
 import java.sql.Connection;
@@ -13,10 +13,85 @@ import com.closetou.article.model.dao.ArticleDao;
 import com.closetou.article.model.vo.Article;
 import com.closetou.article.model.vo.Reply;
 import com.closetou.article.model.vo.TradeArticle;
-import com.closetou.board.model.dao.BoardDao;
+import com.closetou.cloth.model.dao.ClothDao;
+import com.closetou.cloth.model.vo.Cloth;
+import com.closetou.cloth.model.vo.ClothPhoto;
 
 public class ArticleService {
 
+
+	// No값으로 TradeArticle을 가져오는 메소드
+	public TradeArticle getTradeArticleByNo(int no) {
+		TradeArticle trart = null;
+
+		Connection connection = getConnection();
+
+		trart = new ArticleDao().findTradeArticleByNo(connection, no);
+
+		close(connection);
+
+		return trart;
+	}
+
+
+	public List<TradeArticle> getTradeArticleByNos(ArrayList<Integer> numbers) {
+		List<TradeArticle> result = null;
+
+		Connection connection = getConnection();
+
+		result = new ArticleDao().findTradeArticleByNos(connection, numbers);
+
+		close(connection);
+
+		return result;
+
+	}
+
+
+	public int saveForTrade(Article article, Cloth cloth, TradeArticle trart, ClothPhoto cloph) {
+		int result = 0;
+		Connection connection = getConnection();
+
+		// Article 넣기
+		int insertBoard = new ArticleDao().insertBoard(connection, article);
+
+		// 작성된 최근 게시물의 No를 가져옴
+		int recentNo = new ArticleDao().getMostRecentlyArticleNoByMemberNo(connection, article.getUserNo());
+
+		// 의류 넣기
+		int insertCloth = new ClothDao().saveCloth(connection, cloth);
+
+		// 등록된 의류의 No를 가져옴
+		int recentClothNo = new ClothDao().getPhotoNoByPhotoId(connection, article.getRenamedFileName());
+
+		cloph.setClothNo(recentClothNo);
+		
+		// 의류 사진 등록
+		int insertClothPhoto = new ClothDao().saveClothPhoto(connection, cloph);
+		
+		// 거래 게시글 세팅
+		trart.setNo(recentNo);
+		trart.setClothNumber(recentClothNo);
+
+		result = new ArticleDao().saveTradeArticle(connection, trart);
+
+		if (result > 0) {
+			commit(connection);
+		} else {
+			rollback(connection);
+		}
+		close(connection);
+		return result;
+	}
+
+	
+	
+	
+	
+	
+//	--------------------------------------------------------------------------------------------------------------------------------------------------------
+	
+	
 	// 아티클로부터 NO를 추출하여 ArrayList 객체로 반환하는 메소드
 	@SuppressWarnings("null")
 	public ArrayList<Integer> noFromArticle(List<Article> list) {
@@ -31,18 +106,6 @@ public class ArticleService {
 	}
 
 	
-	// No값으로 TradeArticle을 가져오는 메소드
-	public TradeArticle getTradeArticleByNo(int no) {
-		TradeArticle trart = null;
-
-		Connection connection = getConnection();
-
-		trart = new ArticleDao().findTradeArticleByNo(connection, no);
-
-		close(connection);
-
-		return trart;
-	}
 	
 
 	// 문의글 DB에 넣는 메소드
@@ -91,20 +154,6 @@ public class ArticleService {
 		return article;
 	}
 
-	public List<TradeArticle> getTradeArticleByNos(ArrayList<Integer> numbers) {
-		List<TradeArticle> result = null;
-		
-		Connection connection = getConnection();
-		
-		result = new ArticleDao().findTradeArticleByNos(connection, numbers);
-		
-		close(connection);
-				
-		return result;
-		
-	
-
-	}
 
 	// 게시글 파일 업로드
 	public int save(Article article) {
@@ -191,12 +240,13 @@ public class ArticleService {
 		return result;
 	}
 
+
+	public List<TradeArticle> getTradeArticleByNosWithAttributes(ArrayList<Integer> numbers, String[] attribute) {
+		
+		
+		
+		
+		return null;
+	}
+	
 }
-
-
-
-
-
-
-
-

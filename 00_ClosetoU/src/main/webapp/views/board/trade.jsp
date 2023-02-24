@@ -26,16 +26,22 @@
 					</div>
 					<hr />
 					<div>
-						<input type="checkbox" class="catagory_checkbox"
-							name="item_attribute" id="attr1" value="속성1" />속성1<br /> <input
-							type="checkbox" class="catagory_checkbox" name="item_attribute"
-							id="attr2" value="속성2" />속성2<br /> <input type="checkbox"
-							class="catagory_checkbox" name="item_attribute" id="attr3"
-							value="속성3" />속성3<br /> <input type="checkbox"
-							class="catagory_checkbox" name="item_attribute" id="attr4"
-							value="속성4" />속성4<br />
+						<div id="categoryoptions">
+							<c:forEach var="category" items="${ categorylist }">
+								<c:choose>
+									<c:when test="${ category.clothCode == '00' }">
+										<input type="checkbox" name="clothcategory"
+											value="${ category.clothCode }" checked>${ category.clothCategory }						
+								</c:when>
+									<c:otherwise>
+										<input type="checkbox" name="clothcategory"
+											value="${ category.clothCode }">${ category.clothCategory }
+								</c:otherwise>
+								</c:choose>
+							</c:forEach>
+						</div>
+						<hr />
 					</div>
-					<hr />
 				</div>
 			</form>
 		</div>
@@ -47,11 +53,11 @@
 					</tr>
 				</c:if>
 				<c:if test="${ not empty trlist }">
-						<c:forEach var="trboard" items="${ trlist }" varStatus="loop">
-							<div class="item_box">
-								<div>${ trboard.no }</div>
-							</div>
-						</c:forEach>
+					<c:forEach var="trboard" items="${ trlist }" varStatus="loop">
+						<div class="item_box">
+							<div>${ trboard.no }</div>
+						</div>
+					</c:forEach>
 				</c:if>
 			</table>
 
