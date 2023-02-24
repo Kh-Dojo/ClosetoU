@@ -4,92 +4,53 @@
 
 <c:set var="path" value="${ pageContext.request.contextPath }"/>
 <link rel="stylesheet" href="${ path }/resources/css/footer.css">
-
-	<footer style="background-color: beige" align="center">
-	jsp include로 연결된 footer입니다. <br><br>
-		<a href="${ path }/board/communityBoardList">FAQ</a> | <a id="aQna" href="${ path }/views/board/qnaWrite.jsp">1:1 문의</a> | <a href="https://www.hometax.go.kr/" target="_blank">국세청 홈택스</a> 
-		<hr>
-		<p>
-		의류기부 중고거래 관련 문의(평일 09:00 ~ 17:00)<br>
-		점심시간(평일 12:00 ~ 13:00)
-		</p>
-		<p style="font-size: 25px">1588-1234</p>
-		<p style="color: gray;">
-			&lt;Copyright 2023 <strong>ClosetToU</strong>. All rights reserved.&gt;
-		</p>
-	</footer>
-<!-- <script>
-	window.onload = function(){
-	    function loginCheck() {
-	        var id = '${userId}';
-	        if (id == null) {
-	            alert("로그인 후 문의할 수 있습니다.");
-	            location.href = "${ path }/index.jsp";
-	            return false;
-	        } else {
-	            location.href = '${ path }/views/board/qnaWrite.jsp';
-	        }
-	    }
-	}
-</script>
- -->
+	<footer>
+        <div id="wrap">
+            <div id="top">
+                <a href="${ path }/views/intro/donation_Intro.jsp" class="aTag">이용안내</a> | <a id="FAQ" href="#" class="aTag">FAQ</a> | <a href="https://www.hometax.go.kr/" target="_blank" class="aTag">국세청 홈택스</a>
+            	<a href="#">
+            		<img id="top-img" src="${ path }/resources/img/forFooterTopImg.png" alt="${ path }/">
+            	</a>
+            </div>
+            <hr>
+            <div id="bottom-left">
+                <img id="logo-img" src="${ path }/resources/img/forFooterLogo.png">
+            </div>
+            <div id="bottom-mid">
+                <div>
+                    주소 : 서울특별시 강남구 테헤란로14길 6 남도빌딩 <br>
+                    사업자등록번호 : 123-45-67890 | 이사장 : 이정준
+                </div>
+                <br><br>
+                <div>
+                    &lt;Copyright 2023 <strong>CloseToU.</strong> All rights reserved.&gt;
+                </div>  
+            </div>
+            <div id="bottom-right">
+                <div id="text-qna">
+                    의류기부 중고거래 관련 문의(평일 09:00 ~ 17:00)<br>
+                    점심시간(평일 12:00 ~ 13:00)
+                </div><br>
+                <div id="tel"><img id="tel-img" src="${ path }/resources/img/forFooterTelImg.png">1588-1234</div>
+                <div id="btn"><a id="btnQna" href="${ path }/views/board/qnaWrite.jsp">온라인 문의</a></div>
+            </div>
+        </div>
+    </footer>
 <script>
 	$(document).ready(() =>{
 		
-		$('#aQna').on('focus', () => {
-			/* if(${ empty loginMember }) { */
-				alert('로그인 후 이용해 주세요.')
-				
-			/* 	$('#userId').focus();
-			}	 */		
+		$('#btnQna').on('focus', () => {
+			if(${ empty loginMember }) {
+				alert('로그인 후 문의해 주세요.')				
+				$('#userId').focus();
+			} else {
+				if(${ not empty loginMember }){
+					location.replace('${ path }/views/board/qnaWrite.jsp');
+/* 					location.href = '${ path }/views/board/qnaWrite.jsp';	 */				
+				}
+			}
 		});
 	});
-	
-	<%-- <%-- window.onload = function(){
-		
-		function loginCheck(){ 
-	         var id = '<%=(String)request.getAttribute("no")%>';
-	         
-	
-		
-	          if(id=="null"){
-	             alert("로그인이 필요한 항목입니다. 로그인 후 문의해 주세요."); 
-	             location.href = "${ path }/index.jsp";
-	             $('#userId').focus();
-	          }
-	          else{
-	        	  location.href = '${ path }/views/board/qnaWrite.jsp';
-	          }
-		};
-		
-
-	};
-	
-	
-	//	var id = "<c:out value='${param.userId}'/>";
-    
-	/* 	$('#aQna').on('clcik', () => {
-		
-		if(${ empty loginMember }) {
-			alert('로그인 후 이용해 주세요.')
-			
-			$('#userId').focus();
-		} else {
-			location.href = '${ path }/views/board/qnaWrite.jsp';
-		}	
-	}); */
-    $('#cancel').on('click', () => {
-		if(confirm('게시글 작성을 취소하시겠습니까?')) {
-			location.replace('${ path }/board/communityBoardList');
-		}
-	});
-};
-
-$('#cancel').on('click', () => {
-	if(confirm('게시글 작성을 취소하시겠습니까?')) {
-		location.replace('${ path }/board/communityBoardList');
-	}
-} --%> --%>
 </script>
 </body>
 </html>
