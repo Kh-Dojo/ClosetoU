@@ -2,7 +2,7 @@
 /* 안내 사이트 */
 #content {
 	width: 1200px;
-	height: auto;
+	height: 2000px;
 	margin: 0 auto;
 }
 
@@ -14,7 +14,7 @@
 
 #view-container {
 	width: 80%;
-	height: auto;
+	height:2000px;
 	box-sizing: border-box;
 	float: right;
 }
