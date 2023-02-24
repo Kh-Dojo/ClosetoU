@@ -29,6 +29,7 @@ public class TradeSearchServlet extends HttpServlet {
 		System.out.println("검색 서블릿 doPost 실행");
 		request.setCharacterEncoding("UTF-8");
 		
+		
 		// 메인페이지 정보를 읽어 오기 위한 변수들 
 		int page = 0;
 		int listCount = 0;
