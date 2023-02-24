@@ -32,10 +32,10 @@ public class communityReplyDeleteServlet extends HttpServlet {
 	
 		if( result > 0 ) {
 			request.setAttribute("msg", "댓글 삭제 성공");
-			request.setAttribute("location", "/communityBoardView?no=" + articleNo); // 게시글 목록으로 가게 해줌
+			request.setAttribute("location", "/communityArticleView?no=" + articleNo); // 게시글 목록으로 가게 해줌
 		} else {
 			request.setAttribute("msg", "게시글 삭제 실패");
-			request.setAttribute("location", "/communityBoardView?no=" + articleNo);
+			request.setAttribute("location", "/communityArticleView?no=" + articleNo);
 		}
 	
 										// r 매개값으로 포워딩 시켜주려는 view의 이름 넣어줌

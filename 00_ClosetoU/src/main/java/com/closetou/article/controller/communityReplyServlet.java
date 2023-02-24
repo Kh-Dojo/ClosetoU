@@ -49,10 +49,10 @@ public class communityReplyServlet extends HttpServlet {
 		
 		if(result > 0 ) {
 			request.setAttribute("msg", "댓글 등록 성공");
-			request.setAttribute("location", "/communityBoardView?no=" + articleNo);
+			request.setAttribute("location", "/communityArticleView?no=" + articleNo);
 		} else {
 			request.setAttribute("msg", "댓글 등록 실패");
-			request.setAttribute("location", "/communityBoardView?no=" + articleNo);
+			request.setAttribute("location", "/communityArticleView?no=" + articleNo);
 		}
 		
 		request.getRequestDispatcher("/views/common/msg.jsp").forward(request, response);

@@ -26,10 +26,8 @@ public class MyTradeServlet extends HttpServlet {
     public MyTradeServlet() {
     }
 
- // 거래 메인 페이지로 보내는 메소드입니다.
     @Override
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
- 	// 메인페이지 정보를 읽어 오기 위한 변수들
     		request.setCharacterEncoding("UTF-8");
 		
     		HttpSession session = request.getSession(false);
@@ -40,10 +38,8 @@ public class MyTradeServlet extends HttpServlet {
  			int listCount = 0;
  			PageInfo pageInfo = null;
  			List<Article> list = null;
-// 			List<TradeArticle> trlist = null;
  			
  			memNo = loginMember.getNo();
- 			System.out.println(memNo);
  			
  			try {
  				page = Integer.parseInt(request.getParameter("page"));
@@ -51,18 +47,15 @@ public class MyTradeServlet extends HttpServlet {
  				page = 1;
  			}
  			
- 			listCount = new MemberService().getBoardCountForTrade(loginMember.getNo());
+ 			listCount = new MemberService().getBoardCountForTrade(memNo);
  			pageInfo = new PageInfo(page, 10, listCount, 10);
  			
- 			list = new MemberService().getArticleForTradeList(pageInfo, loginMember.getNo());
+ 			list = new MemberService().getArticleForTradeList(pageInfo, memNo);
  			
  			ArrayList<Integer> numbers = new ArticleService().noFromArticle(list);	
  			
-// 			trlist = new ArticleService().getTradeArticleByNos(numbers);
- 			
  			request.setAttribute("pageInfo", pageInfo);
  			request.setAttribute("list", list);
-// 			request.setAttribute("trlist", trlist);
  			request.getRequestDispatcher("/views/member/myTrade.jsp").forward(request, response);
 	}
 

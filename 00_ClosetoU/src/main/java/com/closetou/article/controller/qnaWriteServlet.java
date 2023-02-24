@@ -65,7 +65,7 @@ public class qnaWriteServlet extends HttpServlet {
 			
 			if ( result > 0 ) {
 				request.setAttribute("msg", "문의 등록 성공");
-				request.setAttribute("location", "/");
+				request.setAttribute("location", "/myAsk");
 			} else {
 				request.setAttribute("msg", "문의 등록 실패");
 				request.setAttribute("location", "/views/board/qnaWrite.jsp");

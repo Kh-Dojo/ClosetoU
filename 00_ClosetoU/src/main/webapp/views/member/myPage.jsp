@@ -56,12 +56,6 @@
 		<form id="memberFrm" enctype="multipart/form=data" action="${ path }/member/update" method="POST">
 			<table>
 				<tr>
-	                <th>프로필 등록</th>
-					<td class="btn-file">
-						👉클릭하여 이미지 업로드<input type="file" name="userProfile">
-					</td>
-	            </tr>
-				<tr>
 	                <th>아이디</th>
 					<td>
 						<input type="text" name="userId" id="newId" 
