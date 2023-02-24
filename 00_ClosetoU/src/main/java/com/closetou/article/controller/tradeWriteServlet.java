@@ -62,16 +62,15 @@ public class tradeWriteServlet extends HttpServlet {
 		TradeArticle trart = new TradeArticle();
 		Enumeration<String> uploadFileList = null;
 		ArrayList<String> filenames = null;
-		
+
 		// 파일 인코딩 설정
 		String encoding = "UTF-8";
 		MultipartRequest mr = new MultipartRequest(request, path, maxSize, encoding, new FileRename());
-	
-		
-		//clothphoto 객체 세팅 및 등록
+
+		// clothphoto 객체 세팅 및 등록
 		cloph.setPhotoId(mr.getFilesystemName("cloth_upfile"));
 		cloph.setOriginalName(mr.getOriginalFileName("cloth_upfile"));
-		
+
 		// article 객체 세팅
 		article.setUserNo(loginMember.getNo());
 		article.setUserNickname(loginMember.getNickname());
@@ -82,9 +81,9 @@ public class tradeWriteServlet extends HttpServlet {
 		article.setType("거래");
 
 		// cloth 내용 세팅
-		cloth.setPhotoNo(mr.getFilesystemName("cloth_upfile"));
+		cloth.setPhotoId(mr.getFilesystemName("cloth_upfile"));
 		cloth.setName(mr.getParameter("cloth_name"));
-		cloth.setCatagory(mr.getParameterValues("clothcategory"));
+		cloth.setCategory(mr.getParameterValues("clothcategory"));
 
 		// trart 내용 세팅
 		trart.setPrice(Integer.parseInt(mr.getParameter("price")));
