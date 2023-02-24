@@ -1,7 +1,9 @@
 @charset "UTF-8";
 /* 안내 사이트 */
 #content {
-	
+	width: 1200px;
+	height: auto;
+	margin: 0 auto;
 }
 
 #sidemenu {
