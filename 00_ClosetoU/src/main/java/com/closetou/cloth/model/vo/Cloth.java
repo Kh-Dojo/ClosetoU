@@ -13,12 +13,12 @@ import lombok.NoArgsConstructor;
 public class Cloth {
 	private int no;
 
-	private String photoNo;
+	private String photoId;
 	
 	private String name;
 	
 	private Date createDate;
 		
-	private String[] catagory;
+	private String[] category;
 	
 }
