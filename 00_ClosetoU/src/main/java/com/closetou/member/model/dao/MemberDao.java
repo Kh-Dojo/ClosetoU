@@ -81,7 +81,7 @@ public class MemberDao {
 	public int updateMember(Connection connection, Member member) {
 		int result = 0;
 		PreparedStatement pstmt = null;
-		String query = "UPDATE MEMBER SET NAME=?, NICKNAME=?, PHONE=?, EMAIL=?, ADDRESS=?, ADDRESS_DETAIL=? WHERE NO=?";
+		String query = "UPDATE MEMBER SET USER_NAME=?, NICKNAME=?, PHONE=?, EMAIL=?, ADDRESS=?, ADDRESS_DETAIL=? WHERE NO=?";
 		
 		try {
 			pstmt = connection.prepareStatement(query);
@@ -152,66 +152,37 @@ public class MemberDao {
 		return result;
 	}
 	
-	// 자유 글 수량 조회
-//	public int getBoardCountForCommunity(Connection connection) {
-//		int count = 0;
-//		PreparedStatement pstmt = null;
-//		ResultSet rs = null;
-//		String query = "SELECT COUNT(*) FROM ARTICLE WHERE VISABLE='Y' AND TYPE IN('자유')";
-//
-//
-//		try {
-//			pstmt = connection.prepareStatement(query);
-//			rs = pstmt.executeQuery();
-//
-//			if (rs.next()) {
-//				count = rs.getInt(1);
-//			}
-//
-//		} catch (SQLException e) {
-//			e.printStackTrace();
-//	
-//		} finally {
-//			close(rs);
-//			close(pstmt);
-//		}
-//
-//		return count;
-//	}
-	
 	// 거래 글 전체 조회
-	public List<Article> findAllArticlesForTrade(Connection connection, PageInfo pageInfo, int no) {
+	public List<Article> findAllArticlesForTrade(Connection connection, PageInfo pageInfo, int memNo) {
 		List<Article> artlist = new ArrayList<>();
 		PreparedStatement pstmt = null;
 		ResultSet rs = null;
-		Article article = new Article();
 
-		String query = "SELECT RNUM, USER_NO, TITLE, NICKNAME, POST_DATE, READ_COUNT, VISABLE, TYPE "
-				+ "FROM (SELECT ROWNUM AS RNUM, "
-				+ "                       USER_NO, "
-				+ "                       TITLE, "
-				+ "                       NICKNAME, "
-				+ "                       POST_DATE, "
-				+ "                       READ_COUNT, "
-				+ "                       VISABLE, "
-				+ "                       TYPE  "
-				+ "FROM (SELECT A.USER_NO, "
-				+ "             A.TITLE, "
-				+ "			 M.NICKNAME, "
-				+ "			 A.POST_DATE, "
-				+ "			 A.READ_COUNT, "
-				+ "			 A.VISABLE, "
-				+ "             A.TYPE "
-				+ "FROM ARTICLE A JOIN MEMBER M ON(A.USER_NO = M.NO) "
-				+ "WHERE A.VISABLE = 'Y' AND TYPE IN ('거래') ORDER BY A.NO DESC)) "
-				+ "WHERE RNUM BETWEEN ? and ? and USER_NO=?";
+		String query = " SELECT ROWNUM, NO, USER_NO, TITLE, NICKNAME, POST_DATE, READ_COUNT, VISABLE, TYPE   "
+				+ "				   FROM (SELECT 		  NO,   "
+				+ "				                          USER_NO,   "
+				+ "				                          TITLE,   "
+				+ "				                          NICKNAME,   "
+				+ "				                          POST_DATE,   "
+				+ "				                          READ_COUNT,   "
+				+ "				                          VISABLE,   "
+				+ "				                          TYPE    "
+				+ "				   FROM (SELECT A.NO,  "
+				+ "				   				A.USER_NO,   "
+				+ "				                A.TITLE,   "
+				+ "				   			 M.NICKNAME,   "
+				+ "				   			 A.POST_DATE,   "
+				+ "				   			 A.READ_COUNT,   "
+				+ "				   			 A.VISABLE,   "
+				+ "				                A.TYPE   "
+				+ "				   FROM ARTICLE A JOIN MEMBER M ON(A.USER_NO = M.NO)   "
+				+ "				   WHERE A.VISABLE = 'Y' AND TYPE IN ('거래') ORDER BY A.NO DESC))   "
+				+ "				   WHERE NO BETWEEN 1 and 1000 and USER_NO=?";
 
 		try {
 			pstmt = connection.prepareStatement(query);
 
-			pstmt.setInt(1, pageInfo.getStartList());
-			pstmt.setInt(2, pageInfo.getEndList());
-			pstmt.setInt(3, no);
+			pstmt.setInt(1, memNo);
 
 			rs = pstmt.executeQuery();
 			
@@ -219,8 +190,9 @@ public class MemberDao {
 			while (rs.next()) {
 				Article tart = new Article();
 				
-				tart.setRowNum(rs.getInt("RNUM"));
-				tart.setNo(rs.getInt("USER_NO"));
+				tart.setRowNum(rs.getInt("ROWNUM"));
+				tart.setNo(rs.getInt("NO"));
+				tart.setUserNo(rs.getInt("USER_NO"));
 				tart.setTitle(rs.getString("TITLE"));
 				tart.setUserNickname(rs.getString("NICKNAME"));
 				tart.setPostDate(rs.getDate("POST_DATE"));
@@ -245,14 +217,13 @@ public class MemberDao {
 	}
 	
 	// 자유게시판 자유 게시글 목록 가져와 리스트에 담기
-	public List<Article> findAllArticleForCommunity(Connection connection, PageInfo pageInfo, int no) {
+	public List<Article> findAllArticleForCommunity(Connection connection, PageInfo pageInfo, int memNo) {
 		List<Article> list = new ArrayList<>();
 		PreparedStatement pstmt = null;
 		ResultSet rs = null;
-		Article article = new Article();
 	
-		String query = "SELECT RNUM, USER_NO, TITLE, NICKNAME, POST_DATE, READ_COUNT, VISABLE, TYPE "
-				+ "FROM (SELECT ROWNUM AS RNUM, "
+		String query = "SELECT ROWNUM, NO, USER_NO, TITLE, NICKNAME, POST_DATE, READ_COUNT, VISABLE, TYPE "
+				+ "FROM (SELECT 		  NO, "
 				+ "                       USER_NO, "
 				+ "                       TITLE, "
 				+ "                       NICKNAME, "
@@ -260,7 +231,8 @@ public class MemberDao {
 				+ "                       READ_COUNT, "
 				+ "                       VISABLE, "
 				+ "                       TYPE  "
-				+ "FROM (SELECT A.USER_NO, "
+				+ "FROM (SELECT A.NO,"
+				+ "				A.USER_NO, "
 				+ "             A.TITLE, "
 				+ "			 M.NICKNAME, "
 				+ "			 A.POST_DATE, "
@@ -269,32 +241,30 @@ public class MemberDao {
 				+ "             A.TYPE "
 				+ "FROM ARTICLE A JOIN MEMBER M ON(A.USER_NO = M.NO) "
 				+ "WHERE A.VISABLE = 'Y' AND TYPE IN ('자유') ORDER BY A.NO DESC)) "
-				+ "WHERE RNUM BETWEEN ? and ? and USER_NO=?";
+				+ "WHERE NO BETWEEN 1 and 1000 and USER_NO=?";
 		
 		try {
 			pstmt = connection.prepareStatement(query);
 			
-			pstmt.setInt(1, pageInfo.getStartList());// .getStartList() 현재 페이지의 시작 리스트 번호 (1페이지는 1 2페이지은 11 3페이지는 21...)
-			pstmt.setInt(2, pageInfo.getEndList());  // .getEndList() 현재 페이지의 마지막 리스트 번호 (1페이지는 10 2페이지은 20 3페이지는 20...)
-			pstmt.setInt(3, no);  // .getEndList() 현재 페이지의 마지막 리스트 번호 (1페이지는 10 2페이지은 20 3페이지는 20...)
+			pstmt.setInt(1, memNo);
 			
 			rs = pstmt.executeQuery();
 		
 		// 반복문
 		while (rs.next()) {
-			Article article1 = new Article();
+			Article article = new Article();
 			
-			article1.setRowNum(rs.getInt("RNUM"));
-			article1.setNo(rs.getInt("USER_NO"));
-			article1.setTitle(rs.getString("TITLE"));
-			article1.setUserNickname(rs.getString("NICKNAME"));
-			article1.setPostDate(rs.getDate("POST_DATE"));
-			article1.setReadCount(rs.getInt("READ_COUNT"));
-			article1.setVisable(rs.getString("VISABLE"));
-			article1.setType(rs.getString("TYPE"));
+			article.setRowNum(rs.getInt("ROWNUM"));
+			article.setNo(rs.getInt("NO"));
+			article.setUserNo(rs.getInt("USER_NO"));
+			article.setTitle(rs.getString("TITLE"));
+			article.setUserNickname(rs.getString("NICKNAME"));
+			article.setPostDate(rs.getDate("POST_DATE"));
+			article.setReadCount(rs.getInt("READ_COUNT"));
+			article.setVisable(rs.getString("VISABLE"));
+			article.setType(rs.getString("TYPE"));
 			
-			//열 개가 조회되면 열 개의 데이터를 리스트에 담아줌, 조회되는 게 없으면 빈 리스트 리턴
-			list.add(article1);
+			list.add(article);
 		}
 		
 		} catch (SQLException e) {
@@ -307,104 +277,73 @@ public class MemberDao {
 		return list;
 		}
 	
-	// 1:1 문의 내역 조회
-	public int getBoardAsk(Connection connection, int no) {
-		int count = 0;
-		PreparedStatement pstmt = null;
-		ResultSet rs = null;
-		String query = "SELECT COUNT(*) FROM ARTICLE WHERE VISABLE='Y' AND TYPE IN('문의') AND USER_NO=?";
-
-
-		try {
-			pstmt = connection.prepareStatement(query);
-			
-			pstmt.setInt(1, no);
-			
-			rs = pstmt.executeQuery();
-
-			if (rs.next()) {
-				count = rs.getInt(1);
-			}
-
-		} catch (SQLException e) {
-			e.printStackTrace();
-	
-		} finally {
-			close(rs);
-			close(pstmt);
-		}
-
-		return count;
-	}
 
 	// 1:1 문의 내역 수량 전체 가져오기
-	public List<Article> findAllArticleForAsk(Connection connection, PageInfo pageInfo, int no) {
+	public List<Article> findAllArticleForAsk(Connection connection, PageInfo pageInfo, int memNo) {
 		List<Article> asklist = new ArrayList<>();
 		PreparedStatement pstmt = null;
 		ResultSet rs = null;
-		String query = "SELECT RNUM, USER_NO, TITLE, NICKNAME, POST_DATE, READ_COUNT, VISABLE, TYPE "
-				+ "FROM (SELECT ROWNUM AS RNUM, "
-				+ "             USER_NO, "
-				+ "             TITLE, "
-				+ "             NICKNAME, "
-				+ "             POST_DATE, "
-				+ "             READ_COUNT, "
-				+ "             VISABLE, "
-				+ "             TYPE  "
-				+ "       FROM (SELECT A.USER_NO, "
-				+ "                    A.TITLE, "
-				+ "                    M.NICKNAME, "
-				+ "                    A.POST_DATE, "
-				+ "                    A.READ_COUNT, "
-				+ "                    A.VISABLE, "
-				+ "                    A.TYPE "
-				+ "             FROM ARTICLE A "
-				+ "             JOIN MEMBER M ON(A.USER_NO = M.NO) "
-				+ "             WHERE A.VISABLE = 'Y' AND TYPE IN ('문의') ORDER BY A.NO DESC) "
-				+ "        ) WHERE RNUM BETWEEN ? and ? and USER_NO=?";
+		
+		String query = " SELECT ROWNUM, NO, USER_NO, TITLE, NICKNAME, POST_DATE, READ_COUNT, VISABLE, TYPE   "
+				+ "				   FROM (SELECT 		  NO,   "
+				+ "				                          USER_NO,   "
+				+ "				                          TITLE,   "
+				+ "				                          NICKNAME,   "
+				+ "				                          POST_DATE,   "
+				+ "				                          READ_COUNT,   "
+				+ "				                          VISABLE,   "
+				+ "				                          TYPE    "
+				+ "				   FROM (SELECT A.NO,  "
+				+ "				   				A.USER_NO,   "
+				+ "				                A.TITLE,   "
+				+ "				   			 M.NICKNAME,   "
+				+ "				   			 A.POST_DATE,   "
+				+ "				   			 A.READ_COUNT,   "
+				+ "				   			 A.VISABLE,   "
+				+ "				                A.TYPE   "
+				+ "				   FROM ARTICLE A JOIN MEMBER M ON(A.USER_NO = M.NO)   "
+				+ "				   WHERE A.VISABLE = 'Y' AND TYPE IN ('문의') ORDER BY A.NO DESC))   "
+				+ "				   WHERE NO BETWEEN 1 and 1000 and USER_NO=?";
 		
 		try {
 			pstmt = connection.prepareStatement(query);
 			
-			pstmt.setInt(1, pageInfo.getStartList());
-			pstmt.setInt(2, pageInfo.getEndList());
-			pstmt.setInt(3, no);
+			pstmt.setInt(1, memNo);
 			
 			rs = pstmt.executeQuery();
 		
 		// 반복문
-		while (rs.next()) {
-			Article article = new Article();
+			while (rs.next()) {
+				Article askedlist = new Article();
+				
+				askedlist.setRowNum(rs.getInt("ROWNUM"));
+				askedlist.setNo(rs.getInt("NO"));
+				askedlist.setUserNo(rs.getInt("USER_NO"));
+				askedlist.setTitle(rs.getString("TITLE"));
+				askedlist.setUserNickname(rs.getString("NICKNAME"));
+				askedlist.setPostDate(rs.getDate("POST_DATE"));
+				askedlist.setReadCount(rs.getInt("READ_COUNT"));
+				askedlist.setVisable(rs.getString("VISABLE"));
+				askedlist.setType(rs.getString("TYPE"));
+				
+				asklist.add(askedlist);
+			}
 			
-			article.setRowNum(rs.getInt("RNUM"));
-			article.setNo(rs.getInt("USER_NO"));
-			article.setTitle(rs.getString("TITLE"));
-			article.setUserNickname(rs.getString("NICKNAME"));
-			article.setPostDate(rs.getDate("POST_DATE"));
-			article.setReadCount(rs.getInt("READ_COUNT"));
-			article.setVisable(rs.getString("VISABLE"));
-			article.setType(rs.getString("TYPE"));
+			} catch (SQLException e) {
+				e.printStackTrace();
+			} finally {
+				close(rs);
+				close(pstmt);
+			}
 			
-			//열 개가 조회되면 열 개의 데이터를 리스트에 담아줌, 조회되는 게 없으면 빈 리스트 리턴
-			asklist.add(article);
+			return asklist;
 		}
-		
-		} catch (SQLException e) {
-			e.printStackTrace();
-		} finally {
-			close(rs);
-			close(pstmt);
-		}
-		
-		return asklist;
-	}
 
 	public int getBoardCountForTrade(Connection connection, int no) {
 		int count = 0;
 		PreparedStatement pstmt = null;
 		ResultSet rs = null;
 		String query = "SELECT COUNT(*) FROM ARTICLE WHERE VISABLE='Y' AND TYPE IN('거래') AND USER_NO=?";
-
 
 		try {
 			pstmt = connection.prepareStatement(query);
@@ -434,7 +373,6 @@ public class MemberDao {
 		ResultSet rs = null;
 		String query = "SELECT COUNT(*) FROM ARTICLE WHERE VISABLE='Y' AND TYPE IN('자유') AND USER_NO=?";
 
-
 		try {
 			pstmt = connection.prepareStatement(query);
 			
@@ -458,6 +396,36 @@ public class MemberDao {
 		return count;
 	}
 
+	// 1:1 문의 내역 조회
+	public int getBoardAsk(Connection connection, int no) {
+		int count = 0;
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+		String query = "SELECT COUNT(*) FROM ARTICLE WHERE VISABLE='Y' AND TYPE IN('문의') AND USER_NO=?";
+
+		try {
+			pstmt = connection.prepareStatement(query);
+			
+			pstmt.setInt(1, no);
+
+			rs = pstmt.executeQuery();
+		
+
+			if (rs.next()) {
+				count = rs.getInt(1);
+			}
+
+		} catch (SQLException e) {
+			e.printStackTrace();
+	
+		} finally {
+			close(rs);
+			close(pstmt);
+		}
+
+		return count;
+	}
+	
 	public Member findMemberByNo(Connection connection, int no) {
 		Member member = null;
 		PreparedStatement pstmt = null;
@@ -529,50 +497,43 @@ public class MemberDao {
 		return count;
 	}
 
-	public List<Reply> findAllArticleForComment(Connection connection, PageInfo pageInfo, int no) {
-		List<Reply> replies = new ArrayList<>();
+	public List<Reply> findAllComment(Connection connection, PageInfo pageInfo, int memNo) {
+		List<Reply> replylist = new ArrayList<>();
 		PreparedStatement pstmt = null;
 		ResultSet rs = null;
-		String query = "SELECT RNUM, ID_NO, CONTENT, NICKNAME, COMMENT_DATE, EDIT_DATE, VISABLE "
-				+ "FROM (SELECT ROWNUM AS RNUM, "
-				+ "	       ARTICLE_NO,"
-				+ "           ID_NO,"
-				+ "		CONTENT,"
-				+ "		NICKNAME,  "
-				+ "		COMMENT_DATE,  "
-				+ "		EDIT_DATE, "
-				+ "		VISABLE "
-				+ "FROM (SELECT R.ARTICLE_NO,"
-				+ "    R.ID_NO,"
-				+ "	R.CONTENT,  "
-				+ "	M.NICKNAME,  "
-				+ "	R.COMMENT_DATE,  "
-				+ "	R.EDIT_DATE,"
-				+ "	R.VISABLE"
-				+ "FROM REPLY R  "
-				+ "JOIN MEMBER M ON(R.ID_NO = M.NO)  "
-				+ "WHERE R.VISABLE = 'Y')) WHERE RNUM BETWEEN ? and ? and ID_NO=?";
+		
+		String query = "SELECT ROWNUM, NO, ID_NO, CONTENT, COMMENT_DATE, EDIT_DATE, VISABLE "
+				+ "FROM (SELECT NO, "
+				+ "		     ID_NO,  "
+				+ "			 CONTENT, "
+				+ "             COMMENT_DATE,       "
+				+ "             EDIT_DATE,      "
+				+ "             VISABLE      "
+				+ "FROM REPLY "
+				+ "WHERE VISABLE = 'Y') WHERE ROWNUM BETWEEN 1 and 1000 and ID_NO=?";
 		
 		try {
 			pstmt = connection.prepareStatement(query);
 			
-			pstmt.setInt(1, pageInfo.getStartList());
-			pstmt.setInt(2, pageInfo.getEndList());
-			pstmt.setInt(3, no);
+			pstmt.setInt(1, memNo);
 			
 			rs = pstmt.executeQuery();
 			
 			while(rs.next()) {
-				Reply reply = new Reply();
+				Reply replies = new Reply();
 				
-				reply.setNo(rs.getInt("USER_NO"));
-				reply.setArticleNo(rs.getInt("ARTICLE_NO"));
-				reply.setContent(rs.getString("CONTENT"));
-				reply.setUserNickname(rs.getString("NICKNAME"));
-				reply.setCommentDate(rs.getDate("COMMENT_DATE"));
-				reply.setEditDate(rs.getDate("EDIT_DATE"));
+				replies.setRowNum(rs.getInt("ROWNUM"));
+				replies.setNo(rs.getInt("NO"));
+				replies.setUserNo(rs.getInt("ID_NO"));
+				replies.setContent(rs.getString("CONTENT"));
+				replies.setCommentDate(rs.getDate("COMMENT_DATE"));
+				replies.setEditDate(rs.getDate("EDIT_DATE"));
+				replies.setVisable(rs.getString("VISABLE"));
 				
-				replies.add(reply);
+				replylist.add(replies);
+				
+				System.out.println(replylist);
+				
 			}
 			
 		} catch (SQLException e) {
@@ -582,7 +543,7 @@ public class MemberDao {
 			close(pstmt);
 		}
 		
-		return replies;
+		return replylist;
 	}
 
 

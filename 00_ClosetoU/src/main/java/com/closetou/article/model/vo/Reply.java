@@ -30,5 +30,7 @@ public class Reply {
 	private String edited;		// 수정내역
 	
 	private Date editDate;		// 최종수정일자
+	
+	private int rowNum; // 멤버 전용 rowNum 추가
 
 }

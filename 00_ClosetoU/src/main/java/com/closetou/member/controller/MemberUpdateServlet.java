@@ -20,6 +20,9 @@ public class MemberUpdateServlet extends HttpServlet {
 
     @Override
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+    	
+    	request.setCharacterEncoding("UTF-8");
+    	
     	int result = 0;
 		Member member = null;
 		// 1. 로그인 된 사용자인지 체크
@@ -39,26 +42,26 @@ public class MemberUpdateServlet extends HttpServlet {
 			member.setAddress_detail(request.getParameter("address_detail"));
 			
 			// 3. 회원 정보 수정
-			result = new MemberService().save(member);
-			
-			if(result > 0) {
-				// 정보 수정 성공
-				// 세션을 갱신한다.
-				session.setAttribute("loginMember", new MemberService().findMemberById(loginMember.getId()));
-				
-				request.setAttribute("msg", "회원 정보 수정 완료");
-				request.setAttribute("location", "/member/myPage");
+				result = new MemberService().save(member);
+						
+				if(result > 0) {
+					// 정보 수정 성공
+					// 세션을 갱신한다.
+					session.setAttribute("loginMember", new MemberService().findMemberById(loginMember.getId()));
+							
+					request.setAttribute("msg", "회원 정보 수정 완료");
+					request.setAttribute("location", "/member/myPage");
+				} else {
+					// 정보 수정 실패
+					request.setAttribute("msg", "회원 정보 수정 실패");
+					request.setAttribute("location", "/member/myPage");
+				}
 			} else {
-				// 정보 수정 실패
-				request.setAttribute("msg", "회원 정보 수정 실패");
-				request.setAttribute("location", "/member/myPage");
+					request.setAttribute("msg", "로그인 후 수정해 주세요.");
+					request.setAttribute("location", "/");			
 			}
-		} else {
-			request.setAttribute("msg", "로그인 후 수정해 주세요.");
-			request.setAttribute("location", "/");			
+					
+				request.getRequestDispatcher("/views/common/msg.jsp").forward(request, response);
 		}
-		
-		request.getRequestDispatcher("/views/common/msg.jsp").forward(request, response);
-	}
 
 }
