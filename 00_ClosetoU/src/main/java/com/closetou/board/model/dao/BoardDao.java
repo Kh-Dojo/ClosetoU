@@ -170,6 +170,7 @@ public class BoardDao {
 			return categories;
 		}
 
+		// 검색 키워드 뽑아서 가져오는 쿼리
 		public List<Article> searchArticleForTrade(Connection connection, String keyword, PageInfo pageInfo) {
 			int count = 0;
 			List<Article> artlist = new ArrayList();
@@ -180,6 +181,7 @@ public class BoardDao {
 			ResultSet rs2 = null;
 			
 			
+			// 키워드로 전체 카운트수 잡아오는 쿼리문
 			String query1 = "SELECT "
 					+ "    COUNT(*) "
 					+ "FROM "
@@ -206,6 +208,7 @@ public class BoardDao {
 			
 			System.out.println(keyword);
 			
+			// 페이지인포에 카운트수정보담아주기
 			pageInfo.setListCount(count);
 			
 			String query2 = "SELECT "
@@ -258,6 +261,7 @@ public class BoardDao {
 					+ "WHERE "
 					+ "    ROWNUM BETWEEN ? AND ?"; 
 			
+			// 위에서 찾은 값으로 아티클 불러와서 내보내기
 			System.out.println(pageInfo.getStartList());
 			System.out.println(pageInfo.getEndList());
 			

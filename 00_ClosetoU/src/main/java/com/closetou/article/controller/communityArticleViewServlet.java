@@ -12,12 +12,12 @@ import com.closetou.article.model.service.ArticleService;
 import com.closetou.article.model.vo.Article;
 
 
-@WebServlet(name = "communityBoardView", urlPatterns = { "/communityBoardView" })
-public class communityBoardViewServlet extends HttpServlet {
+@WebServlet(name = "communityBoardView", urlPatterns = { "/communityArticleView" })
+public class communityArticleViewServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
 
-    public communityBoardViewServlet() {
+    public communityArticleViewServlet() {
     }
 
     // 게시판에서 제목 클릭하면 상세 페이지 나오게 만들기
@@ -29,7 +29,7 @@ public class communityBoardViewServlet extends HttpServlet {
 		
 		int no = Integer.parseInt(request.getParameter("no"));
 		
-		System.out.println("게시글 번호 " + no);
+		/* System.out.println("게시글 번호 " + no); */
 		
 		// 내가 봤던 게시글의 번호가 들어가는 쿠키 생성. 쿠키가 존재하면 조회수 늘어나지 않게 만들기
 		
@@ -76,8 +76,9 @@ public class communityBoardViewServlet extends HttpServlet {
 		
 		article = new ArticleService().getArticleByNoForCommunity(no, hasRead);
 		
-		System.out.println("아티클 출력!!!!!!!!" + article);
-		
+		/*
+		 * System.out.println("아티클 출력!!!!!!!!" + article);
+		 */		
 		request.setAttribute("Article", article);
 		request.getRequestDispatcher("/views/board/communityBoardView.jsp").forward(request, response);
 		

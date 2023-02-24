@@ -26,7 +26,6 @@
 				<th>제목</th>
 				<th>작성자</th>
 				<th>작성일</th>
-<!-- 				<th>첨부파일</th> -->
 				<th>조회수</th>
 			</tr>
 <!-- 230214 2교시 게시글 목록 가져오기 각 게시글을 리스트에 담기 -->
@@ -46,12 +45,12 @@
 						<td>
 <!-- 230214 2교시 게시판에서 제목 클릭시 게시글 상세페이지 나타나게 링크 걸기 -->
 							<c:if test="${ article.type eq '공지' }">
-								<a href="${ path }/communityBoardView?no=${ article.no }">
+								<a href="${ path }/communityArticleView?no=${ article.no }">
 									<span>[${ article.type }]</span> ${ article.title }
 								</a>
 							</c:if>
 							<c:if test="${ article.type eq '자유' }">
-								<a href="${ path }/communityBoardView?no=${ article.no }">
+								<a href="${ path }/communityArticleView?no=${ article.no }">
 									${ article.title }
 									<c:if test="${ not empty board.originalFileName }">
 										<img width="20px" src="${ path }/resources/images/file.png">		<!-- path의 / = webapp -->
@@ -61,15 +60,6 @@
 						</td>		<!-- 제목 -->
 						<td>${ article.userNickname }</td>	<!-- 작성자 -->
 						<td>${ article.postDate }</td>	<!-- 작성일 -->
-						<%-- <td>
-<!-- 230214 6교시 게시판의 게시글에 첨부파일이 있으면 게시판 메인페이지에 보이게 만들기 -->
-							<c:if test="${ empty board.originalFileName }">
-								<span> - </span>
-							</c:if>
-							<c:if test="${ not empty board.originalFileName }">
-								<img width="20px" src="${ path }/resources/images/file.png">		<!-- path의 / = webapp -->
-							</c:if>
-						</td> --%>
 						<td>${ article.readCount }</td>	<!-- 조회수 --> 
 					</tr>
 				</c:forEach>
