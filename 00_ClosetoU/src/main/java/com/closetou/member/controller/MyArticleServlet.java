@@ -11,6 +11,7 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import com.closetou.article.model.vo.Article;
+import com.closetou.article.model.vo.Reply;
 import com.closetou.common.util.PageInfo;
 import com.closetou.member.model.service.MemberService;
 import com.closetou.member.model.vo.Member;

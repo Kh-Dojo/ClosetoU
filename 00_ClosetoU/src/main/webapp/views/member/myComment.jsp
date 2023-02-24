@@ -38,7 +38,7 @@
 			<!-- list 가 비어있으면 아래와 같이 화면을 그리겠다 url의 list?page=숫자에 14 이상의 값 넣어보기-->
 			<c:if test="${ empty list }">
 				<tr>
-					<td colspan="5">
+					<td colspan="4">
 						조회된 댓글이 없습니다.
 					</td>
 				</tr>	

@@ -191,22 +191,6 @@ public class MemberService {
 			return list;
 		}
 		
-		// No 관련
-		public Member findMemberByNo(int No) {
-			Connection connection = getConnection();
-			
-			Member member = new MemberDao().findMemberByNo(connection, No);
-			
-			close(connection);
-			
-			return member;
-		}
-	
-		public Member loginNo(int No) {
-			Member member = this.findMemberByNo(No);
-			
-			return member;
-		}
 		
 		// 댓글
 		public int getBoardComment(int no) {
@@ -225,12 +209,28 @@ public class MemberService {
 			
 			Connection connection = getConnection();
 
-			list = new MemberDao().findAllArticleForComment(connection, pageInfo, memNo);
+			list = new MemberDao().findAllComment(connection, pageInfo, memNo);
 
 			close(connection);
 
 			return list;
 		}
 		
+		// No 관련
+		public Member findMemberByNo(int No) {
+			Connection connection = getConnection();
+			
+			Member member = new MemberDao().findMemberByNo(connection, No);
+			
+			close(connection);
+			
+			return member;
+		}
+		
+		public Member loginNo(int No) {
+			Member member = this.findMemberByNo(No);
+			
+			return member;
+		}
 		
 }
