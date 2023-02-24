@@ -10,6 +10,8 @@ import java.sql.Connection;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.servlet.http.HttpSession;
+
 import com.closetou.article.model.dao.ArticleDao;
 import com.closetou.article.model.vo.Article;
 import com.closetou.article.model.vo.Reply;
@@ -114,16 +116,12 @@ public class MemberService {
 		}
 		
 		// 거래 글 불러오기
-		public List<Article> getArticleForTradeList(PageInfo pageInfo, int no) {
-			Article article = new Article();
-			Member member = new Member();
+		public List<Article> getArticleForTradeList(PageInfo pageInfo, int memNo) {
 			List<Article> list = null;
-			
-			article.setUserNo(member.getNo());
 			
 			Connection connection = getConnection();
 
-			list = new MemberDao().findAllArticlesForTrade(connection, pageInfo, no);
+			list = new MemberDao().findAllArticlesForTrade(connection, pageInfo, memNo);
 
 			close(connection);
 
@@ -131,16 +129,12 @@ public class MemberService {
 		}
 		
 		// 자유게시판 게시물의 리스트를 가져오기 위한 메소드
-		public List<Article> getArticleForCommunity(PageInfo pageInfo, int no) {
-			Article article = new Article();
-			Member member = new Member();
+		public List<Article> getArticleForCommunity(PageInfo pageInfo, int memNo) {
 			List<Article> list = null;
-			
-			article.setUserNo(member.getNo());
-			
+						
 			Connection connection = getConnection();
 			
-			list = new MemberDao().findAllArticleForCommunity(connection, pageInfo, no);
+			list = new MemberDao().findAllArticleForCommunity(connection, pageInfo, memNo);
 			
 			close(connection);
 			
@@ -185,16 +179,12 @@ public class MemberService {
 		}
 		
 		// 1:1 문의 관련
-		public List<Article> getArticleAsk(PageInfo pageInfo, int no) {
-			Member member = new Member();
-			Article article = new Article();
+		public List<Article> getArticleAsk(PageInfo pageInfo, int memNo) {
 			List<Article> list = null;
-			
-			article.setUserNo(member.getNo());
 			
 			Connection connection = getConnection();
 
-			list = new MemberDao().findAllArticleForAsk(connection, pageInfo, no);
+			list = new MemberDao().findAllArticleForAsk(connection, pageInfo, memNo);
 
 			close(connection);
 
@@ -230,19 +220,17 @@ public class MemberService {
 			return count;
 		}
 
-		public List<Reply> getArticleComment(PageInfo pageInfo, int no) {
-			Member member = new Member();
-			Reply reply = new Reply();
+		public List<Reply> getArticleComment(PageInfo pageInfo, int memNo) {
 			List<Reply> list = null;
-			
-			reply.setUserNo(member.getNo());
 			
 			Connection connection = getConnection();
 
-			list = new MemberDao().findAllArticleForComment(connection, pageInfo, no);
+			list = new MemberDao().findAllArticleForComment(connection, pageInfo, memNo);
 
 			close(connection);
 
 			return list;
 		}
+		
+		
 }

@@ -11,7 +11,6 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import com.closetou.article.model.vo.Article;
-import com.closetou.board.model.service.BoardService;
 import com.closetou.common.util.PageInfo;
 import com.closetou.member.model.service.MemberService;
 import com.closetou.member.model.vo.Member;
@@ -37,7 +36,6 @@ public class MyArticleServlet extends HttpServlet {
 		List<Article> list = null;
 		
 		memNo = loginMember.getNo();
-		System.out.println(memNo);
 		
 		try {
 			page = Integer.parseInt(request.getParameter("page"));			
@@ -45,10 +43,10 @@ public class MyArticleServlet extends HttpServlet {
 			page = 1;
 		}
 		
-		listCount = new MemberService().getBoardCountForCommunity(loginMember.getNo());
-		pageInfo = new PageInfo(page, 10, listCount, 10);	// 한 페이지에 몇 개의 글 나오게 할 지 지정하는 메소드
+		listCount = new MemberService().getBoardCountForCommunity(memNo);
+		pageInfo = new PageInfo(page, 10, listCount, 10);
 		
-		list = new MemberService().getArticleForCommunity(pageInfo, loginMember.getNo());
+		list = new MemberService().getArticleForCommunity(pageInfo, memNo);
 		
 		request.setAttribute("pageInfo", pageInfo);
 		request.setAttribute("list", list);

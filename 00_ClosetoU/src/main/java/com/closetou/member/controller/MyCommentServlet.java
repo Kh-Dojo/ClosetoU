@@ -36,7 +36,6 @@ public class MyCommentServlet extends HttpServlet {
 		List<Reply> list = null;
 		
 		memNo = loginMember.getNo();
-		System.out.println(memNo);
 		
 		try {
 			page = Integer.parseInt(request.getParameter("page"));			
@@ -44,10 +43,10 @@ public class MyCommentServlet extends HttpServlet {
 			page = 1;
 		}
 		
-		listCount = new MemberService().getBoardComment(loginMember.getNo());
+		listCount = new MemberService().getBoardComment(memNo);
 		pageInfo= new PageInfo(page, 10, listCount, 10);	// 한 페이지에 몇 개의 글 나오게 할 지 지정하는 메소드
 		
-		list = new MemberService().getArticleComment(pageInfo, loginMember.getNo());
+		list = new MemberService().getArticleComment(pageInfo, memNo);
 		
 		request.setAttribute("pageInfo", pageInfo);
 		request.setAttribute("list", list);
