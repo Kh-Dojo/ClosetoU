@@ -200,8 +200,6 @@ public class MemberService {
 
 			return list;
 		}
-<<<<<<< HEAD
-=======
 		
 		// No 관련
 		public Member findMemberByNo(int No) {
@@ -247,5 +245,4 @@ public class MemberService {
 
 			return list;
 		}
->>>>>>> 445777dc2e88a3bbb53efb5cc60e142d7fbd3517
 }
