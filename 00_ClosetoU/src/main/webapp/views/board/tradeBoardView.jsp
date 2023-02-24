@@ -3,7 +3,10 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <c:set var="path" value="${ pageContext.request.contextPath }" />
-<c:set var="imgpath" value="${ pageContext.request.contextPath }/resources/img" />
+<c:set var="imgpath"
+	value="${ pageContext.request.contextPath }/resources/img" />
+<c:set var="clothimgpath"
+	value="${ pageContext.request.contextPath }/resources/clothImages" />
 
 <jsp:include page="/views/common/sub-header.jsp" />
 <script src="${ path }/resources/js/jquery-3.6.3.js"></script>
@@ -20,7 +23,7 @@
 					</c:when>
 					<c:otherwise>
 						<c:forEach var="clothpho" items="${ clothphotos }">
-						사진 : ${  clothpho.photoId }<br>
+						<img src="${ clothimgpath }/${  clothpho.photoId }">
 						</c:forEach>
 					</c:otherwise>
 				</c:choose>
@@ -37,25 +40,30 @@
 					<button>신고하기</button>
 				</div>
 			</div>
-			<div id="seller_content_area">
-				제목 :${ article.title } <br> 내용: ${ article.content }
-			</div>
-			<div id="seller_info_area">
-				<div id="profile_photo" >
-				 <img src="${ imgpath }/basic.jpg">
-				</div>
-				 닉네임 : ${ member.nickname }<br> 아이디 : ${ member.id }
-			</div>
 		</div>
-		<c:if
-			test="${ not empty loginMember && loginMember.nickname == Article.userNickname }">
-			<button type="button"
-				onclick="location.href='${ path }/board/communityBoardUpdate?no=${ Article.no }'">수정</button>
-			<button type="button" id="btnDelete">삭제</button>
-		</c:if>
+		<div id="seller_content_area">
+			<div id="title">제목 :${ article.title }</div>
+			<div id="content">내용: ${ article.content }</div>
+		</div>
+		<div id="seller_info_area">
+			<div id="seller_info">판매자 정보</div>
+			<div id="profile_photo">
+				<img src="${ imgpath }/basic.jpg">
+			</div>
+			<div id="seller_info2">
+				${ member.nickname }<br> (${ member.id })
+				<div></div>
+			</div>
+			<c:if
+				test="${ not empty loginMember && loginMember.nickname == Article.userNickname }">
+				<button type="button"
+					onclick="location.href='${ path }/board/communityBoardUpdate?no=${ Article.no }'">수정</button>
+				<button type="button" id="btnDelete">삭제</button>
+			</c:if>
+		</div>
 		<div id="other_articles_area">
-			다른 상품들이 출력될 자리입니다.
-			<div id="other_item"></div>
+
+			<div id="other_item">다른 상품들이 출력될 자리입니다.</div>
 			<button type="button"
 				onclick="location.href='${ path }/views/board/trade'">목록으로</button>
 		</div>
