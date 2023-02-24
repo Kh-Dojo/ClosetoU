@@ -12,6 +12,7 @@ import java.util.List;
 
 import com.closetou.article.model.dao.ArticleDao;
 import com.closetou.article.model.vo.Article;
+import com.closetou.article.model.vo.Reply;
 import com.closetou.board.model.dao.BoardDao;
 import com.closetou.common.util.PageInfo;
 import com.closetou.member.model.dao.MemberDao;
@@ -145,6 +146,17 @@ public class MemberService {
 			
 			return list;
 		}
+		
+		public int getBoardCountForTrade(int no) {
+			int count = 0;
+			Connection connection = getConnection();
+
+			count = new MemberDao().getBoardCountForTrade(connection, no);
+
+			close(connection);
+
+			return count;
+		}
 
 	// 자유게시판 관련
 		// (자유게시판용)조회되는 결과의 갯수를 확인하기 위한 메소드
@@ -161,11 +173,11 @@ public class MemberService {
 
 		
 		// 1:1 문의 관련
-		public int getBoardAsk() {
+		public int getBoardAsk(int no) {
 			int count = 0;
 			Connection connection = getConnection();
 
-			count = new MemberDao().getBoardAsk(connection);
+			count = new MemberDao().getBoardAsk(connection, no);
 
 			close(connection);
 
@@ -173,11 +185,16 @@ public class MemberService {
 		}
 		
 		// 1:1 문의 관련
-		public List<Article> getArticleAsk(PageInfo pageInfo) {
+		public List<Article> getArticleAsk(PageInfo pageInfo, int no) {
+			Member member = new Member();
+			Article article = new Article();
 			List<Article> list = null;
+			
+			article.setUserNo(member.getNo());
+			
 			Connection connection = getConnection();
 
-			list = new MemberDao().findAllArticleForAsk(connection, pageInfo);
+			list = new MemberDao().findAllArticleForAsk(connection, pageInfo, no);
 
 			close(connection);
 
@@ -194,28 +211,38 @@ public class MemberService {
 			
 			return member;
 		}
-
+	
 		public Member loginNo(int No) {
 			Member member = this.findMemberByNo(No);
 			
 			return member;
 		}
-
-		public int getBoardCountForTrade(int no) {
+		
+		// 댓글
+		public int getBoardComment(int no) {
 			int count = 0;
 			Connection connection = getConnection();
 
-			count = new MemberDao().getBoardCountForCommunity(connection, no);
+			count = new MemberDao().getBoardComment(connection, no);
 
 			close(connection);
 
 			return count;
 		}
 
+		public List<Reply> getArticleComment(PageInfo pageInfo, int no) {
+			Member member = new Member();
+			Reply reply = new Reply();
+			List<Reply> list = null;
+			
+			reply.setUserNo(member.getNo());
+			
+			Connection connection = getConnection();
 
+			list = new MemberDao().findAllArticleForComment(connection, pageInfo, no);
 
-	
-		
+			close(connection);
 
-
+			return list;
+		}
 }

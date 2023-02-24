@@ -20,7 +20,7 @@
 				enctype="multipart/form-data">
 				<div id="cloth_enroll">
 					<div id="photoarea">
-						<input type="file" name="cloth_upfile">
+						<input type="file" name="cloth_upfile" multiple>
 					</div>
 				</div>
 				<div>

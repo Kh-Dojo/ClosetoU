@@ -5,7 +5,6 @@
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions"%>
 <c:set var="path" value="${ pageContext.request.contextPath }" />
 
-
 <jsp:include page="/views/common/sub-header.jsp" />
 <script src="${ path }/resources/js/jquery-3.6.3.js"></script>
 
@@ -19,6 +18,7 @@
 				<input type="search" name="search" id="search_bar"
 					placeholder="제목이나 키워드를 입력하세요." /> <input type="submit" value="검색">
 				<button type="button" id="search_option_toggle_btn">검색옵션</button>
+				<div><a href="${ path }/tradeBoardView" >거래글보기 임시 링크</a></div>>
 				<div id="search_option_box">
 					<div id="option_view_area">
 						<input type="text" id="show_options_textbox"
@@ -55,7 +55,19 @@
 				<c:if test="${ not empty trlist }">
 					<c:forEach var="trboard" items="${ trlist }" varStatus="loop">
 						<div class="item_box">
-							<div>${ trboard.no }</div>
+							<c:forEach var="cloth" items="${ cllist }">
+								<c:if test="${ trboard.clothNumber == cloth.no }">
+									<div>
+									<img class="item_thumbnail" src="${ path }/resources/clothImages/${ cloth.photoId }" >
+									</div>
+								</c:if>
+							</c:forEach>
+							<c:forEach var="arboard" items="${ list }">
+								<c:if test="${ trboard.no == arboard.no }">
+									<div>${ arboard.title }</div>
+								</c:if>
+							</c:forEach>
+							<div>${ trboard.price }</div>
 						</div>
 					</c:forEach>
 				</c:if>

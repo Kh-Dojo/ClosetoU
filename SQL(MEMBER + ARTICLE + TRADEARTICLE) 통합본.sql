@@ -592,6 +592,82 @@ VALUES
     END LOOP;
           
 COMMIT;
+
+    FOR N IN 1..150
+    LOOP
+        INSERT INTO 
+            REPLY 
+        VALUES
+            (SEQ_REPLY_NO.NEXTVAL,
+            125,
+            2, -- USER
+            '댓글' || SEQ_REPLY_NO.CURRVAL || '입니다.',
+            DEFAULT,
+            'N',
+            DEFAULT,
+            NULL,
+            NULL
+            );
+    END LOOP;
+
+COMMIT;
+
+    FOR N IN 1..2
+    LOOP
+        INSERT INTO 
+            REPLY 
+        VALUES
+            (SEQ_REPLY_NO.NEXTVAL,
+            125,
+            4, -- USER
+            '댓글' || SEQ_REPLY_NO.CURRVAL || '입니다.',
+            DEFAULT,
+            'N',
+            DEFAULT,
+            NULL,
+            NULL
+            );
+    END LOOP;
+
+COMMIT;
+
+    FOR N IN 1..4
+    LOOP
+        INSERT INTO 
+            REPLY 
+        VALUES
+            (SEQ_REPLY_NO.NEXTVAL,
+            125,
+            5, -- USER
+            '댓글' || SEQ_REPLY_NO.CURRVAL || '입니다.',
+            DEFAULT,
+            'N',
+            DEFAULT,
+            NULL,
+            NULL
+            );
+    END LOOP;
+
+COMMIT;
+
+ FOR N IN 1..3
+    LOOP
+        INSERT INTO 
+            REPLY 
+        VALUES
+            (SEQ_REPLY_NO.NEXTVAL,
+            125,
+            4, -- USER
+            '댓글' || SEQ_REPLY_NO.CURRVAL || '입니다.',
+            DEFAULT,
+            'N',
+            DEFAULT,
+            NULL,
+            NULL
+            );
+    END LOOP;
+
+COMMIT;
    
 EXCEPTION
     WHEN OTHERS THEN ROLLBACK;

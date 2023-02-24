@@ -2,6 +2,8 @@ package com.closetou.article.controller;
 
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Enumeration;
+import java.util.Map;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -9,16 +11,14 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
-import org.apache.taglibs.standard.tag.common.fmt.RequestEncodingSupport;
 
 import com.closetou.article.model.service.ArticleService;
 import com.closetou.article.model.vo.Article;
 import com.closetou.article.model.vo.TradeArticle;
 import com.closetou.board.model.service.BoardService;
-import com.closetou.cloth.model.service.ClothService;
 import com.closetou.cloth.model.vo.Cloth;
 import com.closetou.cloth.model.vo.ClothCategory;
-import com.closetou.common.jdbc.JDBCTemplate;
+import com.closetou.cloth.model.vo.ClothPhoto;
 import com.closetou.common.util.FileRename;
 import com.closetou.member.model.vo.Member;
 import com.oreilly.servlet.MultipartRequest;
@@ -52,26 +52,32 @@ public class tradeWriteServlet extends HttpServlet {
 		HttpSession session = request.getSession(false);
 		Member loginMember = (session == null) ? null : (Member) session.getAttribute("loginMember");
 
-		String path = getServletContext().getRealPath("/resources/boardUpfile");
+		String path = getServletContext().getRealPath("/resources/clothImages");
 
 		// 최대 100MB;
 		int maxSize = 104857600;
 		Article article = new Article();
 		Cloth cloth = new Cloth();
+		ClothPhoto cloph = new ClothPhoto();
 		TradeArticle trart = new TradeArticle();
-
+		Enumeration<String> uploadFileList = null;
+		ArrayList<String> filenames = null;
+		
 		// 파일 인코딩 설정
 		String encoding = "UTF-8";
-
 		MultipartRequest mr = new MultipartRequest(request, path, maxSize, encoding, new FileRename());
-
+	
+		
+		//clothphoto 객체 세팅 및 등록
+		cloph.setPhotoId(mr.getFilesystemName("cloth_upfile"));
+		cloph.setOriginalName(mr.getOriginalFileName("cloth_upfile"));
+		
 		// article 객체 세팅
 		article.setUserNo(loginMember.getNo());
 		article.setUserNickname(loginMember.getNickname());
 		article.setTitle(mr.getParameter("title"));
 		article.setContent(mr.getParameter("content"));
 		article.setRenamedFileName(mr.getFilesystemName("cloth_upfile"));
-		System.out.println(article.getRenamedFileName());
 		article.setOriginalFileName(mr.getOriginalFileName("cloth_upfile"));
 		article.setType("거래");
 
@@ -91,7 +97,7 @@ public class tradeWriteServlet extends HttpServlet {
 		trart.setLocation(mr.getParameter("location"));
 
 		// 게시글 내용 저장
-		int tradeArticleSaveResult = new ArticleService().saveForTrade(article, cloth, trart);
+		int tradeArticleSaveResult = new ArticleService().saveForTrade(article, cloth, trart, cloph);
 
 		if (tradeArticleSaveResult == 0) {
 			request.setAttribute("msg", "거래글 등록 실패");

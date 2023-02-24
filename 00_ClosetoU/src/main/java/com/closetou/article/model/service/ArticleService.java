@@ -15,6 +15,7 @@ import com.closetou.article.model.vo.Reply;
 import com.closetou.article.model.vo.TradeArticle;
 import com.closetou.cloth.model.dao.ClothDao;
 import com.closetou.cloth.model.vo.Cloth;
+import com.closetou.cloth.model.vo.ClothPhoto;
 
 public class ArticleService {
 
@@ -47,7 +48,7 @@ public class ArticleService {
 	}
 
 
-	public int saveForTrade(Article article, Cloth cloth, TradeArticle trart) {
+	public int saveForTrade(Article article, Cloth cloth, TradeArticle trart, ClothPhoto cloph) {
 		int result = 0;
 		Connection connection = getConnection();
 
@@ -63,6 +64,11 @@ public class ArticleService {
 		// 등록된 의류의 No를 가져옴
 		int recentClothNo = new ClothDao().getPhotoNoByPhotoId(connection, article.getRenamedFileName());
 
+		cloph.setClothNo(recentClothNo);
+		
+		// 의류 사진 등록
+		int insertClothPhoto = new ClothDao().saveClothPhoto(connection, cloph);
+		
 		// 거래 게시글 세팅
 		trart.setNo(recentNo);
 		trart.setClothNumber(recentClothNo);
@@ -232,6 +238,15 @@ public class ArticleService {
 		close(connection);		
 		
 		return result;
+	}
+
+
+	public List<TradeArticle> getTradeArticleByNosWithAttributes(ArrayList<Integer> numbers, String[] attribute) {
+		
+		
+		
+		
+		return null;
 	}
 	
 }

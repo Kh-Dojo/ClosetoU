@@ -14,6 +14,8 @@ import com.closetou.article.model.service.ArticleService;
 import com.closetou.article.model.vo.Article;
 import com.closetou.article.model.vo.TradeArticle;
 import com.closetou.board.model.service.BoardService;
+import com.closetou.cloth.model.service.ClothService;
+import com.closetou.cloth.model.vo.Cloth;
 import com.closetou.cloth.model.vo.ClothCategory;
 import com.closetou.common.util.PageInfo;
 
@@ -35,7 +37,8 @@ public class BoardTradeServlet extends HttpServlet {
 		PageInfo pageInfo = null;
 		List<Article> list = null;
 		List<TradeArticle> trlist = null;
-
+		List<Cloth> cllist = null;
+		
 		try {
 			page = Integer.parseInt(request.getParameter("page"));
 		} catch (NumberFormatException e) {
@@ -51,19 +54,21 @@ public class BoardTradeServlet extends HttpServlet {
 		// 가져온 게시물들의 PK값을 기준으로 타테이블에 있는 속성들을 가져옴
 		
 		ArrayList<Integer> numbers = new ArticleService().noFromArticle(list);	
-	
-		
 		trlist = new ArticleService().getTradeArticleByNos(numbers);
 		
 		//카테고리 설정
 		ArrayList<ClothCategory> categorylist = new ArrayList<>();
-
 		categorylist = new BoardService().getClothCategories();
 		
+		//의류 대표 사진설정
+		cllist = new ClothService().getClothes(trlist);
+		
+		System.out.println(cllist);
 		
 		request.setAttribute("pageInfo", pageInfo);
 		request.setAttribute("list", list);
 		request.setAttribute("trlist", trlist);
+		request.setAttribute("cllist", cllist);
 		request.setAttribute("categorylist", categorylist);
 		request.getRequestDispatcher("/views/board/trade.jsp").forward(request, response);
 	};
