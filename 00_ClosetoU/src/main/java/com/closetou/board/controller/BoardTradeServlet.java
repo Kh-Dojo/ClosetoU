@@ -1,14 +1,17 @@
 package com.closetou.board.controller;
 
 import java.io.IOException;
+import java.net.URLEncoder;
 import java.util.ArrayList;
 import java.util.List;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
+import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import com.closetou.article.model.service.ArticleService;
 import com.closetou.article.model.vo.Article;
@@ -18,6 +21,7 @@ import com.closetou.cloth.model.service.ClothService;
 import com.closetou.cloth.model.vo.Cloth;
 import com.closetou.cloth.model.vo.ClothCategory;
 import com.closetou.common.util.PageInfo;
+import com.google.gson.Gson;
 
 @WebServlet(name = "boardtrade", urlPatterns = { "/views/board/trade" })
 public class BoardTradeServlet extends HttpServlet {
@@ -63,6 +67,17 @@ public class BoardTradeServlet extends HttpServlet {
 		//의류 대표 사진설정
 		cllist = new ClothService().getClothes(trlist);
 		
+//		Gson json = new Gson();
+//		
+//		String alistjson = URLEncoder.encode(json.toJson((list.toString())), "UTF-8").replaceAll("\\+", "%20");
+//		String trlistjson = URLEncoder.encode(json.toJson((trlist.toString())), "UTF-8").replaceAll("\\+", "%20");
+//		String cllistjson =  URLEncoder.encode(json.toJson((cllist.toString())), "UTF-8").replaceAll("\\+", "%20");
+//		
+//		HttpSession session = request.getSession();
+//		session.setAttribute("alistjson", alistjson);
+//		session.setAttribute("trlistjson", trlistjson);
+//		session.setAttribute("cllistjson", cllistjson);
+		
 		request.setAttribute("pageInfo", pageInfo);
 		request.setAttribute("list", list);
 		request.setAttribute("trlist", trlist);
@@ -70,5 +85,4 @@ public class BoardTradeServlet extends HttpServlet {
 		request.setAttribute("categorylist", categorylist);
 		request.getRequestDispatcher("/views/board/trade.jsp").forward(request, response);
 	};
-
 }

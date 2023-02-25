@@ -102,9 +102,6 @@ public class ArticleDao {
 		try {
 			pstmt = connection.prepareStatement(query);
 
-			System.out.println(pageInfo.getStartList());
-			System.out.println(pageInfo.getEndList());
-			
 			pstmt.setInt(1, pageInfo.getStartList());
 			pstmt.setInt(2, pageInfo.getEndList());
 

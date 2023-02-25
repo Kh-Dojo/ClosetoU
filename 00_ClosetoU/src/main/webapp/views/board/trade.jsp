@@ -18,7 +18,6 @@
 				<input type="search" name="search" id="search_bar"
 					placeholder="제목이나 키워드를 입력하세요." /> <input type="submit" value="검색">
 				<button type="button" id="search_option_toggle_btn">검색옵션</button>
-									<a href="${ path }/trade/article/view?no=90">거래글보기 임시 링크</a>
 				<div id="search_option_box">
 					<div id="option_view_area">
 						<input type="text" id="show_options_textbox"
@@ -52,7 +51,7 @@
 				</c:if>
 				<c:if test="${ not empty trlist }">
 					<c:forEach var="trboard" items="${ trlist }" varStatus="loop">
-						<div class="item_box">
+						<div class="item_box" OnClick="location.href ='${ path }/trade/article/view?no=${ trboard.no }'" style="cursor:pointer;">
 							<c:forEach var="cloth" items="${ cllist }">
 								<c:if test="${ trboard.clothNumber == cloth.no }">
 									<div>
