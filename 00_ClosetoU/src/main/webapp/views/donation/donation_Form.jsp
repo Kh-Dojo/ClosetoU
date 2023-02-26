@@ -8,66 +8,71 @@
 <script src="${ path }/resources/js/jquery-3.6.3.js"></script>
 <script src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
 <script src="//dapi.kakao.com/v2/maps/sdk.js?appkey=1a6d39646ccad54a791b4ce15012c492&libraries=services"></script>
+<link rel="stylesheet" href="${ path }/resources/css/Donation_Form.css">
 <jsp:include page="/views/common/sub-header.jsp" />
-	<section>	
-	<form id="donation_for" action="${ path }/donationform" method="POST">
-		<table>
-			<tr>
-				<td>기부 물품 정보</td>
-				<td><input type="text" id="D_item" name="D_item"></td>
-			</tr>			
-			<tr>
-				<td>박스 수량</td>
-				<td>
-					<input type="range" class="slider" min="0" max="10" value="0" name="rangeresult">
-					<span id="rangeresult">0</span>					
-				</td>
-			</tr>
-			<tr>
-				<td>기부자 명</td>
-				<td><input type="text" id="D_name" name="D_name"></td>
-			</tr>
-			<tr>
-				<td>기부자 연락처</td>
-				<td><input type="text" id="D_phone" name="D_phone"></td>
-			</tr> 
-			<tr>
-				<td>주소</td>
-				<td>
-					
-					<input type="text" id="sample6_postcode" name="sample6_postcode" placeholder="우편번호" readonly>
-					<input type="button" onclick="sample6_execDaumPostcode()" value="우편번호 찾기"><br>
-					<input type="text" id="sample6_address" name="sample6_address" placeholder="주소" readonly><br>
-					<input type="text" id="sample6_detailAddress" name="sample6_detailAddress" placeholder="상세주소" >
-					<input type="text" id="sample6_extraAddress" placeholder="참고항목" readonly>
-					<input type="text" id="sido" name= "sido" placeholder="시도"  >
+	<section>
+	<div id="dona_wrap" align="center">
+		<div>
+			<form id="donation_for" action="${ path }/donation/donation_Form" method="POST">
+			<h2>기부 신청서 작성</h2>
+				<table>
+					<tr>
+						<th class="th1">기부 물품 정보</th>
+						<td>&nbsp;&nbsp;<input type="text" id="D_item" name="D_item"></td>
+					</tr>			
+					<tr>
+						<th class="th1">박스 수량</th>
+						<td>
+							&nbsp;&nbsp;<input type="range" class="slider" min="0" max="10" value="0" name="rangeresult">
+							<span id="rangeresult">0</span>					
+						</td>
+					</tr>
+					<tr>
+						<th class="th1">기부자 명</th>
+						<td>&nbsp;&nbsp;<input type="text" id="D_name" name="D_name"></td>
+					</tr>
+					<tr>
+						<th class="th1">기부자 연락처</th>
+						<td>&nbsp;&nbsp;<input type="text" id="D_phone" name="D_phone"></td>
+					</tr> 
+					<tr>
+						<th class="th1">주소</th>
+						<td>
 							
-				</td>
-			</tr>
-			<tr>
-				<td>배송 방법 선택</td>
-				<td>
-					<select name="deliver">
-						<option value="">선택하세요.</option>
-						<option value="직접 방문">직접 방문</option>
-						<option value="택배 배송">택배 배송</option>
-						<option value="방문 배송">방문 배송</option>
-					</select>
-				</td>
-			<tr>
-				<td>기타</td>
-				<td><textarea id="content" name="content" rows="3" cols="40" placeholder="100자 내외로 입력해주세요" style="resize:none;"></textarea></td>
-			</tr>
-			<tr>
-				<td colspan="2">
-				<input type="submit" value="전송">
-				<input type="button" value="취소">
-				</td>
-			</tr>
-		</table>
-		</form>	
-		
-		<a href="${ path }/donationboard">차트 보기</a>	
+							&nbsp;&nbsp;<input type="text" id="sample6_postcode" name="sample6_postcode" placeholder="우편번호" readonly>
+							&nbsp;&nbsp;<input type="button" onclick="sample6_execDaumPostcode()" value="우편번호 찾기"><br>
+							&nbsp;&nbsp;<input type="text" id="sample6_address" name="sample6_address" placeholder="주소" readonly><br>
+							&nbsp;&nbsp;<input type="text" id="sample6_detailAddress" name="sample6_detailAddress" placeholder="상세주소" >
+							<input type="text" id="sample6_extraAddress" placeholder="참고항목" readonly hidden>
+							<input type="text" id="sido" name= "sido" placeholder="시도" hidden>
+									
+						</td>
+					</tr>
+					<tr>
+						<th class="th1">배송 방법 선택</th>
+						<td>
+							&nbsp;&nbsp;<select name="deliver" style="height:21px;">
+								<option value="">선택하세요.</option>
+								<option value="직접 방문">직접 방문</option>
+								<option value="택배 배송">택배 배송</option>
+								<option value="방문 배송">방문 배송</option>
+							</select>
+						</td>
+					<tr>
+						<th class="th1">기타</th>
+						<td>&nbsp;&nbsp;<textarea id="content" name="content" rows="3" cols="37" placeholder="100자 내외로 입력해주세요" style="resize:none;"></textarea></td>
+					</tr>
+					<tr>
+						<td colspan="2" align="center">
+						<br><br>
+						&nbsp;&nbsp;<input class="myButton5" type="submit" value="전송">
+						&nbsp;&nbsp;<input class="myButton5" type="button" value="취소">
+						</td>
+					</tr>
+				</table>
+				</form>
+			</div>
+		</div>
 	</section>
 	
 

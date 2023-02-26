@@ -12,7 +12,7 @@
 <script src="${ path }/resources/js/jquery-3.6.3.js"></script>
 <link rel="stylesheet" href="${ path }/resources/css/sub-header.css">
 
-<title>CloseToU 메인페이지</title>
+<title>CloseToU</title>
 </head>
 <body>
 	<header>

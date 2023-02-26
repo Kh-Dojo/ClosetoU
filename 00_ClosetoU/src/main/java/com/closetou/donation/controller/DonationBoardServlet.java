@@ -26,8 +26,11 @@ public class DonationBoardServlet extends HttpServlet {
 		
 		
 	    Gson gson = new Gson();
-		request.setAttribute("graphDataList",gson.toJson( donationService.getGraphDataList()));
-		request.getRequestDispatcher("/views/donation/donation_Board.jsp").forward(request, response);
+	    response.setContentType("application/json;charset=utf-8");
+	    gson.toJson( donationService.getGraphDataList(), response.getWriter());
+//		request.setAttribute("graphDataList",gson.toJson( donationService.getGraphDataList()));
+		// request.getRequestDispatcher("/views/donation/donation_Board.jsp").forward(request, response);
+//		request.getRequestDispatcher("/index.jsp").forward(request, response);
 		
 	}
 

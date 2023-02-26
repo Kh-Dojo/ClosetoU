@@ -43,5 +43,7 @@ public class Article {
 	private String edited;
 	
 	private Date editDate;
+	
+	
 
 }
