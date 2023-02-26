@@ -170,6 +170,38 @@ public class BoardDao {
 			
 			return categories;
 		}
+		
+		public int getBoardCountForTradeSearch(Connection connection, String keyword) {
+			int count = 0;
+			PreparedStatement pstmt = null;
+			ResultSet rs = null;
+			String query = "SELECT "
+					+ "    COUNT(*) "
+					+ "FROM "
+					+ "    ARTICLE "
+					+ "WHERE "
+					+ "    TITLE LIKE '%?%'";
+			
+			try {
+				pstmt = connection.prepareStatement(query);
+				
+				pstmt.setString(1, keyword);
+
+				rs = pstmt.executeQuery();
+				
+				while(rs.next()) {
+					count = rs.getInt(1);
+				}
+				
+			} catch (SQLException e) {
+				e.printStackTrace();
+			} finally {
+				close(rs);
+				close(pstmt);
+			}
+			
+			return count;
+		}
 
 		//작업중~
 //		public List<TradeArticle> searchArticleForTrade(Connection connection, String keyword, String[] attribute,

@@ -1,0 +1,10 @@
+INSERT
+    INTO CLOTH_PHOTO (
+        PHOTO_ID,
+        NO,
+        CLOTH_NO,
+        ORIGINAL_NAME,
+        CREATED_DATE
+    )
+    VALUES
+    ('DFAFDD', SEQ_CLPH.NEXTVAL, 1, 'DFASDF', DEFAULT);

@@ -166,4 +166,114 @@ public class ClothDao {
 		return cllist;
 	}
 
+	public List<ClothPhoto> getClothPhotosbyClothNo(Connection connection, int clothNo) {
+		List<ClothPhoto> clphotos = new ArrayList<ClothPhoto>();
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+		
+		String query = "SELECT "
+				+ "    PHOTO_ID, "
+				+ "    NO, "
+				+ "    CLOTH_NO, "
+				+ "    ORIGINAL_NAME, "
+				+ "    CREATED_DATE "
+				+ "FROM "
+				+ "    CLOTH_PHOTO "
+				+ "WHERE "
+				+ "    CLOTH_NO = ?";
+		
+		
+		try {
+			pstmt = connection.prepareStatement(query);
+			pstmt.setInt(1, clothNo);
+	
+			rs = pstmt.executeQuery();
+	
+			while(rs.next()) {
+				ClothPhoto clpho = new ClothPhoto();
+				
+				clpho.setPhotoId(rs.getString("PHOTO_ID"));
+				clpho.setNo(rs.getInt("NO"));
+				clpho.setClothNo(rs.getInt("CLOTH_NO"));
+				clpho.setOriginalName(rs.getString("ORIGINAL_NAME"));
+				clpho.setCreatedDate(rs.getDate("CREATED_DATE"));
+				
+				clphotos.add(clpho);
+				
+			}
+		
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(rs);
+			close(pstmt);
+		}
+		
+		return clphotos;
+	}
+
+	public Cloth getClothbyNo(Connection connection, int clothNumber) {
+		Cloth cloth = new Cloth();
+		
+		PreparedStatement pstmt = null;
+		
+		ResultSet rs = null;
+		
+		String query = "SELECT "
+				+ "    NO, "
+				+ "    PHOTO_ID, "
+				+ "    CLOTH_NAME, "
+				+ "    CREATED_DATE, "
+				+ "    CATEGORIES "
+				+ "FROM "
+				+ "    CLOTH "
+				+ "WHERE "
+				+ "    NO = ?";
+		
+		try {
+			pstmt = connection.prepareStatement(query);
+			
+			pstmt.setInt(1, clothNumber);
+			
+			rs = pstmt.executeQuery();
+			
+			while(rs.next()) {
+				
+				cloth.setNo(rs.getInt("NO"));
+				cloth.setPhotoId(rs.getString("PHOTO_ID"));
+				cloth.setName(rs.getString("CLOTH_NAME"));
+				cloth.setCreateDate(rs.getDate("CREATED_DATE"));
+			}
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		
+		return cloth;
+	}
+
+	// Cloth 카테고리 미구현으로 인해 보류
+	public int UpdateCloth(Connection connection, Cloth cloth) {
+		int result3 = 1;
+		PreparedStatement pstmt = null;
+		String query = "UPDATE CLOTH "
+				+ "SET "
+				+ "    CATEGORIES = ? "
+				+ "WHERE "
+				+ "    NO = ?";
+		
+		try {
+			pstmt = connection.prepareStatement(query);
+			
+			
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(pstmt);
+		}
+		
+		return result3;
+	}
+
 }

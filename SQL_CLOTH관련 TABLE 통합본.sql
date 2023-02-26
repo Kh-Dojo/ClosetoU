@@ -188,7 +188,7 @@ INSERT INTO CLOTH_CATEGORY (
     CLOTH_CATEGORY
 ) VALUES (
     'S5',
-    '양말/레그웨어'
+    '양말'
 );
 
 INSERT INTO CLOTH_CATEGORY (

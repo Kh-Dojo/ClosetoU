@@ -22,4 +22,5 @@
 	</div>
 </section>
 </body>
+<jsp:include page="/views/common/footer.jsp"></jsp:include>
 </html>

@@ -1,0 +1,10 @@
+SELECT
+    NO,
+    PHOTO_ID,
+    CLOTH_NAME,
+    CREATED_DATE,
+    CATEGORIES
+FROM
+    CLOTH
+WHERE
+    NO = 1;

@@ -1,0 +1,6 @@
+SELECT 
+    NO 
+FROM 
+    CLOTH 
+WHERE 
+    PHOTO_ID = '1';

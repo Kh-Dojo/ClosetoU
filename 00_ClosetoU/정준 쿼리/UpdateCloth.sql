@@ -1,0 +1,5 @@
+UPDATE CLOTH
+SET
+    CATEGORIES = '00.A0'
+WHERE
+    NO = 5;

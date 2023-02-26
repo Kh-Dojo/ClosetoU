@@ -81,6 +81,27 @@ public class ArticleService {
 		return result;
 	}
 
+	public int updateForTrade(Article article, Cloth cloth, TradeArticle trart) {
+		int result = 0;
+		Connection connection = getConnection();
+		
+		int result1 = new ArticleDao().UpdateArticleForTrade(connection, article);
+		int result2 = new ArticleDao().UpdateTradeArticle(connection, trart);
+		int result3 = new ClothDao().UpdateCloth(connection, cloth);
+		
+		result = result1*result2*result3;
+
+		if (result > 0 ) {
+			commit(connection);
+		} else {
+			rollback(connection);
+		}
+		close(connection);
+		return result;
+	}
+	
+	
+	
 	public Article getArticleByNoForTrade(int no, boolean hasRead) {
 		Article article = null;
 

@@ -13,7 +13,7 @@ import com.closetou.donation.model.vo.DonationForm;
 import com.closetou.member.model.vo.Member;
 
 
-@WebServlet(name = "DonationForm", urlPatterns = { "/donation/donationform" })
+@WebServlet(name = "DonationForm", urlPatterns = { "/donation/donation_Form" })
 public class DonationFormServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 
