@@ -47,9 +47,9 @@ public class CommunityBoardListServelt extends HttpServlet {
 		 */
 		list = new BoardService().getArticleForCommunity(pageInfo);
 		
-		/*
-		 * System.out.println(list); System.out.println(page);
-		 */
+		
+		System.out.println("list : " + list);
+		/* System.out.println(page); */
 		
 		request.setAttribute("pageInfo", pageInfo);
 		request.setAttribute("list", list);

@@ -17,6 +17,7 @@ section[name="qnaWrite-container"] > * {
 	width: 80%;
 	height: auto;
 	box-sizing: border-box;
+	float: right;
 }
 
 #qnaTitle {

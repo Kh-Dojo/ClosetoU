@@ -8,7 +8,7 @@
 
 
 <section id="qnaWrite-container">
-<%-- 	<div id="sidemenu"><jsp:include page="/views/common/sidemenu/myPageSideMenu.jsp" /></div> --%>
+	<div id="sidemenu"><jsp:include page="/views/common/sidemenu/myPageSideMenu.jsp" /></div>
 	<div id="qnaWrite">
         <br>
 		<h2 id="qnatTitle">온라인 문의</h2>

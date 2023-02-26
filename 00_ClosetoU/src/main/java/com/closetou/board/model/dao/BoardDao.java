@@ -53,7 +53,7 @@ public class BoardDao {
 		PreparedStatement pstmt = null;
 		ResultSet rs = null;
 		
-		String query = "SELECT RNUM, NO, TITLE, NICKNAME, POST_DATE, READ_COUNT, VISABLE, TYPE "
+		String query = "SELECT RNUM, NO, TITLE, NICKNAME, POST_DATE, READ_COUNT, VISABLE, TYPE, ORIGINAL_FILENAME "
 				+ "FROM (SELECT ROWNUM AS RNUM, "
 				+ "             NO, "
 				+ "             TITLE, "
@@ -61,14 +61,16 @@ public class BoardDao {
 				+ "             POST_DATE, "
 				+ "             READ_COUNT, "
 				+ "             VISABLE, "
-				+ "             TYPE  "
+				+ "             TYPE, "
+				+ "				ORIGINAL_FILENAME "
 				+ "       FROM (SELECT A.NO, "
 				+ "                    A.TITLE, "
 				+ "                    M.NICKNAME, "
 				+ "                    A.POST_DATE, "
 				+ "                    A.READ_COUNT, "
 				+ "                    A.VISABLE, "
-				+ "                    A.TYPE "
+				+ "                    A.TYPE, "
+				+ "					   A.ORIGINAL_FILENAME "
 				+ "             FROM ARTICLE A "
 				+ "             JOIN MEMBER M ON(A.USER_NO = M.NO) "
 				+ "             WHERE A.VISABLE = 'Y' AND TYPE IN ('공지','자유') ORDER BY A.NO DESC) "
@@ -94,6 +96,7 @@ public class BoardDao {
 				article.setReadCount(rs.getInt("READ_COUNT"));
 				article.setVisable(rs.getString("VISABLE"));
 				article.setType(rs.getString("TYPE"));
+				article.setOriginalFileName(rs.getString("ORIGINAL_FILENAME"));
 				
 				//열 개가 조회되면 열 개의 데이터를 리스트에 담아줌, 조회되는 게 없으면 빈 리스트 리턴
 				list.add(article);

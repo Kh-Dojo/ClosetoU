@@ -8,8 +8,8 @@
 <script src="${ path }/resources/js/jquery-3.6.3.js"></script>
 
 <link rel="stylesheet" href="${ path }/resources/css/communityBoardView.css" />
-<section  id="article-section">   
-<div id="sidemenu"><jsp:include page="/views/common/sidemenu/communitySideMenu.jsp" /></div>
+<section  id="article-section">  
+	<div id="sidemenu"><jsp:include page="/views/common/sidemenu/communitySideMenu.jsp" /></div> 
  	<article id="article-content">
  	<div id="article-outline">
 		<table id="article-view">
@@ -47,7 +47,7 @@
 				</c:if>
 				<c:if test="${ not empty Article.originalFileName }">
 					<td colspan="3">
-						<a href="${ path }/resources/boardUpfile/${ Article.renamedFileName}"
+						<a href="${ path }/resources/boardUpfile/${ Article.renamedFileName }"
                     	 			download="${ Article.originalFileName }" >
                   			<span> ${ Article.originalFileName } </span>
                   		</a>
