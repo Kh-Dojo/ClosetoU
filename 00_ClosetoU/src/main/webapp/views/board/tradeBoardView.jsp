@@ -19,31 +19,36 @@
 			<div id="item_photos">
 				<c:choose>
 					<c:when test="${ empty clothphotos }">
-					 	사진 : ${ clothphoto.photoId }
+						<img src="${ clothimgpath }/${  clothphoto.photoId }">
 					</c:when>
 					<c:otherwise>
-						<c:forEach var="clothpho" items="${ clothphotos }">
-						<img src="${ clothimgpath }/${  clothpho.photoId }">
-						</c:forEach>
+						<%-- 						<c:forEach var="clothpho" items="${ clothphotos }"> --%>
+						<%-- 						<img src="${ clothimgpath }/${  clothpho.photoId }"> --%>
+						<%-- 						</c:forEach> --%>
+						<img src="${ clothimgpath }/${  clothphotos[0].photoId }">
 					</c:otherwise>
 				</c:choose>
 			</div>
 			<div id="item_details">
 				<div id="item_info">
-					가격 : ${ trart.price } <br> 거래종료 : ${ trart.tradeEnd } <br>
-					나눔여부 : ${ trart.free } <br> 거래방법 : ${ trart.tradeMethod } <br>
-					지역 : ${ trart.location }
+					<div id="cloth_name" >${ cloth.name } </div>
+					<br>
+					<div id="cloth_price" >${ trart.price } 원</div>
+					<br>
+					<br> 거래방법 : ${ trart.tradeMethod } <br>
+					<br> 지역 : ${ trart.location }
 				</div>
 				<div id="buttons_area">
-					<button>채팅하기</button>
-					<button>찜하기</button>
-					<button>신고하기</button>
+					<button class="btn_small" style="font-size: 12px;">채팅하기</button>
+					<button class="btn_small" style="font-size: 12px;">찜하기</button>
+					<button class="btn_small" style="font-size: 12px;"
+						disabled="disabled">신고하기</button>
 				</div>
 			</div>
 		</div>
 		<div id="seller_content_area">
-			<div id="title">제목 :${ article.title }</div>
-			<div id="content">내용: ${ article.content }</div>
+			<div id="title">${ article.title }</div>
+			<div id="content">${ article.content }</div>
 		</div>
 		<div id="seller_info_area">
 			<div id="seller_info">판매자 정보</div>
@@ -54,21 +59,20 @@
 				${ member.nickname }<br> (${ member.id })
 				<div></div>
 			</div>
-			<c:if
-				test="${ not empty loginMember && loginMember.nickname == Article.userNickname }">
-				<button type="button"
-					onclick="location.href='${ path }/board/communityBoardUpdate?no=${ Article.no }'">수정</button>
-				<button type="button" id="btnDelete">삭제</button>
-			</c:if>
-		</div>
-		<div id="other_articles_area">
 
-			<div id="other_item">다른 상품들이 출력될 자리입니다.</div>
-			<button type="button"
+		</div>
+		<!-- 		<div id="other_articles_area"> -->
+		<!-- 			<div id="other_item">다른 상품들이 출력될 자리입니다.</div> -->
+		<!-- 		</div> -->
+		<div id="manage_button_area">
+			<button class="btn_small" type="button"
+				onclick="location.href='${ path }/trade/article/update?no=${ article.no }'">수정</button>
+			<button class="btn_small" type="button" id="btnDelete">삭제</button>
+			<button class="btn_small" type="button" style="width: 12%;"
 				onclick="location.href='${ path }/views/board/trade'">목록으로</button>
 		</div>
 	</section>
 </article>
-
+<script src="${ path }/resources/js/tradeView.js"></script>
 <jsp:include page="/views/common/footer.jsp" />
 

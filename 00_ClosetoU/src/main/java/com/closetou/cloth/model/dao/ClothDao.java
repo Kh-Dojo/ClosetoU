@@ -212,4 +212,68 @@ public class ClothDao {
 		return clphotos;
 	}
 
+	public Cloth getClothbyNo(Connection connection, int clothNumber) {
+		Cloth cloth = new Cloth();
+		
+		PreparedStatement pstmt = null;
+		
+		ResultSet rs = null;
+		
+		String query = "SELECT "
+				+ "    NO, "
+				+ "    PHOTO_ID, "
+				+ "    CLOTH_NAME, "
+				+ "    CREATED_DATE, "
+				+ "    CATEGORIES "
+				+ "FROM "
+				+ "    CLOTH "
+				+ "WHERE "
+				+ "    NO = ?";
+		
+		try {
+			pstmt = connection.prepareStatement(query);
+			
+			pstmt.setInt(1, clothNumber);
+			
+			rs = pstmt.executeQuery();
+			
+			while(rs.next()) {
+				
+				cloth.setNo(rs.getInt("NO"));
+				cloth.setPhotoId(rs.getString("PHOTO_ID"));
+				cloth.setName(rs.getString("CLOTH_NAME"));
+				cloth.setCreateDate(rs.getDate("CREATED_DATE"));
+			}
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		
+		return cloth;
+	}
+
+	// Cloth 카테고리 미구현으로 인해 보류
+	public int UpdateCloth(Connection connection, Cloth cloth) {
+		int result3 = 1;
+		PreparedStatement pstmt = null;
+		String query = "UPDATE CLOTH "
+				+ "SET "
+				+ "    CATEGORIES = ? "
+				+ "WHERE "
+				+ "    NO = ?";
+		
+		try {
+			pstmt = connection.prepareStatement(query);
+			
+			
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(pstmt);
+		}
+		
+		return result3;
+	}
+
 }

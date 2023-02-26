@@ -62,4 +62,16 @@ public class ClothService {
 		return clph;
 	}
 
+	public Cloth getClothbyNo(int clothNumber) {
+		Cloth cloth = null;
+		
+		Connection connection = getConnection();
+		
+		cloth = new ClothDao().getClothbyNo(connection, clothNumber);
+		
+		close(connection);
+		
+		return cloth;
+	}
+
 }

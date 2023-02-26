@@ -284,9 +284,10 @@ public class MemberDao {
 		PreparedStatement pstmt = null;
 		ResultSet rs = null;
 		
-		String query = " SELECT ROWNUM, NO, USER_NO, TITLE, NICKNAME, POST_DATE, READ_COUNT, VISABLE, TYPE   "
+		String query = " SELECT ROWNUM, NO, USER_NO, CONTENT, TITLE, NICKNAME, POST_DATE, READ_COUNT, VISABLE, TYPE   "
 				+ "				   FROM (SELECT 		  NO,   "
 				+ "				                          USER_NO,   "
+				+ "				                          CONTENT,   "
 				+ "				                          TITLE,   "
 				+ "				                          NICKNAME,   "
 				+ "				                          POST_DATE,   "
@@ -295,6 +296,7 @@ public class MemberDao {
 				+ "				                          TYPE    "
 				+ "				   FROM (SELECT A.NO,  "
 				+ "				   				A.USER_NO,   "
+				+ "				   				A.CONTENT,   "
 				+ "				                A.TITLE,   "
 				+ "				   			 M.NICKNAME,   "
 				+ "				   			 A.POST_DATE,   "
@@ -319,6 +321,7 @@ public class MemberDao {
 				askedlist.setRowNum(rs.getInt("ROWNUM"));
 				askedlist.setNo(rs.getInt("NO"));
 				askedlist.setUserNo(rs.getInt("USER_NO"));
+				askedlist.setContent(rs.getString("CONTENT"));
 				askedlist.setTitle(rs.getString("TITLE"));
 				askedlist.setUserNickname(rs.getString("NICKNAME"));
 				askedlist.setPostDate(rs.getDate("POST_DATE"));

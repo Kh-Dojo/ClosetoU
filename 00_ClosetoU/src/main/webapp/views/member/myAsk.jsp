@@ -16,9 +16,32 @@
 	article {width: 80%; height: auto; box-sizing: border-box; float: left; padding-right:10px;}
 	section {width: 1200px; height: 500px; margin: auto;}
 	section > * {box-sizing: border-box; float: left;}
+	section th {background-color:  #FFF0CA;}
 	#sub_menu_name_area:active {color:rgb(220, 179, 14);}
 	#sub_menu_name_area > ul {list-style:none;}
  	#sub_menu_name_area > ul > li > a {text-decoration:none; color:black;}
+	.btn_small {
+	box-shadow:inset 0px 1px 0px 0px #fce2c1;
+	background-color:#ffc477;
+	border-radius:6px;
+	border:1px solid #eeb44f;
+	display:inline-block;
+	cursor:pointer;
+	color:#ffffff;
+	font-family:Arial;
+	font-size:12px;
+	font-weight:bold;
+	padding:2.5px 10px;
+	text-decoration:none;
+	text-shadow:0px 1px 0px #cc9f52;
+}
+.btn_small:hover {
+	background-color:#fb9e25;
+}
+.btn_small:active {
+	position:relative;
+	top:1px;
+}
 </style>
 <section>
 	<div id="sidemenu"><jsp:include page="/views/common/sidemenu/myPageSideMenu.jsp" /></div>
@@ -30,9 +53,9 @@
 		<table id="tbl-board">
 			<tr>
 				<th>번호</th>
+				<th>작성자</th>
 				<th>제목</th>
 				<th>문의 일자</th>
-				<th>문의 내용</th>
 				<th>처리 여부</th>
 			</tr>
 
@@ -48,9 +71,9 @@
 				<c:forEach var="article" items="${ list }">
 					<tr>
 						<td>${ article.rowNum }</td>		<!--순번 -->
+						<td>${ article.userNickname }</td>	<!-- 작성자 -->
 						<td>${ article.title }</td>		<!-- 제목 -->
 						<td>${ article.postDate }</td>	<!-- 문의일자 -->
-						<td>${ article.content }</td>	<!-- 문의 내용 -->
 						<td>${ article.visable }</td>	<!-- 처리 여부 -->
 					</tr>
 				</c:forEach>

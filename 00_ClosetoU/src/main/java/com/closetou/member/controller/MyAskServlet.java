@@ -35,7 +35,10 @@ public class MyAskServlet extends HttpServlet {
 		PageInfo pageInfo = null;
 		List<Article> list = null;
 		
+		System.out.println(loginMember);
+		
 		memNo = loginMember.getNo();
+		
 		
 		try {
 			page = Integer.parseInt(request.getParameter("page"));			
@@ -47,6 +50,8 @@ public class MyAskServlet extends HttpServlet {
 		pageInfo= new PageInfo(page, 10, listCount, 10);	// 한 페이지에 몇 개의 글 나오게 할 지 지정하는 메소드
 		
 		list = new MemberService().getArticleAsk(pageInfo, memNo);
+		
+		System.out.println(list);
 		
 		request.setAttribute("pageInfo", pageInfo);
 		request.setAttribute("list", list);

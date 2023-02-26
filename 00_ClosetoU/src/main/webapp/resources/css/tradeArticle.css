@@ -1,5 +1,30 @@
 @charset "UTF-8";
 
+article .btn_small {
+	box-shadow: inset 0px 1px 0px 0px #fce2c1;
+	background-color: #ffc477;
+	border-radius: 6px;
+	border: 1px solid #eeb44f;
+	display: inline-block;
+	cursor: pointer;
+	color: #ffffff;
+	font-family: Arial;
+	font-size: 15px;
+	font-weight: bold;
+	padding: 13px 24px;
+	text-decoration: none;
+	text-shadow: 0px 1px 0px #cc9f52;
+}
+
+article .btn_small:hover {
+	background-color: #fb9e25;
+}
+
+article .btn_small:active {
+	position: relative;
+	top: 1px;
+}
+
 article {
 	width: 1200px;
 	height: auto;
@@ -29,7 +54,10 @@ section>* {
 }
 
 #item_area {
+	display : flex;
 	width: 100%;
+	border-right: solid #fff8e6 10px;
+	box-sizing: border-box;
 }
 
 #item_area>* {
@@ -38,40 +66,63 @@ section>* {
 }
 
 #item_photos {
+	padding-top: 10px;
+	padding-bottom : 10px;
 	width: 60%;
-	height: 350px;
 	margin: 0 auto;
+	border-right: solid #fff8e6 10px;
+	border-left: solid #fff8e6 10px;
 }
 
 #item_photos img {
+	display : block;
 	margin:auto;
 	max-width:350px;
-    max-height:350px;
+    max-height:330px;
 }
 
 #item_details {
 	width: 40%;
 	height: 350px;
+	padding: 25px;
 }
 
 #item_info {
-	display: flex;
 	width: 100%;
 	height: 80%;
 	width: 100%;
+	padding-left : 15px;
+}
+
+#item_info div {
+	align-content: center;
+	text-align: center;
+	font-size: 25px;
+}
+
+#cloth_name {
+	font-weight: bolder;
 }
 
 #seller_content_area {
 	box-sizing: border-box;
 	width: 75%;
 	height: 500px;
-	padding-top: 35px;
 	border-left: solid #fff8e6 35px;
+	border-top: solid #fff8e6 35px;
+	border-right: solid #fff8e6 10px;
+	border-bottom: solid #fff8e6 10px;
+}
+
+#content {
+	padding-left: 25px;
 }
 
 #title {
 	font-size: 30px;
 	text-align: center;
+	margin-bottom: 10px;
+	border-bottom: solid #fff8e6 10px;
 }
 
 #seller_info_area {
@@ -91,6 +142,7 @@ section>* {
 	padding: 10%;
 	object-fit: cover;
 	justify-content: center;
+	border-right: solid #fff8e6 10px;
 }
 
 #seller_info {
@@ -132,3 +184,16 @@ section>* {
 	width: 100%;
 	border: 1px solid black;
 }
+
+#manage_button_area {
+	width : 100%;
+	display: block;
+	margin-top: 10px;
+	margin-bottom: 10px;
+}
+
+#manage_button_area *{
+	width : 10%;
+}
+
+

@@ -1,0 +1,5 @@
+UPDATE ARTICLE
+SET
+    "PHOTO_NO" = 1
+WHERE
+    NO = 129;

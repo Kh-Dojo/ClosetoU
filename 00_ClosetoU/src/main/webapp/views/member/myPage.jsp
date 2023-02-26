@@ -106,9 +106,9 @@
 	        </table>
 	        <br>
 	        <div class="btn_myPage">
-		        <button style="height:30px;" type="button" id="btnUpdatePwd">비밀번호 변경</button>
-		        <input style="height:30px;" type="submit" value="정보 수정">
-		        <input style="height:30px;" type="button" id="btnDelete" value="회원 탈퇴">
+		        <button style="height:30px;" type="button" id="btnUpdatePwd" class="btn_small">비밀번호 변경</button>
+		        <input style="height:30px;" type="submit" value="정보 수정" class="btn_small">
+		        <input style="height:30px;" type="button" id="btnDelete" value="회원 탈퇴" class="btn_small">
 	        </div>
 	 	</form>
  	</div>

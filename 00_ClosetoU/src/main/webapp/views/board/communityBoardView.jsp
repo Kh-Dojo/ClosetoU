@@ -8,69 +8,53 @@
 <script src="${ path }/resources/js/jquery-3.6.3.js"></script>
 
 <link rel="stylesheet" href="${ path }/resources/css/communityBoardView.css" />
-<section>   
+<section  id="article-section">   
 <div id="sidemenu"><jsp:include page="/views/common/sidemenu/communitySideMenu.jsp" /></div>
-<article id="content">
-	<div id="board-write-container">
-		<h2>게시판</h2>
-		<table id="tbl-board">
+ 	<article id="article-content">
+ 	<div id="article-outline">
+		<table id="article-view">
 			<tr>
-				<th>글번호</th>
-<!-- 230214 3교시 상세 게시글 화면에 그려주기 -->
-				<td>${ Article.no }</td>
-			</tr>
-			<tr>
-				<th>제 목</th>
-				<td>${ Article.title }</td>
-			</tr>
-			<tr>
-				<th>작성자</th>
-				<td>${ Article.userNickname }</td>
-			</tr>
-			<tr>
-				<th>날짜</th>
-				<td>${ Article.postDate }</td>
-			</tr>
-			<tr>
-				<th>조회수</th>
-				<td>${ Article.readCount }</td>
-			</tr>
-			<tr>
-<!-- 230214 6교시 게시글 내에서 첨부파일 이름 보이게 만들기 test 속성-->
-				<th>첨부파일</th>
-				<td>
-					<c:if test="${ empty Article.originalFileName }">
-						<span> - </span>
+				<td colspan="3">
+					<c:if test="${ not empty loginMember && loginMember.nickname == Article.userNickname }">
+						<button type="button" class="btn-article-view" onclick="location.href='${ path }/board/communityBoardUpdate?no=${ Article.no }'">수정</button>					
+						<button type="button" class="btn-article-view" id="btnDelete">삭제</button>
 					</c:if>
-					<c:if test="${ not empty Article.originalFileName }">
-						<a href="${ path }/resources/boardUpfile/${ Article.renamedFileName}"
-                    	 					download="${ Article.originalFileName }" >
-                  			<span> ${ Article.originalFileName } </span>
-                  		</a>
-						
-					</c:if>
+					<button type="button" class="btn-article-view" onclick="location.href='${ path }/board/communityBoardList'">목록으로</button>		
 				</td>
 			</tr>
 			<tr>
-				<th>내 용</th>
-				<td>${ Article.content }</td>
+				<td colspan="3">
+					<sub>${ Article.type }</sub><br>
+					${ Article.title }
+				</td>
 			</tr>
-			<%--글작성자/관리자인경우 수정삭제 가능 --%>
 			<tr>
-				<th colspan="2">
-<%-- 230214 3교시 수정 삭제 로그인 한 작성자만 보이게 하기 --%>
-					<c:if test="${ not empty loginMember && loginMember.nickname == Article.userNickname }">
-<!-- 230214 6교시 게시글 내 수정 버튼 누르면 수정 페이지로 이동 -->
-						<button type="button" onclick="location.href='${ path }/board/communityBoardUpdate?no=${ Article.no }'">수정</button>
-<!-- 230216 2교시 게시글 삭제하기 -->						
-						<button type="button" id="btnDelete">삭제</button>
-					</c:if>
-<!-- 230214 4교시 상세 게시물에서 목록으로 가게 만들기 -->
-					<button type="button" onclick="location.href='${ path }/board/communityBoardList'">목록으로</button>
-										<!-- onclick="location.href='${ path }/board/list'" 상세 게시물에서 1페이지 목록으로 보내는 코드 문제! 모든 수정하기에서 뒤로가기가 됨...-->
-										<!-- onclick="location.href='javascript:history.back()'" 상세 게시물에서 현재 게시물이 있는 목록으로 보내는 코드 javascript: 생략 가능 -->		
-				</th>
+				<td>${ Article.userNickname }</td>
+				<td>${ Article.readCount }</td>
+				<td>${ Article.postDate }</td>
 			</tr>
+			<tr>
+				<td colspan="3">
+					${ Article.content }
+<%-- 					<img src="${ path }/resouces/boardUpfile/${ Article.renamedFileName }"/> --%>
+				</td>
+			</tr>
+			<tr>
+				<c:if test="${ empty Article.originalFileName }">
+					<td colspan="3">
+						<span> - </span>
+					</td>
+				</c:if>
+				<c:if test="${ not empty Article.originalFileName }">
+					<td colspan="3">
+						<a href="${ path }/resources/boardUpfile/${ Article.renamedFileName}"
+                    	 			download="${ Article.originalFileName }" >
+                  			<span> ${ Article.originalFileName } </span>
+                  		</a>
+					</td>	
+				</c:if>
+			</tr>
+			
 		</table>
 <!-- 230216 6교시 댓글 작성란 만들기 -->
 		<div id="comment-container">
@@ -109,10 +93,10 @@
     	   	</c:forEach>
 	    </table>
     </div>
-</article>
-<%-- <script src="${ path }/resources/js/communityBoardView.js"></script> --%>
+    </article>
+	
+
 <script>
-/* 제이쿼리 영억 */
 //230216 2교시 게시글 삭제하기
 	$(document).ready(() => {
 		$('#btnDelete').on('click', () => {
@@ -120,43 +104,16 @@
 				location.replace('${ path }/article/delete?no=${ Article.no }');
 			}
 		});
-		
-/* 		$('#btnReplyDelete').on('click', () => {
-			/* if(confirm('정말로 댓글을 삭제하시겠습니까?')) {
-				location.replace('${ path }/article/replyDelete');
-							// 요청이 왔을 때 받을 서블릿 생성. BoardDeleteServelt.java
-			} 
-			
-			var delConfirm = confirm('댓글을 삭제하시겠습니까?');
-			   if (delConfirm) {
-				  location.replace('${ path }/article/replyDelete');
-			      alert('삭제되었습니다.');
-			   }
-			   else {
-			      alert('삭제가 취소되었습니다.');
-			   }
-		}); */
 	
-//<!-- 230216 3교시 첨부파일 다운로드하기 a 태그 누르면 -->
+//첨부파일 다운로드하기
 		$('#fileDown').on('click', () => {
-						// encodeURIComponent() URI로 데이터를 전달하기 위해서 문자열을 인코딩 첨부파일 이름이 한글이거나 공백 특문인경우 url에 이상하게 나오는데 그거를 바꿔줌
+						
 			let oname = encodeURIComponent('${ Article.originalFileName }');
 	        let rname = encodeURIComponent('${ Article.renamedFileName }');
 	       
 	        location.assign('${ path }/board/fileDown?oname=' + oname + '&rname=' + rname);
-									// ㄴ board/fileDown 요청 처리할 수 잇는 서블릿 생성. BoardFileDownServelt.java
-									
-	        // location.assign('${ path }/board/fileDown?oname=${ board.originalFileName }&rname=${ board.renamedFileName }');
-									
-		/*
-			getParameter()의 매개변수는 어디서 나온 건가요???
-				태그의 name 속성!
-				but! 무조건 태그의 name 속성이 아니라 받아온 값의 이름을 써준다고 생각하기
-		 */
-		});
 
-		
-//<!-- 230216 6교시 로그인 한 회원만 댓글 작성할 수 있게하기 -->
+//로그인 한 회원만 댓글 작성할 수 있게하기 -->
 		$('#replyContent').on('focus', () => {
 			if(${ empty loginMember }) {
 				alert('로그인 후 이용해 주세요.')
@@ -165,8 +122,6 @@
 			}			
 		});
 		
-		
-
 	});
 </script>
 

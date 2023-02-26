@@ -4,6 +4,8 @@ import static com.closetou.common.jdbc.JDBCTemplate.close;
 import static com.closetou.common.jdbc.JDBCTemplate.getConnection;
 
 import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -93,7 +95,6 @@ public class BoardService {
 		return trarts;
 	}
 
-	
 	// 로직 수정으로 인한 주석처리
 	
 //	public List<TradeArticle> searchTradeArticlebyArticleArray(List<Article> searchList, String[] attribute) {
@@ -112,4 +113,17 @@ public class BoardService {
 //		return result;
 //	}
 
+	public int getBoardCountBySearchKeyword(String keyword) {
+		int count;
+		
+		Connection connection = getConnection();
+		
+		count = new BoardDao().getBoardCountForTradeSearch(connection, keyword);
+		
+		close(connection);
+		
+		return count;
+	}
+
+	
 }

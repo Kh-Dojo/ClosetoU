@@ -12,7 +12,7 @@
 <script src="${ path }/resources/js/jquery-3.6.3.js"></script>
 <link rel="stylesheet" href="${ path }/resources/css/sub-header.css">
 
-<title>CloseToU 메인페이지</title>
+<title>CloseToU</title>
 </head>
 <body>
 	<header>
@@ -40,13 +40,13 @@
 							<tr>
 								<td><input type="password" name="userPwd" id="userPwd"
 									placeholder="비밀번호" required></td>
-								<td><input type="submit" value="로그인"></td>
+								<td><input type="submit" value="로그인" class="btn_small"></td>
 							</tr>
 							<tr>
 							<td colspan="2">
 								<label><input type="checkbox" name="saveId"
 											${ empty cookie.saveId ? "" : "checked" }>아이디 저장</label>
-								<input type="button" value="회원가입" onclick="location.href = '${ path }/views/member/enroll.jsp';"> 
+								<input type="button" class="btn_small" value="회원가입" onclick="location.href = '${ path }/views/member/enroll.jsp';"> 
 							</td>
 						</tr>
 						</table>

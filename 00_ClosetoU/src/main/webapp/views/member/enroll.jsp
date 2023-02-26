@@ -58,7 +58,7 @@
 							<input type="text" class="form-control" name="userId" id="newId" placeholder="아이디를 입력해주세요" required>
 						</td>
 						<td style="width:110px">
-							<input type="button" id="checkDuplicate" value="중복 검사" >
+							<input type="button" id="checkDuplicate" value="중복 검사" class="btn_small">
 						</td>
 		 			</tr>
 		 			<tr>
@@ -110,8 +110,8 @@
 		 			</tr>
 		 		</tbody>
 	 		</table> 
-	 		<input type="submit" id="enrollSubmit" value="가입">	
-	 		<input type="reset" value="취소">	
+	 		<input type="submit" id="enrollSubmit" value="가입" class="btn_small">	
+	 		<input type="reset" value="취소" class="btn_small">	
 	 	</form>
  	</div>
 </section>
@@ -120,6 +120,8 @@
 	$(document).ready(() => {
 		$('#checkDuplicate').on('click', () => {
 			let userId = $('#newId').val().trim();
+			
+			alert('사용 가능한 아이디 입니다.');
 			
 			$.ajax({
 				type: 'POST',
