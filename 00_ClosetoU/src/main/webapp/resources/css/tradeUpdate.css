@@ -25,6 +25,31 @@ article .btn_small:active {
 	top: 1px;
 }
 
+
+.complete_trade {
+	box-shadow:inset 0px 0px 0px 0px #fce2c1;
+	background-color:#ffc477;
+	border:1px solid #eeb44f;
+	display:inline-block;
+	cursor:pointer;
+	color:#ffffff;
+	font-family:Arial;
+	font-size:13px;
+	padding:5px 24px;
+	text-decoration:none;
+	text-shadow:0px 1px 0px #cc9f52;
+}
+.complete_trade:hover {
+	background-color:#fb9e25;
+}
+.complete_trade:active {
+	position:relative;
+	top:1px;
+}
+
+
+
+
 article {
 	width: 1200px;
 	height: auto;

@@ -6,8 +6,6 @@
 
 <c:set var="path" value="${ pageContext.request.contextPath }"/>
 <script src="${ path }/resources/js/jquery-3.6.3.js"></script>
-<script src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
-<script src="//dapi.kakao.com/v2/maps/sdk.js?appkey=1a6d39646ccad54a791b4ce15012c492&libraries=services"></script>
 <link rel="stylesheet" href="${ path }/resources/css/Donation_Form.css">
 <jsp:include page="/views/common/sub-header.jsp" />
 	<section>

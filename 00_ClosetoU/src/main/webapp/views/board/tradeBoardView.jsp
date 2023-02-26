@@ -31,12 +31,11 @@
 			</div>
 			<div id="item_details">
 				<div id="item_info">
-					<div id="cloth_name" >${ cloth.name } </div>
+					<div id="cloth_name">${ cloth.name }</div>
 					<br>
-					<div id="cloth_price" >${ trart.price } 원</div>
-					<br>
-					<br> 거래방법 : ${ trart.tradeMethod } <br>
-					<br> 지역 : ${ trart.location }
+					<div id="cloth_price">${ trart.price }원</div>
+					<br> <br> 거래방법 : ${ trart.tradeMethod } <br> <br>
+					지역 : ${ trart.location }
 				</div>
 				<div id="buttons_area">
 					<button class="btn_small" style="font-size: 12px;">채팅하기</button>
@@ -67,7 +66,8 @@
 		<div id="manage_button_area">
 			<button class="btn_small" type="button"
 				onclick="location.href='${ path }/trade/article/update?no=${ article.no }'">수정</button>
-			<button class="btn_small" type="button" id="btnDelete">삭제</button>
+			<button class="btn_small" type="button" id="btnDelete"
+				onclick="location.href='${ path }/trade/article/delete?no=${ article.no }'">삭제</button>
 			<button class="btn_small" type="button" style="width: 12%;"
 				onclick="location.href='${ path }/views/board/trade'">목록으로</button>
 		</div>
