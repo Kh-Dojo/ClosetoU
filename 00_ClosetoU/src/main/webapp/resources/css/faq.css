@@ -1,0 +1,104 @@
+@charset "UTF-8";
+
+section[id="faq-container"] {
+    width: 1200px;
+    height: auto;
+    float: left;
+	box-sizing: border-box;
+}
+
+section[id="faq-container"] *{
+	box-sizing: border-box;
+	float: left;
+}
+
+.faq-title{
+  text-align : center;
+  color: rgb(85, 85, 85);
+  margin-left: auto;
+  margin-right: auto;
+  display: block;
+}
+
+#info{
+  text-align: center;
+  color: rgb(85, 85, 85);
+}
+
+.layout{
+    max-width: 600px;
+    height: auto;
+    margin: 0 auto;
+    padding: 10px;;
+    border-radius: 5px;
+    border: solid 1px #FFB960;
+}
+
+.faq{
+    list-style: none;
+    margin: 0;
+    padding: 0;
+}
+.faq > li{
+  padding: 10px 0;
+  box-sizing: border-box;
+}
+.faq > li:nth-child(n+2){ /* 아이템 구분 점선 */
+  border-top: 1px dashed #aaa;
+}
+.faq input {
+  display: none;
+}
+.faq label { /* 제목 - 클릭 영역 */
+  font-weight: bold;
+  color: rgb(85, 85, 85);
+  margin: 20px 0 0;
+  cursor: pointer;
+}
+.faq label::before { /* 제목 앞 화살표 */
+  content: "▶";
+  display: block;
+  color: #FFB960;
+  margin-right: 8px;
+  float: left;
+}
+.faq input:checked + label::before { /* 내용 펼침 상태 제목 앞 화살표 */
+  content: "▼";
+}
+
+.faq div { /* 내용 영역 - 기본 감춤 상태 */
+  display: none;
+  color: #666;
+  font-size: 0.9375em;
+  overflow: hidden;
+  padding: 10px 0 10px 30px;
+  box-sizing: border-box;
+  transition: max-height 0.4s;
+}
+.faq input:checked + label + div { /* 내용 영역 펼침 */
+  display: block;
+}
+
+#qnaBtn {
+	box-shadow:inset 0px 1px 0px 0px #fce2c1;
+	background-color:#ffc477;
+	border-radius:6px;
+	border:1px solid #eeb44f;
+	display:inline-block;
+	cursor:pointer;
+	color:#ffffff;
+	font-family:Arial;
+	font-size:15px;
+	font-weight:bold;
+	padding:2.5px 10px;
+	text-decoration:none;
+	text-shadow:0px 1px 0px #cc9f52;
+    margin-left: 5%;
+}
+#qnaBtn:hover {
+	background-color:#fb9e25;
+}
+#qnaBtn:active {
+	position:relative;
+	top:1px;
+}

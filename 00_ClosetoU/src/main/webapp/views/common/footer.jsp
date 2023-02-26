@@ -4,10 +4,10 @@
 
 <c:set var="path" value="${ pageContext.request.contextPath }"/>
 <link rel="stylesheet" href="${ path }/resources/css/footer.css">
-	<footer>
+	<footer id="footer">
         <div id="wrap">
             <div id="top">
-                <a href="${ path }/views/intro/donation_Intro.jsp" class="aTag">이용안내</a> | <a id="FAQ" href="#" class="aTag">FAQ</a> | <a href="https://www.hometax.go.kr/" target="_blank" class="aTag">국세청 홈택스</a>
+                <a href="${ path }/views/intro/donation_Intro.jsp" class="aTag">이용안내</a> | <a id="FAQ" href="${ path }/views/board/faq.jsp" class="aTag">FAQ</a> | <a href="https://www.hometax.go.kr/" target="_blank" class="aTag">국세청 홈택스</a>
             	<a href="#">
             		<img id="top-img" src="${ path }/resources/img/forFooterTopImg.png" alt="${ path }/">
             	</a>
@@ -30,7 +30,7 @@
                 <div id="text-qna">
                     의류기부 중고거래 관련 문의(평일 09:00 ~ 17:00)<br>
                     점심시간(평일 12:00 ~ 13:00)
-                </div><br>
+                <br><br>
                 <div id="tel"><img id="tel-img" src="${ path }/resources/img/forFooterTelImg.png">1588-1234</div>
                 <div id="btn"><a id="btnQna" href="${ path }/views/board/qnaWrite.jsp">온라인 문의</a></div>
             </div>

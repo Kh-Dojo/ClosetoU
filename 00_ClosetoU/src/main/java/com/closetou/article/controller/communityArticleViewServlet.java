@@ -76,13 +76,12 @@ public class communityArticleViewServlet extends HttpServlet {
 		
 		article = new ArticleService().getArticleByNoForCommunity(no, hasRead);
 		
-		/*
-		 * System.out.println("아티클 출력!!!!!!!!" + article);
-		 */		
+		System.out.println("아티클 출력!!!!!!!!" + article);
+	
 		request.setAttribute("Article", article);
 		request.getRequestDispatcher("/views/board/communityBoardView.jsp").forward(request, response);
 		
-		System.out.println(article);
+//		System.out.println(article);
 	}
 
 }

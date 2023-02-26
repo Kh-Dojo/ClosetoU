@@ -104,8 +104,8 @@ public class CommunityBoardUpdateServlet extends HttpServlet {
 	    		String filesystemName = mr.getFilesystemName("upfile");	    		
 	    		
 	    		// 파일을 넘겨주지 않았을 때 뭐가 찍히나(null of 빈문자열) 확인하기
-	    		System.out.println(originalFileName);
-	    		System.out.println(filesystemName);
+//	    		System.out.println(originalFileName);
+//	    		System.out.println(filesystemName);
 	    		
 	    		// 파일을 첨부하고 수정했을 때 첨부파일이 수정되게
 	    		if(originalFileName != null && filesystemName != null) {	// 사용자가 파일을 수정하지 않으면 null
