@@ -14,30 +14,32 @@
 			page="/views/common/sidemenu/tradeSideMenu.jsp" /></div>
 	<article>
 		<div id="search_section">
-			<form accept-charset="UTF-8" action="${ path }/trade/article/search"
+			<form accept-charset="utf-8" action="${ path }/trade/article/search"
 				method="POST">
+				<input type="hidden" name="keyword" id="keyword">
 				<input type="search" name="search" id="search_bar"
-					placeholder="제목이나 키워드를 입력하세요."> <input class="btn_small"
-					id="search_button" type="submit" value="검색"
+					placeholder="제목이나 키워드를 입력하세요." required> <input
+					class="btn_small" id="search_button" type="submit" value="검색"
 					style="width: 104.5px; height: 54.5px; margin: 7px;">
 				<button type="button" id="search_option_toggle_btn"
 					style="height: 54.5px;">옵션</button>
 				<div id="search_option_box">
-					<div id="option_view_area">
-						<input type="text" id="show_options_textbox"
-							placeholder="사용자가 체크한 옵션들이 여기에 표시됩니다." readonly />
-					</div>
+<!-- 					<div id="option_view_area"> -->
+<!-- 						<input type="text" id="show_options_textbox" -->
+<!-- 							placeholder="사용자가 체크한 옵션들이 여기에 표시됩니다." readonly /> -->
+<!-- 					</div> -->
 					<div id="categoryoptions">
 						<c:forEach var="category" items="${ categorylist }">
 							<div>
 								<c:choose>
 									<c:when test="${ category.clothCode == '00' }">
-										<input type="checkbox" name="clothcategory"
-											value="${ category.clothCode }" checked>${ category.clothCategory }						
+										<input type="checkbox" name="${ category.clothCategory }"
+											class="catagory_checkbox" value="${ category.clothCode }"
+											checked>${ category.clothCategory }
 								</c:when>
 									<c:otherwise>
-										<input type="checkbox" name="clothcategory"
-											value="${ category.clothCode }">${ category.clothCategory }
+										<input type="checkbox" name="${ category.clothCategory }"
+											class="catagory_checkbox" value="${ category.clothCode }">${ category.clothCategory }
 								</c:otherwise>
 								</c:choose>
 							</div>

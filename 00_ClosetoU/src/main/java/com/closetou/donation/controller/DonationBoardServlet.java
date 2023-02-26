@@ -21,7 +21,6 @@ public class DonationBoardServlet extends HttpServlet {
 
 	
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		System.out.println("=========================DOGET== ");
 		DonationService donationService = new DonationService() ;
 		
 		

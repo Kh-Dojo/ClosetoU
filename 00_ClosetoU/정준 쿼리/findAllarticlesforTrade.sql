@@ -32,8 +32,9 @@ FROM
                     ARTICLE
                 WHERE
                     TYPE IN ( '거래' )
+                    AND VISABLE = 'Y'
                 ORDER BY
                     NO DESC
             )
     )
-WHERE RNUM BETWEEN ? AND ?;
+WHERE RNUM BETWEEN 1 AND 15;

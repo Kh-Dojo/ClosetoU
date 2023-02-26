@@ -122,7 +122,7 @@ public class BoardDao {
 			int count = 0;
 			PreparedStatement pstmt = null;
 			ResultSet rs = null;
-			String query = "SELECT COUNT(*) FROM ARTICLE WHERE TYPE = '거래'";
+			String query = "SELECT COUNT(*) FROM ARTICLE WHERE TYPE = '거래' AND VISABLE='Y'";
 
 			try {
 				pstmt = connection.prepareStatement(query);

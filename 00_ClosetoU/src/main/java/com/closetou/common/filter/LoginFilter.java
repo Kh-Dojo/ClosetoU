@@ -14,7 +14,7 @@ import javax.servlet.http.HttpSession;
 
 import com.closetou.member.model.vo.Member;
 
-@WebFilter({"/member/*", "/article/tradeWrite", "/article/communityWrite", "/donation/donation_Form"})
+@WebFilter({"/member/*", "/article/tradeWrite", "/article/communityWrite", "/donation/donation_Form", "/trade/article/update", "/trade/article/delete"})
 public class LoginFilter extends HttpFilter implements Filter {
     public LoginFilter() {
     }

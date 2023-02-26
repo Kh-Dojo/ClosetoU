@@ -30,9 +30,9 @@ public class tradeArticleSearchServlet extends HttpServlet {
 		}
     	
     	
-    	request.setCharacterEncoding("UTF-8");
+    	request.setCharacterEncoding("utf-8");
 		
-    	String keyword = (String) request.getParameter("search");
+    	String keyword = (String) request.getParameter("keyword");
     	System.out.println(keyword);
     	listCount = new BoardService().getBoardCountBySearchKeyword(keyword);
 		

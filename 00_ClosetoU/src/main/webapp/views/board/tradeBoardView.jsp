@@ -66,8 +66,8 @@
 		<div id="manage_button_area">
 			<button class="btn_small" type="button"
 				onclick="location.href='${ path }/trade/article/update?no=${ article.no }'">수정</button>
-			<button class="btn_small" type="button" id="btnDelete"
-				onclick="location.href='${ path }/trade/article/delete?no=${ article.no }'">삭제</button>
+			<button class="btn_small" type="button" id="btnDelete" name="btnDelete"
+				onclick="location.href='${ path }/trade/article/delete?no=${ article.no }&&user=${ member.nickname }'">삭제</button>
 			<button class="btn_small" type="button" style="width: 12%;"
 				onclick="location.href='${ path }/views/board/trade'">목록으로</button>
 		</div>
