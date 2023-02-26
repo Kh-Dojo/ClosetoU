@@ -60,8 +60,6 @@ public class tradeWriteServlet extends HttpServlet {
 		Cloth cloth = new Cloth();
 		ClothPhoto cloph = new ClothPhoto();
 		TradeArticle trart = new TradeArticle();
-		Enumeration<String> uploadFileList = null;
-		ArrayList<String> filenames = null;
 
 		// 파일 인코딩 설정
 		String encoding = "UTF-8";

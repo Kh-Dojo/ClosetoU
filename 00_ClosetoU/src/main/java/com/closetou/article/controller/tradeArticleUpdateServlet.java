@@ -17,6 +17,7 @@ import com.closetou.article.model.vo.Article;
 import com.closetou.article.model.vo.TradeArticle;
 import com.closetou.board.model.service.BoardService;
 import com.closetou.cloth.model.service.ClothService;
+import com.closetou.cloth.model.vo.Cloth;
 import com.closetou.cloth.model.vo.ClothCategory;
 import com.closetou.cloth.model.vo.ClothPhoto;
 import com.closetou.common.util.FileRename;
@@ -34,32 +35,32 @@ public class tradeArticleUpdateServlet extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 		request.setCharacterEncoding("UTF-8");
-		
+
 		Article article = null;
 		TradeArticle trart = null;
 		List<ClothPhoto> clphs = null;
-		
-		// 로그인 체크
+
+		// 로그인 멤버 정보 가져오기
 		HttpSession session = request.getSession(false);
 		Member loginMember = (session == null) ? null : (Member) session.getAttribute("loginMember");
 
 		// 게시글 번호 확인
 		int no = Integer.parseInt(request.getParameter("no"));
 		article = new ArticleService().getArticleByNoForTrade(no, true);
-		
+
 		// 카테고리 리스트 확인
 		ArrayList<ClothCategory> categorylist = new ArrayList<>();
 		categorylist = new BoardService().getClothCategories();
-		
+
 		request.setAttribute("categorylist", categorylist);
-		
+
 		// 거래 게시글 확인
 		trart = new ArticleService().getTradeArticleByNo(no);
-		
+
 		// 사진 확인
 		clphs = new ClothService().getClothPhotosbyClothNo(trart.getClothNumber());
 		ClothPhoto clph = new ClothPhoto();
-		
+
 		if (article != null && loginMember.getNickname().equals(article.getUserNickname())) {
 			request.setAttribute("article", article);
 			request.setAttribute("trart", trart);
@@ -82,48 +83,49 @@ public class tradeArticleUpdateServlet extends HttpServlet {
 		Member loginMember = (session == null) ? null : (Member) session.getAttribute("loginMember");
 
 		String path = getServletContext().getRealPath("/resources/clothImages");
+
+		// 최대 100MB;
 		int maxSize = 104857600;
+		Article article = new Article();
+		Cloth cloth = new Cloth();
+		ClothPhoto cloph = new ClothPhoto();
+		TradeArticle trart = new TradeArticle();
+
+		// 파일 인코딩 설정
 		String encoding = "UTF-8";
-
 		MultipartRequest mr = new MultipartRequest(request, path, maxSize, encoding, new FileRename());
-		Article article = new ArticleService().getArticleByNoForCommunity(Integer.parseInt(mr.getParameter("no")),
-				true);
 
-		if (article != null && loginMember.getNickname().equals(article.getUserNickname())) {
+		// article 객체 세팅
+		article.setNo(Integer.parseInt(mr.getParameter("articleno")));
+		article.setTitle(mr.getParameter("title"));
+		article.setContent(mr.getParameter("content"));
 
-			article.setTitle(mr.getParameter("title"));
-			article.setContent(mr.getParameter("content"));
-			article.setType(mr.getParameter("type"));
-			String originalFileName = mr.getOriginalFileName("upfile");
-			String filesystemName = mr.getFilesystemName("upfile");
+		// cloth 내용 세팅
+		cloth.setNo(Integer.parseInt(mr.getParameter("clothno")));
+		cloth.setCategory(mr.getParameterValues("clothcategory"));
 
-			if (originalFileName != null && filesystemName != null) {
-
-				File file = new File(path + "/" + article.getRenamedFileName());
-
-				if (file.exists()) {
-					file.delete();
-				}
-				article.setOriginalFileName(originalFileName);
-				article.setRenamedFileName(filesystemName);
-			}
-
-			int result = new ArticleService().save(article);
-
-			if (result > 0) {
-				request.setAttribute("msg", "게시글 수정 성공");
-				request.setAttribute("location", "/trade/article/view?no=" + article.getNo());
-			} else {
-				request.setAttribute("msg", "게시글 수정 실패");
-				request.setAttribute("location", "/trade/article/update?no=" + article.getNo());
-			}
-
+		// trart 내용 세팅
+		trart.setNo(Integer.parseInt(mr.getParameter("articleno")));
+		trart.setPrice(Integer.parseInt(mr.getParameter("price")));
+		if (Integer.parseInt(mr.getParameter("price")) == 0) {
+			trart.setFree("Y");
 		} else {
-			request.setAttribute("msg", "잘못된 접근입니다.");
-			request.setAttribute("location", "/views/board/trade");
+			trart.setFree("N");
 		}
+		trart.setTradeMethod(mr.getParameter("trademethod"));
+		trart.setLocation(mr.getParameter("location"));
 
+		// 게시글 내용 저장
+		int tradeArticleUpdateResult = new ArticleService().updateForTrade(article, cloth, trart);
+
+		if (tradeArticleUpdateResult == 0) {
+			request.setAttribute("msg", "거래글 수정 실패");
+			request.setAttribute("location", "/trade/article/view?no=" + Integer.parseInt(mr.getParameter("articleno")));
+//			request.getRequestDispatcher("/views/common/msg.jsp").forward(request, response);
+		}
+		
+		request.setAttribute("msg", "거래글 수정에 성공했습니다.");
+		request.setAttribute("location", "/views/board/trade");
 		request.getRequestDispatcher("/views/common/msg.jsp").forward(request, response);
 	}
-
 }

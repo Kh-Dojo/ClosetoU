@@ -16,8 +16,11 @@
 		<div id="search_section">
 			<form action="${ path }/itemsearch" method="POST">
 				<input type="search" name="search" id="search_bar"
-					placeholder="제목이나 키워드를 입력하세요." /> <input type="submit" value="검색">
-				<button type="button" id="search_option_toggle_btn">검색옵션</button>
+					placeholder="제목이나 키워드를 입력하세요." /> <input class="btn_small"
+					id="search_button" type="submit" value="검색"
+					style="width: 104.5px; height: 54.5px; margin: 7px;">
+				<button type="button" id="search_option_toggle_btn"
+					style="height: 54.5px;">옵션</button>
 				<div id="search_option_box">
 					<div id="option_view_area">
 						<input type="text" id="show_options_textbox"
@@ -38,6 +41,8 @@
 								</c:choose>
 							</div>
 						</c:forEach>
+						<hr>
+						<input type="checkbox" name="ended">거래완료 품목 제외
 					</div>
 				</div>
 			</form>
@@ -51,7 +56,9 @@
 				</c:if>
 				<c:if test="${ not empty trlist }">
 					<c:forEach var="trboard" items="${ trlist }" varStatus="loop">
-						<div class="item_box" OnClick="location.href ='${ path }/trade/article/view?no=${ trboard.no }'" style="cursor:pointer;">
+						<div class="item_box"
+							OnClick="location.href ='${ path }/trade/article/view?no=${ trboard.no }'"
+							style="cursor: pointer;">
 							<c:forEach var="cloth" items="${ cllist }">
 								<c:if test="${ trboard.clothNumber == cloth.no }">
 									<div>
@@ -60,12 +67,14 @@
 									</div>
 								</c:if>
 							</c:forEach>
+							<div class="price_area"
+								style="text-align: center; font-size: 17px; font-weight: bolder;">${ trboard.price }
+								원</div>
 							<c:forEach var="arboard" items="${ list }">
 								<c:if test="${ trboard.no == arboard.no }">
-									<div>${ arboard.title }</div>
+									<div style="text-align: center;">${ arboard.title }</div>
 								</c:if>
 							</c:forEach>
-							<div>${ trboard.price }</div>
 						</div>
 					</c:forEach>
 				</c:if>
@@ -75,11 +84,11 @@
 				<div></div>
 				<div>
 					<!-- 맨 처음으로 -->
-					<button
+					<button class="btn_small"
 						onclick="location.href='${ path }/views/board/trade?page=1'">&lt;&lt;</button>
 
 					<!-- 이전 페이지로 -->
-					<button
+					<button class="btn_small"
 						onclick="location.href='${ path }/views/board/trade?page=${ pageInfo.prevPage }'">&lt;</button>
 
 					<!--  10개 페이지 목록 -->
@@ -87,10 +96,10 @@
 						end="${ pageInfo.endPage }" varStatus="status">
 						<c:choose>
 							<c:when test="${ status.current == pageInfo.currentPage}">
-								<button disabled>${ status.current }</button>
+								<button class="btn_small" disabled>${ status.current }</button>
 							</c:when>
 							<c:otherwise>
-								<button
+								<button class="btn_small"
 									onclick="location.href='${ path }/views/board/trade?page=${ status.current }'">${ status.current }</button>
 							</c:otherwise>
 						</c:choose>
@@ -98,14 +107,13 @@
 
 
 					<!-- 다음 페이지로 -->
-					<button
+					<button class="btn_small"
 						onclick="location.href='${ path }/views/board/trade?page=${ pageInfo.nextPage }'">&gt;</button>
 
 					<!-- 맨 끝으로 -->
-					<button
+					<button class="btn_small"
 						onclick="location.href='${ path }/views/board/trade?page=${ pageInfo.maxPage }'">&gt;&gt;</button>
 				</div>
-				<div></div>
 			</div>
 		</div>
 	</article>

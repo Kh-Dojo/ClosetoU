@@ -1,6 +1,6 @@
 @charset "UTF-8";
 
-.btn_small {
+article .btn_small {
 	box-shadow:inset 0px 1px 0px 0px #fce2c1;
 	background-color:#ffc477;
 	border-radius:6px;
@@ -15,10 +15,10 @@
 	text-decoration:none;
 	text-shadow:0px 1px 0px #cc9f52;
 }
-.btn_small:hover {
+article .btn_small:hover {
 	background-color:#fb9e25;
 }
-.btn_small:active {
+article .btn_small:active {
 	position:relative;
 	top:1px;
 }
@@ -41,16 +41,16 @@ section>* {
 	width: 20%;
 }
 
-#content {
-	text-align: center;
-}
-
 #board-write-container {
 	width: 100%;
 	
 }
 
-
+#content {
+	align-content: center;
+	margin-left: 50px;
+	margin-bottom: 10px;
+}
 
 article {
 	width: 80%;
@@ -65,10 +65,23 @@ article {
 }
 
 #cloth_enroll {
-	display: flex;
-	width: 100%;
+	display : flex;
+	width: 80%;
 	height: 300px;
-	justify-content: center;
+	justify-content: flex-end;
+}
+
+#cloth_detail * {
+	text-align: left;
+	padding-left:10px; 
+}
+
+#cloth_detail input {
+	height : 20px;
+}
+
+#cloth_detail select {
+	height : 30px;
 }
 
 #photoarea {
@@ -88,3 +101,16 @@ article {
 #categoryoptions {
 	display: none;
 }
+
+#title_area * {
+	height: 30px;
+	width: 660px;
+}
+
+#content_btn_area {
+	display : block;
+	text-align: right;
+	padding-right: 200px;
+	margin-top: 10px;
+}
+

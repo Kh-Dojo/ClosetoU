@@ -20,42 +20,52 @@
 				enctype="multipart/form-data">
 				<div id="cloth_enroll">
 					<div id="photoarea">
-						<input type="file" name="cloth_upfile" multiple>
+						<input type="file" name="cloth_upfile">
 					</div>
-				</div>
-				<div>
-					<input type="text" name="cloth_name" placeholder="상품명을 입력해주세요.">
-					<button id="togglecategory_btn" type="button">카테고리 등록</button>
-					<input type="number" name="price" placeholder="가격">
-					<input type="checkbox" id="free">나눔
-					<input type="text" name="trademethod">희망거래방법
-					<input type="text" name="location">거래지역
-				</div>
-				<div id="categoryoptions">
-					<c:forEach var="category" items="${ categorylist }">
-						<c:choose>
-							<c:when test="${ category.clothCode == '00' }">
-								<input type="checkbox" name="clothcategory"
-									value="${ category.clothCode }" checked>${ category.clothCategory }						
+					<div id="cloth_detail"
+						style="text-align: left; padding-left: 30px; width: 350px;">
+						<input type="text" name="cloth_name" placeholder="상품명을 입력해주세요.">
+						<button id="togglecategory_btn" type="button">카테고리 등록</button>
+						<br> <br> <input type="number" name="price"
+							placeholder="가격"> <input type="checkbox" id="free">나눔
+						<br> <br> 희망거래방법 &nbsp;&nbsp;&nbsp;<select
+							name="trademethod">
+							<option value="직거래">직거래</option>
+							<option value="택배">택배</option>
+						</select> <br> <br> 거래지역
+						&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<input type="text"
+							name="location"><br> <br>
+
+						<div id="categoryoptions">
+							<c:forEach var="category" items="${ categorylist }">
+								<c:choose>
+									<c:when test="${ category.clothCode == '00' }">
+										<input type="checkbox" name="clothcategory"
+											value="${ category.clothCode }" checked>${ category.clothCategory }						
 								</c:when>
-							<c:otherwise>
-								<input type="checkbox" name="clothcategory"
-									value="${ category.clothCode }">${ category.clothCategory }
-								
+									<c:otherwise>
+										<input type="checkbox" name="clothcategory"
+											value="${ category.clothCode }">${ category.clothCategory }
 								</c:otherwise>
-						</c:choose>
-					</c:forEach>
+								</c:choose>
+							</c:forEach>
+						</div>
+					</div>
 				</div>
 				<div id="content">
-					<div>
+					<br>
+					<br>
+					<div id="title_area">
 						<input type="text" name="title" id="title" placeholder="제목">
 					</div>
+					<br> <br>
 					<div>
-						<textarea name="content" cols="50" rows="15"></textarea>
+						<textarea style="width: 660px; height: 311px;" name="content"
+							cols="50" rows="15"></textarea>
 					</div>
-					<div>
-						<input type="submit" value="등록"> <input type="reset"
-							value="취소">
+					<div id="content_btn_area">
+						<input class="btn_small" type="submit" value="등록"> <input
+							class="btn_small" type="reset" value="초기화">
 					</div>
 				</div>
 			</form>

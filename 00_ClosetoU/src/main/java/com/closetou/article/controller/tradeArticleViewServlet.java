@@ -19,6 +19,7 @@ import com.closetou.article.model.service.ArticleService;
 import com.closetou.article.model.vo.Article;
 import com.closetou.article.model.vo.TradeArticle;
 import com.closetou.cloth.model.service.ClothService;
+import com.closetou.cloth.model.vo.Cloth;
 import com.closetou.cloth.model.vo.ClothPhoto;
 import com.closetou.member.model.service.MemberService;
 import com.closetou.member.model.vo.Member;
@@ -40,8 +41,10 @@ public class tradeArticleViewServlet extends HttpServlet {
 		Article article = null;
 		TradeArticle trart = null;
 		Member member = null;
+		Cloth cloth = null;
 		List<ClothPhoto> clphs = null;
 
+		
 		int no = Integer.parseInt(request.getParameter("no"));
 
 		Cookie[] cookies = request.getCookies();
@@ -76,6 +79,7 @@ public class tradeArticleViewServlet extends HttpServlet {
 		trart = new ArticleService().getTradeArticleByNo(no);
 		member = new MemberService().findMemberByNo(article.getUserNo());
 		clphs = new ClothService().getClothPhotosbyClothNo(trart.getClothNumber());
+		cloth = new ClothService().getClothbyNo(trart.getClothNumber());
 		ClothPhoto clph = new ClothPhoto();
 
 //		System.out.println(session.getAttribute("alistjson"));
@@ -89,6 +93,7 @@ public class tradeArticleViewServlet extends HttpServlet {
 		request.setAttribute("article", article);
 		request.setAttribute("member", member);
 		request.setAttribute("trart", trart);
+		request.setAttribute("cloth", cloth);
 		request.setAttribute("clothphoto", clph);
 		request.setAttribute("clothphotos", clphs);
 
