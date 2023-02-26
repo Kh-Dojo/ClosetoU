@@ -53,9 +53,9 @@
 		<table id="tbl-board">
 			<tr>
 				<th>번호</th>
+				<th>작성자</th>
 				<th>제목</th>
 				<th>문의 일자</th>
-				<th>문의 내용</th>
 				<th>처리 여부</th>
 			</tr>
 
@@ -71,9 +71,9 @@
 				<c:forEach var="article" items="${ list }">
 					<tr>
 						<td>${ article.rowNum }</td>		<!--순번 -->
+						<td>${ article.userNickname }</td>	<!-- 작성자 -->
 						<td>${ article.title }</td>		<!-- 제목 -->
 						<td>${ article.postDate }</td>	<!-- 문의일자 -->
-						<td>${ article.content }</td>	<!-- 문의 내용 -->
 						<td>${ article.visable }</td>	<!-- 처리 여부 -->
 					</tr>
 				</c:forEach>
