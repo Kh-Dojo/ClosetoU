@@ -1,0 +1,103 @@
+@charset "UTF-8";
+
+        .wrap{
+            width: 1200px;
+            height: 1000px;
+            
+            margin: 0 auto;
+        }
+        
+		
+		
+        
+        #content>div{
+            float: left;
+              
+        }        
+        #content1{
+            width: 480px;
+            
+            box-sizing: border-box;
+        }
+        #content1>img{
+        	width: 480px;
+        	height: 1000px;
+        }
+        
+        #content2{
+
+            width: 720px;
+            height: 1000px;
+            
+            
+            background: #FFF0CA;
+        }
+        #content2>div{
+            
+            width: 700px;
+            margin-left: 10px;
+        }
+        #td_cate1{
+            width: 60px;
+            text-align: left;
+        }
+        #td_title1{
+            width: 450px;
+            text-align: left;
+        }
+        #td_date1{
+            width: 100px;
+            text-align: left;
+        }       
+        #td_cate2{
+            width: 60px;
+            text-align: left;
+        }
+        #td_title2{
+            width: 400px;
+            text-align: left;
+        }
+        #count{
+            width: 52px;
+            text-align: left;
+        }
+        #td_date2{
+            width: 94px;
+            text-align: left;
+        }
+        
+		#table1 {
+        border: 1px #a39485 solid; 
+        font-size: .9em;
+        box-shadow: 0 2px 5px rgba(0,0,0,.25);
+        width: 100%;
+        border-collapse: collapse;
+        border-radius: 5px;
+        overflow: hidden;
+		}
+
+		.th {
+	    text-align: left;
+	    font-weight: bold;
+	    color: #fff;
+	    background : #B89563;
+		}
+		.td, .th {
+    	vertical-align: middle;
+		}
+
+		.td {
+	    border-bottom: 1px solid rgba(0,0,0,.1);
+    	background: #fff;
+
+		} 
+		
+		#chartview{
+			    height: 300px;
+			    width: 620px;
+			    margin-left: 42px;
+			    background-color: white;
+			    border-left: 5px solid #B89563;
+			    border-right: 5px solid #B89563;
+			    box-sizing: border-box;
+		}
