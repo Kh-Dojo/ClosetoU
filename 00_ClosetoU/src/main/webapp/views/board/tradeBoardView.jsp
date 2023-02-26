@@ -73,6 +73,6 @@
 		</div>
 	</section>
 </article>
-
+<script src="${ path }/resources/js/tradeView.js"></script>
 <jsp:include page="/views/common/footer.jsp" />
 

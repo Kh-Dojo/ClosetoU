@@ -14,9 +14,10 @@
 			page="/views/common/sidemenu/tradeSideMenu.jsp" /></div>
 	<article>
 		<div id="search_section">
-			<form action="${ path }/itemsearch" method="POST">
+			<form accept-charset="UTF-8" action="${ path }/trade/article/search"
+				method="POST">
 				<input type="search" name="search" id="search_bar"
-					placeholder="제목이나 키워드를 입력하세요." /> <input class="btn_small"
+					placeholder="제목이나 키워드를 입력하세요."> <input class="btn_small"
 					id="search_button" type="submit" value="검색"
 					style="width: 104.5px; height: 54.5px; margin: 7px;">
 				<button type="button" id="search_option_toggle_btn"
