@@ -31,10 +31,10 @@ section[id="article-section"] *{
 	box-sizing: border-box;
 }
 
-article[id="articlee-content"] {
+article[id="article-content"] {
     width: 80%;
     height: auto;
-    float: left;
+    float: right;
 }
 
 div[id="article-outline"]{
@@ -81,8 +81,19 @@ table[id="article-view "] th, table[id="article-view"] td{
     padding: 5px;
 }
 
+#comment-container {
+	margin-left: auto;
+	margin-right: auto;
+}
 
-
+#tbl-comment {
+	margin-left: auto;
+	margin-right: auto;
+	width: 90%;
+	border-collapse: collapse;
+    border-top: 2px solid rgb(156, 126, 49);
+    color: rgb(85, 85, 85);
+}
 
 
 

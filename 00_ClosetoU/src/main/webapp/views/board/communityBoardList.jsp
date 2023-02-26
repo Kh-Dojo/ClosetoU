@@ -39,9 +39,9 @@
 							<td id="td-title">	<!-- 제목 -->
 								<c:if test="${ article.type eq '공지' }">
 									<a href="${ path }/communityArticleView?no=${ article.no }" class="title-td-a">
-										<span>[${ article.type }]</span> ${ article.title }
+										<span><b>[${ article.type }]</b></span> ${ article.title }
 										<c:if test="${ not empty article.originalFileName }">
-											<img width="20px" src="${ path }/resources/img/iconForBoardTitle.png">
+											<img width="15px" src="${ path }/resources/img/iconForBoardTitle.png">
 										</c:if>
 									</a>
 								</c:if>
@@ -49,7 +49,7 @@
 									<a href="${ path }/communityArticleView?no=${ article.no }" class="title-td-a">
 										${ article.title }
 										<c:if test="${ not empty article.originalFileName }">
-											<img width="20px" src="${ path }/resources/img/iconForBoardTitle.png">
+											<img width="15px" src="${ path }/resources/img/iconForBoardTitle.png">
 										</c:if>
 									</a>
 								</c:if>

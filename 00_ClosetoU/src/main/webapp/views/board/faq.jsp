@@ -56,8 +56,9 @@
     </div>
 <br>
     <button onclick="location.href='${ path }/views/board/qnaWrite.jsp'" id="qnaBtn">문의하기</button>
-</article>
 <br><br><br><br>
+</article>
+
 
 </section>
 <jsp:include page="/views/common/footer.jsp" />
