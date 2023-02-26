@@ -19,6 +19,3 @@
 	<%-- 헤더에 저장된 페이지 정보 중 어떤 메인메뉴를 클릭했나 가져옴 --%>
 	<h1 id="mainmenu">자유로운 수다방</h1>
 </div>
-<div id="sub_menu_name_area">
-	<h3 class="submenu"><a href="${ path }/article/communityWrite">수다 글 등록</a></h3>	
-</div>

@@ -14,6 +14,33 @@
 		background-color:#FFB960;
 		color : white;
 	}
+	
+	#sidemenu {
+	width: 20%;
+	height: auto;
+	float:left;
+}
+
+	#view-container {
+		width: 80%;
+		height: auto;
+		box-sizing: border-box;
+		padding-right:130px;
+		margin-right:100px;
+	}
+	
+	h2 {
+		text-align: center;
+	}
+	
+	#sub_menu_name_area > ul {
+		list-style:none;
+	}
+	 
+	#sub_menu_name_area > ul > li > a {
+		text-decoration:none;
+		color:black;
+	}
 </style>
 
 <div id="main_menu_name_area">

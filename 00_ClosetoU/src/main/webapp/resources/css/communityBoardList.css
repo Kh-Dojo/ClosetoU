@@ -14,7 +14,7 @@ section[id="board-list-section"] *{
 article[id="content"] {
     width: 80%;
     height: auto;
-    float: left;
+    float: right;
 }
 
 article[id="content"] h2{
@@ -84,7 +84,7 @@ td[id="td-viewcount"]{
     text-align: center;
 }
 
-th {
+section th {
     background-color:  #FFF0CA;
 }
 
