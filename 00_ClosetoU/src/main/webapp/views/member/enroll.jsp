@@ -43,7 +43,7 @@
 
 <section id="content">
 	<div id="enroll-container">	 	
-	 	<form name="memberEnrollFrm" action="${ path }/member/enroll" method="POST">
+	 	<form name="memberEnrollFrm" action="${ path }/memberenroll" method="POST">
 	 		<table class="table table-bordered table-hover" style="text-align:center;">
 	 			<thead>
 	 				<tr>

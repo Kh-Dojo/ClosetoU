@@ -55,7 +55,7 @@ public class DonationFormServlet extends HttpServlet {
 		int result = new DonationService().save(df);
 		
 		if(result > 0) {
-			request.setAttribute("msg", "게시글 등록 성공");
+			request.setAttribute("msg", "기부 신청서 작성 성공");
 			request.setAttribute("location", "/");
 		}
 		request.getRequestDispatcher("/views/common/msg.jsp").forward(request, response);

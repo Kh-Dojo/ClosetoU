@@ -74,7 +74,7 @@
 						<td>${ article.rowNum }</td>
 						<td>
 							<c:if test="${ article.type eq '거래' }">
-								<a href="${ path }/tradeBoardView?no=${ article.no }">
+								<a href="${ path }/trade/article/view?no=${ article.no }">
 									${ article.title }
 								</a>
 							</c:if>
