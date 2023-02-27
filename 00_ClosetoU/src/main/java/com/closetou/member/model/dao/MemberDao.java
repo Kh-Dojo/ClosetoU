@@ -16,7 +16,7 @@ import com.closetou.member.model.vo.Member;
 
 public class MemberDao {
 
-	public Member findMemberById(Connection connection, String userId) {
+	public Member findMemberById(Connection connection, String id) {
 		Member member = null;
 		PreparedStatement pstmt = null;
 		ResultSet rs = null;
@@ -25,7 +25,7 @@ public class MemberDao {
 		try {
 			pstmt = connection.prepareStatement(query);
 			
-			pstmt.setString(1, userId);
+			pstmt.setString(1, id);
 			
 			rs = pstmt.executeQuery();
 			

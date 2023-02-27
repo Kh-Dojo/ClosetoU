@@ -44,3 +44,31 @@ th:last-child {
 	position:relative;
 	top:1px;
 }
+
+section #enroll-container {
+	text-align:center;
+}
+	
+section #enroll-container input {
+	margin:3px;
+}
+	
+section #enroll-container table {
+	margin:0 auto;
+}
+	
+section #enroll-container table th {
+	padding:0 10px; 
+	text-align:center;
+	height:60px;
+	font-size:25pt;
+}
+	
+section #enroll-container table td {
+	padding:0 10px; 
+	width:150px;
+	height:25px;
+	text-align:center;
+	color: rgb(220, 179, 14);
+	font-weight: bold;
+}

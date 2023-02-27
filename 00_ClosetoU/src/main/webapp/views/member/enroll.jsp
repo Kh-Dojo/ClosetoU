@@ -11,36 +11,6 @@
 
 <jsp:include page="/views/common/sub-header.jsp" />
 
-<style>
-	section #enroll-container {
-		text-align:center;
-	}
-	
-	section #enroll-container input {
-		margin:3px;
-	}
-	
-	section #enroll-container table {
-		margin:0 auto;
-	}
-	
-	section #enroll-container table th {
-		padding:0 10px; 
-		text-align:center;
-		height:60px;
-		font-size:25pt;
-	}
-	
-	section #enroll-container table td {
-		padding:0 10px; 
-		width:150px;
-		height:25px;
-		text-align:center;
-		color: rgb(220, 179, 14);
-		font-weight: bold;
-	}
-</style>
-
 <section id="content">
 	<div id="enroll-container">	 	
 	 	<form name="memberEnrollFrm" action="${ path }/memberenroll" method="POST">
@@ -55,7 +25,7 @@
 		 			<tr>
 						<td style="width:110px">아이디</td>
 						<td>
-							<input type="text" class="form-control" name="userId" id="newId" placeholder="아이디를 입력해주세요" required>
+							<input type="text" class="form-control" name="id" id="newId" placeholder="아이디를 입력해주세요" required>
 						</td>
 						<td style="width:110px">
 							<input type="button" id="checkDuplicate" value="중복 검사" class="btn_small">
@@ -116,19 +86,17 @@
  	</div>
 </section>
 <script>
-	// 아이디 중복 확인
+	//아이디 중복 확인
 	$(document).ready(() => {
 		$('#checkDuplicate').on('click', () => {
 			let userId = $('#newId').val().trim();
-			
-			alert('사용 가능한 아이디 입니다.');
 			
 			$.ajax({
 				type: 'POST',
 				url: '${ path }/member/idCheck',
 				dataType: 'json',
 				data: {
-					userId
+					id
 				},
 				success: (obj) => {
 					console.log(obj);
@@ -140,7 +108,7 @@
 					}
 				},
 				error: (error) => {
-					console.log(error);	
+					console.log(error);
 				}
 			});
 		});
