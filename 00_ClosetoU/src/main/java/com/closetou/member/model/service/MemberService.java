@@ -31,18 +31,18 @@ public class MemberService {
 			return member;
 	}
 
-	public Member findMemberById(String userId) {
+	public Member findMemberById(String id) {
 		Connection connection = getConnection();
 		
-		Member member = new MemberDao().findMemberById(connection, userId);
+		Member member = new MemberDao().findMemberById(connection, id);			
 		
 		close(connection);
 		
 		return member;
 	}
 
-	public Boolean isDuplicateId(String userId) {
-		return this.findMemberById(userId) != null;
+	public boolean isDuplicateId(String id) {
+		return this.findMemberById(id) != null;
 	}
 
 	public int updatePwd(int no, String userPwd) {

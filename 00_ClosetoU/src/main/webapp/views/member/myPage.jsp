@@ -13,41 +13,6 @@
 
 <jsp:include page="/views/common/sub-header.jsp" />
 
-<style>
-	section {
-		position: relative;
-	}
-
-	section #view-container {
-		text-align:center;
-		height: auto;
-		box-sizing: border-box;
-	}
-	
-	section #view-container input {
-		margin:3px;
-		padding:3px;
-	}
-	
-	.btn_myPage {
-		padding-left:500px;
-	}
-	
-	section #view-container table {
-		margin:0 auto;
-		padding-left:250px;
-	}
-	
-	section #view-container table th {
-		padding:0 10px; 
-		text-align:right;
-	}
-	
-	section #view-container table td {
-		padding:0 10px; 
-		text-align:left;
-	}
-</style>
 <section id="content">
 	<div id="sidemenu"><jsp:include page="/views/common/sidemenu/myPageSideMenu.jsp" /></div>
 	
