@@ -48,7 +48,7 @@ public class ArticleService {
 	public int saveForTrade(Article article, Cloth cloth, TradeArticle trart, ClothPhoto cloph) {
 		int result = 0;
 		Connection connection = getConnection();
-
+			
 		// Article 넣기
 		int insertBoard = new ArticleDao().insertBoard(connection, article);
 
@@ -116,9 +116,13 @@ public class ArticleService {
 			if (result > 0) {
 				commit(connection);
 			} else {
+				
 				rollback(connection);
 			}
 		}
+		
+		System.out.println(article);
+		
 		return article;
 	}
 
